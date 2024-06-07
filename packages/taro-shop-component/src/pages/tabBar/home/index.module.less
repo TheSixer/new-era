@@ -1,0 +1,58 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.homeStyle {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  height: 100%;
+  // min-height: 100vh;
+  overflow: hidden;
+
+  .main_content {
+    flex: 1;
+    min-height: 0;
+
+    // :global {
+    //   .carousel-swiper {
+    //     width: 100%;
+    //     height: 100vh; /* 调整为适合的高度 */
+    //   }
+    // }
+
+    .main_swiper {
+      width: 100%;
+      height: 100vh; /* 调整为适合的高度 */
+    }
+  }
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  .main_swiper_item {
+    padding-top: 180rpx;
+    width: 100%;
+    height: 100%;
+    background-color: black;
+  }
+
+  .main_navigate {
+    position: absolute;
+    bottom: 235rpx;
+    left: 50%;
+    transform: translateX(-50%);
+    animation: upDown 2s ease-in-out infinite;
+  }
+}
+
+@keyframes upDown {
+  0% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -6rpx);
+  }
+  100% {
+    transform: translate(-50%, 0);
+  }
+}

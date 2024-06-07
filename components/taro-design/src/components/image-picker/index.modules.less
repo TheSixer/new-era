@@ -1,0 +1,74 @@
+@import '../styles/themes/default.less';
+
+.MMImagePicker {
+  .content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: calc(100% + @spacingBase);
+  }
+}
+
+.item {
+  position: relative;
+  width: calc((100% - @spacingBase * @imagePickerNumber) / @imagePickerNumber);
+  background-color: @gray4;
+  margin-right: @spacingBase;
+  margin-bottom: @spacingBase;
+  border-radius: @borderRadiusSize;
+  overflow: hidden;
+}
+
+.itemContent {
+  position: relative;
+  padding-bottom: 100%;
+}
+
+.image {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.add {
+  position: relative;
+  background-color: @gray1;
+  border: 1px dashed @gray4;
+  border-radius: @borderRadiusSize;
+  overflow: hidden;
+}
+
+.addContent {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: 5px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.addText {
+  font-size: @fontSizeMini;
+  color: @gray4;
+}
+
+.delete {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+  top: 0px;
+  right: 0px;
+  width: 20px;
+  height: 13px;
+  background-color: @gray4;
+  border-radius: 0px @borderRadiusSize 0 @borderRadiusSize;
+}

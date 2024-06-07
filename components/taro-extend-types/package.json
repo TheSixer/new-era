@@ -1,0 +1,12 @@
+{
+  "name": "@types/taro-extend-types",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tarojs/taro": "3.5.11"
+  }
+}

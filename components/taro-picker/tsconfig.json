@@ -1,0 +1,41 @@
+{
+  "compilerOptions": {
+    "target": "esnext",
+    "module": "commonjs",
+    "removeComments": false,
+    "preserveConstEnums": true,
+    "moduleResolution": "node",
+    "experimentalDecorators": true,
+    "noImplicitAny": false,
+    "allowSyntheticDefaultImports": true,
+    "outDir": "./out",
+    "declaration": true,
+    "declarationDir": "./types",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "strictNullChecks": true,
+    "baseUrl": "./",
+    "rootDir": "src",
+    "jsx": "preserve",
+    "jsxFactory": "Taro.createElement",
+    "resolveJsonModule": true,
+    "typeRoots": ["node_modules/@types", "global.d.ts"],
+    "paths": {
+      // "@wmeimob/*": ["src/modules/@wmeimob/*"],
+      "~/*": ["src/*"]
+    }
+  },
+  "exclude": ["node_modules", "node-modules-cover", "types", "config", "dist", "*.js"],
+  "compileOnSave": false,
+  "typedocOptions": {
+    "inputFiles": ["src/components"],
+    "mode": "modules",
+    "exclude": ["node_moudules/**"],
+    "externalPattern": ["node_moudules/**"],
+    "excludeExternals": true,
+    "ignoreCompilerErrors": true,
+    "out": "tdocs",
+    "json": "tdocs.json",
+    "hideGenerator": true
+  }
+}

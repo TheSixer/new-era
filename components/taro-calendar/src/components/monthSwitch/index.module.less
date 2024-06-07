@@ -1,0 +1,55 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+@import '../styles/var.less';
+
+.monthSwitch {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: @calendarWidth;
+  padding-top: @spacingSmall;
+  margin: 0 auto;
+  margin-bottom: @spacingLarge;
+}
+
+.value {
+  flex: 1;
+  line-height: 22px;
+  font-size: @fontSizeLarge;
+  font-weight: 600;
+  text-align: center;
+}
+
+.monthArrow {
+  position: relative;
+  font-weight: bold;
+  padding: 0 @spacingSmall;
+
+  // 扩大点击范围
+  &:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    box-sizing: content-box;
+    padding: @spacing;
+  }
+}
+
+/* .doubleArrow {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  line-height: 21px;
+  margin: 0 8px;
+}
+
+.doubleArrow__isLeft {
+  transform: rotate(180deg);
+}
+
+.arrow {
+  transform: translateX(-18px);
+} */

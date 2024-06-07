@@ -1,0 +1,97 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.goodCardStyle {
+  width: 100%;
+  background: #ffffff;
+  border-radius: 5px;
+  overflow: hidden;
+  margin-bottom: @spacing;
+}
+
+.good_cover {
+  position: relative;
+  padding-bottom: 100%;
+
+  .good_cover_inner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: initial;
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+  }
+}
+
+.good_content {
+  padding: 10px;
+}
+
+.good_title {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+  line-height: 20px;
+  // min-height: 40px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  /* autoprefixer: ignore next */
+  -webkit-line-clamp: 2;
+
+  margin-bottom: 10px;
+}
+
+.good_footer {
+  display: flex;
+  line-height: 17px;
+  align-items: center;
+}
+
+.good_footer_left {
+  font-size: 12px;
+  font-weight: 500;
+  color: #ff413b;
+}
+
+.good_footer_right {
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #999999;
+  text-decoration: line-through;
+}
+
+.discountListBox {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  margin-bottom: 5px;
+  width: 100%;
+  height: 22px;
+
+  .discountList {
+    line-height: 20px;
+    border-radius: 3px;
+    border: 1px solid @primaryColor;
+    color: @primaryColor;
+    padding: 0px 4px;
+    box-sizing: border-box;
+    font-size: @fontSizeSm;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.discountTag {
+      max-width: calc(100% / 2 - 2.5px);
+    }
+
+    &:nth-child(even) {
+      margin-left: 5px;
+    }
+  }
+}

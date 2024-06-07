@@ -1,0 +1,20 @@
+{
+  "name": "@wmeimob/backend-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/request/index.ts",
+  "scripts": {
+    "api": "mmapi a"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wmeimob/backend-store": "workspace:^1.0.0",
+    "@wmeimob/request": "workspace:",
+    "jotai": "2.0.2"
+  },
+  "devDependencies": {
+    "@wmeimob/swagger-api-templates": "workspace:^1.2.1"
+  }
+}

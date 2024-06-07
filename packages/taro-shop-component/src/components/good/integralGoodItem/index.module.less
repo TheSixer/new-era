@@ -1,0 +1,110 @@
+@import '@wmeimob/taro-design/src/components/styles/index.less';
+
+.goodItemStyle {
+  display: flex;
+  padding: @spacingLarge;
+  background: #ffffff;
+  margin-bottom: @spacing;
+}
+
+.good_cover {
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 5px;
+  margin-right: @spacingLarge;
+  overflow: hidden;
+
+  .good_cover_img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.good_content {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  overflow: hidden;
+}
+
+.good_title {
+  .text-over-flow-2();
+  font-size: @fontSize;
+  font-weight: 500;
+  color: @fontColor;
+  line-height: 20px;
+  margin-bottom: @spacing;
+
+  &.hadActivity {
+    margin-bottom: @spacingSmall;
+  }
+}
+
+.sales {
+  color: @fontColorAssistant;
+  font-size: @fontSizeSm;
+  margin-bottom: 18px;
+}
+
+.good_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-top: auto;
+}
+
+.good_footer_left {
+  display: flex;
+  align-items: baseline;
+  font-size: 12px;
+  font-weight: 500;
+  color: @primaryColor;
+}
+
+.good_footer_right {
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: line-through;
+  color: #999999;
+}
+
+.discountListBox {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+
+  .discountList {
+    line-height: 20px;
+    border-radius: @borderRadiusSmall;
+    background: #ffeeee;
+    color: @primaryColor;
+    padding: 2px 6px;
+    box-sizing: border-box;
+    float: left;
+    font-size: 11px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.discountTag {
+      max-width: calc(100% / 2 - 2.5px);
+    }
+
+    &:nth-child(even) {
+      margin-left: 5px;
+    }
+  }
+}
+
+.multiplePriceText {
+  color: @fontColorAssistant;
+  font-size: 13px;
+  font-weight: 400;
+  margin-left: 7px;
+}

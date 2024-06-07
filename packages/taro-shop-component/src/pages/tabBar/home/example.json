@@ -1,0 +1,506 @@
+{
+  "storeNo": "admin",
+  "id": 23,
+  "name": "hu_test",
+  "title": "111",
+  "pageUrl": "custom/index?shopPageId=23",
+  "content": [
+    {
+      "id": "3949f709-47ef-5034-0aaa-9c84e22dfe23",
+      "type": "Search",
+      "data": {
+        "placeholder": "请输入商品名称",
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 0,
+          "paddingBottom": 0
+        }
+      }
+    },
+    {
+      "id": "8f50d96e-4840-928e-4190-5cd1e201aa5f",
+      "type": "Slider",
+      "data": {
+        "interval": 5,
+        "data": [
+          {
+            "key": "4d22bb23-cea3-f6b8-d51d-aa028e138e7e",
+            "name": "",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/dev/1062c088-a56d-c50e-ad12-0f3f425a97ae.jpg",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          },
+          {
+            "key": "3532b105-607d-3d92-9f5b-8caa293ceb04",
+            "name": "",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/1e21fde5-de56-07d8-b1dd-23d95eb5df7a.png",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          },
+          {
+            "key": "eb71ae93-05ab-c238-6733-59484e2f68f3",
+            "name": "",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/dev/e70e75b6-8e21-04a4-75ba-48405cf5f956.jpg",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          }
+        ],
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 15,
+          "paddingBottom": 15
+        }
+      }
+    },
+    {
+      "id": "3c7cc463-e854-60ea-dd81-8d81b6180b0b",
+      "type": "Navigation",
+      "data": {
+        "size": "default",
+        "data": [
+          {
+            "key": "890a5d49-f109-075a-86c8-4e44a8179ffa",
+            "name": "美食",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/8a2c8d48-8784-1bbc-b1ca-9f82347f1fee.png",
+            "jumpMode": 0,
+            "link": {
+              "type": 1,
+              "content": "{\"path\": \"/pages/tabBar/shopCart/index\"}"
+            }
+          },
+          {
+            "key": "4d146c9c-4860-37c4-fea7-429cbb2345e1",
+            "name": "附近",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/c2f7647b-5d2d-21f9-563e-38a1c74e29a8.png",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          },
+          {
+            "key": "ccbf6ee2-7679-146b-afaa-2e666a1687f5",
+            "name": "热门榜单",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/b2c898f9-f010-b633-e3d8-da23ccd6bec8.png",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          },
+          {
+            "key": "1e387f32-95bd-e5b5-769d-517d552a581b",
+            "name": "休闲娱乐",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/a8eff2c0-a6c4-e50b-34e6-1ebada8bd2ec.png",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          },
+          {
+            "key": "6b1567d1-9ad4-3783-0cb1-fcdb663498c8",
+            "name": "红包补贴",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/e5185db6-9650-5ef6-b49a-06b81cd08997.png",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          },
+          {
+            "key": "27fcd6a1-770c-ecdc-7008-d507d93458b1",
+            "name": "种树游戏",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/4120e784-cbf3-a17e-b1cb-5d6717ea4c8c.png",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          },
+          {
+            "key": "8188ab6c-4b8c-036d-3d47-ca39f22bf4ce",
+            "name": "领金币",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/5ec91aa3-b6c5-8323-1f8d-30737aea4735.png",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          },
+          {
+            "key": "e703d57a-0b25-d25f-a33d-bff1044f9fc4",
+            "name": "休闲饮品",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/15f86c32-0e24-1f22-d2d1-be0f88c190e8.png",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          },
+          {
+            "key": "7e38d2ca-346d-f16d-a1e2-5ad071c1c824",
+            "name": "快餐小吃",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/e43f7a6c-6551-2822-19e6-53e9826b1ac9.png",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          },
+          {
+            "key": "c00f28f3-aed8-d7c2-24db-7cdaf9225cf8",
+            "name": "酒店住宿",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/5a2db432-b06f-6cd0-d61c-4e60b023bd28.png",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          }
+        ],
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 0,
+          "paddingBottom": 0,
+          "backgroundColor": "transparent"
+        }
+      }
+    },
+    {
+      "id": "3ef0befa-1f1f-955e-af07-6887b185f0fd",
+      "type": "Product",
+      "data": {
+        "type": "Partial",
+        "goods": [
+          {
+            "id": 218,
+            "goodsName": "螺丝钉故事书第五辑 全套4册 我的第一套身边科学图画书儿童绘本幼儿园科普小学生课外阅读书籍揭秘物理早教启蒙亲子睡前读物",
+            "goodsNo": "GS311015305203756020",
+            "coverImg": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/6eeb875b-c7ed-96e8-ae5c-0d9e51f5108b.jpg",
+            "price": 67.2,
+            "marketPrice": 67.2
+          },
+          {
+            "id": 217,
+            "goodsName": "螺丝钉绘本第4辑全5册 万能工程师奔跑吧信号量一量比一比当心啊宝贝水的奇妙旅行书籍幼儿园小班中班大班3-6岁宝宝儿童故事书",
+            "goodsNo": "GS310972857014192783",
+            "coverImg": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/916cad19-2ff7-5b69-eed3-56f9a59a095f.png",
+            "price": 84,
+            "marketPrice": 84
+          },
+          {
+            "id": 216,
+            "goodsName": "螺丝钉故事书 第3辑全6册 帮妈妈做家务 细菌大搬家 了不起的身体 听什么声音 宝宝身边科学启蒙图画书4岁书籍认知读物",
+            "goodsNo": "GS310960537194649103",
+            "coverImg": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/c3d08c9f-d703-4fdd-3a21-2f373174bff3.jpg",
+            "price": 100.6,
+            "marketPrice": 100.6
+          },
+          {
+            "id": 215,
+            "goodsName": "螺丝钉故事书第二辑 全套4册 我的第一套身边科学图画书儿童绘本幼儿园科普小学生课外阅读书籍揭秘物理早教启蒙亲子睡前读物",
+            "goodsNo": "GS310943526039480866",
+            "coverImg": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/cfbb3f7b-50a1-e028-d499-eae8822830e9.jpg",
+            "price": 67.2,
+            "marketPrice": 67.2
+          },
+          {
+            "id": 214,
+            "goodsName": "螺丝钉动画片图书我的第一套身边科学图画故事 第一辑 全6册 3-6岁幼儿图画故事书 儿童科普科学小知识书籍",
+            "goodsNo": "GS310922372619020722",
+            "coverImg": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/7d30fdf3-72d5-20a4-2e45-c2740baf08e7.jpg",
+            "price": 100.6,
+            "marketPrice": 100.6
+          },
+          {
+            "id": 213,
+            "goodsName": "科学海盗螺丝钉儿童小实验套装stem玩具幼儿园小学生手工diy礼物",
+            "goodsNo": "GS310902041414625792",
+            "coverImg": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/938a92ae-df38-700a-bf0b-1c425d370d88.jpg",
+            "price": 178,
+            "marketPrice": 178
+          },
+          {
+            "id": 203,
+            "goodsName": "咪好一家正版授权震动挂偶",
+            "goodsNo": "GS387964711198350040",
+            "coverImg": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/a4462a2c-7241-8ba5-fb1e-c5a7265d34ba.jpg",
+            "price": 59,
+            "marketPrice": 59
+          }
+        ],
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 0,
+          "paddingBottom": 0
+        }
+      }
+    },
+    {
+      "id": "a43e440a-e4b0-b557-4d8d-4212f0adadbe",
+      "type": "Title",
+      "data": {
+        "name": "占位分割符组件",
+        "left": {
+          "show": true,
+          "icon": 59277,
+          "image": ""
+        },
+        "right": {
+          "showArrow": false,
+          "content": ""
+        },
+        "link": {
+          "type": 0,
+          "content": ""
+        },
+        "contentStyle": {
+          "fontWeight": "normal",
+          "textAlign": "left",
+          "fontSize": 18,
+          "color": "#333333",
+          "backgroundColor": ""
+        },
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 0,
+          "paddingBottom": 0
+        }
+      }
+    },
+    {
+      "id": "42e0dab0-38a3-4a07-5847-9d0058b4a935",
+      "type": "Separator",
+      "data": {
+        "height": 20,
+        "lineHeight": 1,
+        "borderStyle": "dashed",
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 0,
+          "paddingBottom": 0
+        }
+      }
+    },
+    {
+      "id": "49eb854d-4ddd-ccea-06a0-148cda5ced60",
+      "type": "Title",
+      "data": {
+        "name": "图片导航组件",
+        "left": {
+          "show": true,
+          "icon": 59101,
+          "image": ""
+        },
+        "right": {
+          "showArrow": true,
+          "content": ""
+        },
+        "link": {
+          "type": 0,
+          "content": ""
+        },
+        "contentStyle": {
+          "fontWeight": "normal",
+          "textAlign": "left",
+          "fontSize": 18,
+          "color": "#333333",
+          "backgroundColor": ""
+        },
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 0,
+          "paddingBottom": 0
+        }
+      }
+    },
+    {
+      "id": "419a37fe-1297-8ad7-3455-4b6adb37af8c",
+      "type": "Image",
+      "data": {
+        "arrangeType": 1,
+        "data": [
+          {
+            "key": "1818e8ce-86f3-2f79-b467-5767da0f1fef",
+            "name": "",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/dev/bc2c4be2-3fca-8843-7e9f-887000262ce4.jpg",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          },
+          {
+            "key": "f65b53f9-6283-4ee1-54f2-639e3536fc5a",
+            "name": "",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/dev/8295c80c-7212-fa82-98f1-35b14a74e239.jpg",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          }
+        ],
+        "contentStyle": {
+          "borderRadius": 0,
+          "imageMargin": 0
+        },
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 0,
+          "paddingBottom": 0
+        }
+      }
+    },
+    {
+      "id": "e801ad91-b2e6-98c6-e08a-0c9e7696b499",
+      "type": "Title",
+      "data": {
+        "name": "魔方组件(图与轮播)",
+        "left": {
+          "show": true,
+          "icon": 59067,
+          "image": ""
+        },
+        "right": {
+          "showArrow": false,
+          "content": ""
+        },
+        "link": {
+          "type": 0,
+          "content": ""
+        },
+        "contentStyle": {
+          "fontWeight": "normal",
+          "textAlign": "left",
+          "fontSize": 18,
+          "color": "#333333",
+          "backgroundColor": ""
+        },
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 0,
+          "paddingBottom": 0
+        }
+      }
+    },
+    {
+      "id": "fc913ec1-6f3d-2b5c-56c7-cd2c30dcbc36",
+      "type": "SliderWithImage",
+      "data": {
+        "mode": 0,
+        "slider": {
+          "interval": 5,
+          "data": [
+            {
+              "key": "a27fefab-225b-e88c-7b3e-3e14470861b6",
+              "name": "",
+              "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/dev/517096e9-deb3-813f-3cfc-d7a920e338dd.png",
+              "jumpMode": 0,
+              "link": {
+                "type": 0,
+                "content": ""
+              }
+            },
+            {
+              "key": "7e5772e2-6de8-5082-0b10-e1aab4f1955b",
+              "name": "",
+              "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/dev/88106621-b200-edb6-685d-561007fb75b1.png",
+              "jumpMode": 0,
+              "link": {
+                "type": 0,
+                "content": ""
+              }
+            }
+          ]
+        },
+        "images": [
+          {
+            "key": "0c172e3f-476c-36c9-27e6-c962370fd30b",
+            "name": "",
+            "url": "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/dev/63a53df9-7542-8c7e-5d14-fd4aaf53c4ad.jpg",
+            "jumpMode": 0,
+            "link": {
+              "type": 0,
+              "content": ""
+            }
+          }
+        ],
+        "contentStyle": {
+          "borderRadius": 0,
+          "imageMargin": 0
+        },
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 0,
+          "paddingBottom": 0
+        }
+      }
+    },
+    {
+      "id": "a7f2893f-74e6-9b2e-7306-92885ea4a07a",
+      "type": "Title",
+      "data": {
+        "name": "视频组件",
+        "left": {
+          "show": true,
+          "icon": 59279,
+          "image": ""
+        },
+        "right": {
+          "showArrow": false,
+          "content": ""
+        },
+        "link": {
+          "type": 0,
+          "content": ""
+        },
+        "contentStyle": {
+          "fontWeight": "normal",
+          "textAlign": "left",
+          "fontSize": 18,
+          "color": "#333333",
+          "backgroundColor": ""
+        },
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 0,
+          "paddingBottom": 0
+        }
+      }
+    },
+    {
+      "id": "ab2cd5ef-1f8b-7f90-43e2-0f4d8d1f4c7a",
+      "type": "CVideo",
+      "data": {
+        "source": 0,
+        "videos": [
+          "https://ocj-uat.oss-cn-shanghai.aliyuncs.com/dev/bf8d6990-b00e-e285-29c4-35fc62b0cb0a.mp4"
+        ],
+        "videoAddress": "",
+        "videoCoverImg": "",
+        "palySetting": {
+          "progress": false
+        },
+        "componentStyle": {
+          "pagePadding": 15,
+          "paddingTop": 0,
+          "paddingBottom": 0
+        }
+      }
+    }
+  ],
+  "isDefault": 0,
+  "gmtCreated": "2021-11-01 13:34:09",
+  "gmtModified": "2022-01-26 14:23:00"
+}

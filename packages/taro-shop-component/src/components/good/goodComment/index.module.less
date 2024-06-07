@@ -1,0 +1,120 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.goodCommentStyle {
+}
+
+.head {
+  display: flex;
+
+  .head_center {
+    flex: 1;
+    margin-left: 10px;
+
+    .name {
+      width: calc(100vw - 70px);
+      margin-bottom: 5px;
+      color: #333333;
+      font-weight: 400;
+      font-size: 14px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  }
+
+  .head_center_bottom {
+    color: #999999;
+    font-weight: 400;
+    font-size: 11px;
+  }
+
+  .head_right {
+    flex-shrink: 0;
+    align-self: center;
+  }
+}
+
+.sku {
+  margin-top: 10px;
+  color: #999999;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+}
+
+.content {
+  margin-top: 10px;
+  color: #333333;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+  word-break: break-all;
+}
+
+.commentImgs {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  margin-top: 10px;
+}
+
+.commentImg {
+  flex-grow: 0;
+  flex-shrink: 0;
+  width: calc(33.33% - 5px);
+  margin-bottom: 10px;
+  padding-bottom: calc(33.33% - 5px);
+}
+
+.reply {
+  color: #666666;
+  font-weight: 400;
+  font-size: 13px;
+  background: #f6f6f6 !important;
+  border-radius: 5px;
+  overflow-wrap: break-word;
+
+  .reply_title {
+    color: #666666;
+    font-weight: 500;
+    font-size: 14px;
+  }
+}
+
+.btnBox {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.appendCommnet {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+
+  .append_title {
+    margin-right: 10px;
+    color: #eb111c;
+    font-weight: 500;
+    font-size: @fontSize;
+  }
+}
+
+.goodInfo {
+  display: flex;
+  margin-top: 15px;
+
+  .goodInfo_img {
+    width: 50px;
+    height: 50px;
+    margin-right: 10px;
+    border-radius: 6px;
+  }
+
+  .goodName {
+    flex: 1;
+    color: #333333;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}

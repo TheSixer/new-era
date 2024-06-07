@@ -1,0 +1,81 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.userHeadStyle {
+  position: relative;
+  display: flex;
+  align-items: center;
+  color: #ffffff;
+}
+
+.noAuth {
+  display: flex;
+  align-items: center;
+}
+
+.auth {
+  line-height: 25px;
+  color: #fff;
+  font-size: 36rpx;
+  font-weight: 500;
+  margin-left: @spacing;
+  margin-right: @spacingSmall;
+}
+
+.userInfo {
+  overflow: hidden;
+  flex: 1;
+  padding-left: 10px;
+  padding-right: 0;
+  height: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.nickName {
+  position: relative;
+  line-height: 25px;
+  color: white;
+  font-size: 18px;
+  font-weight: 500;
+  padding-right: 60px;
+  margin-bottom: 7px;
+  white-space: nowrap!important;
+
+  text-overflow: ellipsis;
+  overflow: hidden;
+}
+
+.signButton {
+  position: absolute;
+  right: 0;
+  top: 4px;
+}
+
+.info {
+  display: flex;
+  align-items: center;
+}
+
+.info_item {
+  display: flex;
+  align-items: center;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.31);
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+  color: white;
+  padding: 2px 6px;
+
+  & + & {
+    margin-left: @spacingSmall;
+  }
+}
+
+.info_item_icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  margin-right: 2px;
+}

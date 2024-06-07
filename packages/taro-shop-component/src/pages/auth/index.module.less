@@ -1,0 +1,73 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.authStyle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  overflow: hidden;
+  padding-top: 100px;
+  background: #000;
+  background-image: url('../tabBar/mine/images/bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center top;
+}
+
+.logo {
+  width: 214rpx;
+  height: 103rpx;
+}
+
+.title {
+  margin: 42rpx 0 18rpx 0;
+  font-size: 36rpx;
+  font-weight: 500;
+  color: #fff;
+  line-height: 20px;
+}
+
+.subtitle {
+  margin: 18rpx 0 140rpx 0;
+  font-size: 18rpx;
+  color: #fff;
+  line-height: 20px;
+}
+
+.buttonWrapper {
+  position: relative;
+  margin-left: 40rpx;
+  margin-right: 40rpx;
+  margin-bottom: 24rpx;
+  width: calc(100% - 80rpx);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 38px;
+  // background: #26c165;
+  // border-radius: 25px;
+  font-size: @fontSize;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  // background: transparent;
+  opacity: 0;
+}
+
+.aggreement {
+  font-size: 13px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, .8);
+
+  .aggreement_text {
+    color: @primaryColor;
+  }
+}

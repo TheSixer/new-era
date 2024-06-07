@@ -1,0 +1,44 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.recevieCouponCellStyle {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  margin-top: 15px;
+  padding: 0 15px;
+  background: rgba(234,4,12,0.05);
+  border-radius: 10px;
+}
+
+.title {
+  margin-right: 8px;
+  color: #333333;
+  font-weight: 500;
+  font-size: 14px;
+}
+
+.couponUl {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  margin-right: @spacing;
+
+  .couponLi {
+    min-width: 32px;
+    margin-right: 15px;
+    padding: 2px 6px;
+    overflow: hidden;
+    color: #EB040E;
+    font-size: 12px;
+    white-space: nowrap;
+    text-align: center;
+    text-overflow: ellipsis;
+
+    border: 1px solid #EB040E;
+    border-radius: 1px;
+
+    &:nth-last-child(1) {
+      margin-right: 0px;
+    }
+  }
+}

@@ -1,0 +1,12 @@
+{
+  "name": "@types/backend-extend-types",
+  "version": "1.0.0",
+  "description": "",
+  "main": "",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ant-design/pro-table": "^2.61.0"
+  }
+}

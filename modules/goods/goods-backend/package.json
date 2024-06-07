@@ -1,0 +1,38 @@
+{
+  "name": "@wmeimob-modules/goods-backend",
+  "version": "1.0.0",
+  "description": "商品后台",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@ant-design/pro-layout": "^6.32.0",
+    "@wmeimob-modules/goods-data": "workspace:^1.0.0",
+    "@wmeimob/aliyun": "workspace:^1.4.0",
+    "@wmeimob/backend-api": "workspace:^1.0.0",
+    "@wmeimob/backend-pages": "workspace:^1.0.0",
+    "@wmeimob/backend-pro": "workspace:^1.2.0",
+    "@wmeimob/backend-store": "workspace:^1.0.0",
+    "@wmeimob/backend-styles": "workspace:^1.0.0",
+    "@wmeimob/form-rules": "workspace:^1.2.0",
+    "@wmeimob/utils": "workspace:^1.4.0",
+    "@wmeimob/shop-data": "workspace:^2.2.1",
+    "exceljs": "^4.3.0",
+    "@ant-design/icons": "^4.7.0",
+    "@ant-design/pro-form": "^1.52.0",
+    "@ant-design/pro-table": "^2.61.0",
+    "antd": "^4.17.0",
+    "classnames": "^2.3.0",
+    "dayjs": "^1.11.0",
+    "lodash-es": "^4.17.21",
+    "react": "18.2.0",
+    "jotai": "2.0.2"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.26",
+    "@types/backend-extend-types": "workspace:^1.0.0"
+  }
+}

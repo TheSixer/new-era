@@ -1,0 +1,92 @@
+@import '../styles/themes/default.less';
+
+@keyframes pin-show-hide {
+  0% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+  }
+}
+
+.indexBarStyle {
+  position: relative;
+  height: 100%;
+}
+
+.indexBarAnchorStyle {
+  .title {
+    position: sticky;
+    top: 0;
+    padding: 5px 15px;
+    background-color: @bodyBackground;
+    z-index: 5;
+
+    font-size: 14px;
+    font-weight: 500;
+    color: #0a1d33;
+  }
+}
+
+.indexBarBriefsStyle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 10;
+
+  .brief_item {
+    position: relative;
+    font-size: 10px;
+    font-weight: 400;
+    color: #999999;
+    line-height: 18px;
+  }
+
+  .brief_pin_wrapper {
+    position: absolute;
+    top: -10px;
+    left: -65px;
+    width: 40px;
+    height: 40px;
+    opacity: 1;
+
+    animation: pin-show-hide 1.5s ease-out;
+    animation-fill-mode: forwards;
+  }
+
+  .brief_pin {
+    position: relative;
+    &:after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 40px;
+      height: 40px;
+      border-radius: 50px 50px 50px 0;
+      background-color: #f6f6f6;
+      transform: rotate(-135deg);
+      z-index: 1;
+    }
+  }
+
+  .brief_pin_content {
+    position: relative;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+
+    font-size: 18px;
+    font-weight: 400;
+    color: #333333;
+  }
+
+  .acitve {
+    color: #1890ff;
+  }
+}

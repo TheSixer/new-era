@@ -1,0 +1,19 @@
+{
+  "name": "@wmeimob/taro-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/request/index.ts",
+  "scripts": {
+    "api": "mmapi a"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wmeimob/taro-global-data": "workspace:^1.0.0",
+    "@wmeimob/request": "^1.5.0"
+  },
+  "devDependencies": {
+    "@wmeimob/swagger-api-templates": "workspace:^1.2.1"
+  }
+}

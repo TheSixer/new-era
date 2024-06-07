@@ -1,0 +1,103 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.authStyle {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+  min-height: 50vh;
+  overflow: scroll;
+  padding-top: 100px;
+  background: #ffffff;
+  background-image: url('../tabBar/mine/images/bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center top;
+  background-color: #000;
+}
+
+.sign_header {
+  margin-bottom: 50rpx;
+  padding: 0 67rpx;
+  width: 100%;
+}
+
+.avatar_img {
+  width: 102rpx;
+  height: 78rpx;
+}
+
+.sign_header__txt {
+  font-size: 36rpx;;
+  font-weight: 500;
+  color: #fff;
+}
+
+.form_container {
+  padding: 0 67rpx;
+  width: 100%;
+}
+
+.phone{
+  width: 90%;
+  background: none;
+}
+
+.buttonWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 155px;
+  height: 38px;
+  // background: #26c165;
+  // border-radius: 25px;
+  font-size: @fontSize;
+  font-weight: 500;
+  color: #ffffff;
+}
+
+.button {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 3;
+  // background: transparent;
+  opacity: 0;
+}
+
+.aggreement {
+  font-size: 13px;
+  font-weight: 400;
+  color: #42435a;
+
+  .aggreement_text {
+    color: @fourColor;
+  }
+}
+
+.field_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 36rpx 0;
+  border-bottom: 1px solid #A7A9AC;
+}
+
+.field_label {
+  font-size: 24rpx;
+  font-weight: 500;
+  color: #A7A9AC;
+}
+
+.field__text {
+  font-weight: 24rpx;
+  color: #999;
+}
+
+.form_submit {
+  width: calc(100% - 140rpx);
+}

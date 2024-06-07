@@ -1,0 +1,43 @@
+// 样式全部引入
+@import '@wmeimob/taro-design/src/components/styles/index.less';
+@import './assets/fonts/fonts.less';
+
+page {
+  height: 100%;
+}
+body {
+  overscroll-behavior-y: none;
+  //height: calc(100vh - constant(safe-area-inset-top) - constant(safe-area-inset-bottom) );
+}
+html {
+  overscroll-behavior-y: none;
+  touch-action: none;
+  touch-action: pan-y;
+}
+
+// H5样式矫正
+.taro-tabbar__tabbar {
+  display: none !important;
+}
+.taro-tabbar__tabbar-hide {
+  display: none !important;
+}
+
+.taro-tabbar__container .taro_page.taro_tabbar_page {
+  max-height: calc(100vh - constant(safe-area-inset-top) - constant(safe-area-inset-bottom)) !important;
+}
+
+.taro_tabbar_page {
+  background-color: @bodyBackground !important;
+  max-height: calc(var(--vh, 1vh) * 100 - 50px) !important;
+}
+
+// H5需要修改背景颜色
+.taro-tabbar__panel {
+  .taro_router {
+    background-color: #f6f6f6;
+    .taro_page {
+      background-color: #f6f6f6;
+    }
+  }
+}

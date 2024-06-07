@@ -1,0 +1,16 @@
+{
+  "name": "@wmeimob/backend-store",
+  "version": "1.0.0",
+  "description": "",
+  "main": "./src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "jotai": "2.0.2",
+    "@wmeimob/shop-data": "workspace:^2.2.1"
+  }
+}

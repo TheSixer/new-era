@@ -1,0 +1,141 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.goodCommentStyle {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.goodCommentStyle_head {
+  height: 50px;
+  background: #ffffff;
+  padding: 15px;
+
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+}
+
+.goodCommentStyle_card {
+  margin-top: 10px;
+}
+
+.tabBox {
+  background: white;
+  border-radius: 0px 0px 12px 12px;
+  height: 44px;
+  line-height: 44px;
+  font-size: 14px;
+  color: #999;
+  display: flex;
+  justify-content: space-around;
+
+  .selected {
+    color: @primaryColor;
+    font-weight: 500;
+  }
+}
+
+.commentsBox {
+  margin-top: 10px;
+}
+
+.comment {
+  margin-bottom: 15px;
+
+  .userInfo {
+    display: flex;
+    margin-bottom: 10px;
+
+    .userImg {
+      width: 40px;
+      height: 40px;
+      border-radius: 20px;
+      margin-right: 12px;
+    }
+
+    .infoRight {
+      .name {
+        font-size: 14px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #333333;
+        line-height: 20px;
+      }
+
+      .createTime {
+        font-size: 11px;
+        font-family: PingFangSC-Regular, PingFang SC;
+        font-weight: 400;
+        color: #cccccc;
+        line-height: 18px;
+      }
+    }
+  }
+
+  .sku {
+    font-size: 11px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #999999;
+    line-height: 18px;
+    height: 18px;
+    width: 100%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    margin-bottom: 4px;
+  }
+
+  .commentContent {
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    font-weight: 400;
+    color: #333333;
+    line-height: 22px;
+    margin-bottom: 10px;
+  }
+
+  .commentImgBox {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+
+    .commentImg {
+      width: 109px;
+      height: 109px;
+      border-radius: 5px;
+      margin-bottom: 10px;
+    }
+
+    &::after {
+      content: '';
+      width: 109px;
+    }
+  }
+
+  .reply {
+    padding: 10px;
+    line-height: 20px;
+    background: #f6f6f6;
+    border-radius: 5px;
+    color: #666666;
+    font-size: 13px;
+    margin-bottom: 15px;
+  }
+
+  .followComment {
+    font-size: 13px;
+
+    .commentText {
+      color: #333333;
+      line-height: 18px;
+      padding-bottom: 10px;
+
+      .followDay {
+        color: #cb0024;
+        margin-right: 6px;
+      }
+    }
+  }
+}

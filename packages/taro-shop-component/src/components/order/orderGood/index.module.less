@@ -1,0 +1,85 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.orderGoodStyle {
+  display: flex;
+  width: 100%;
+  background: #ffffff;
+}
+
+.cover {
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 5px;
+  margin-right: @spacingLarge;
+  overflow: hidden;
+  position: relative;
+
+  .cover_img {
+    display: block;
+    background-color: @gray2;
+  }
+
+  // .giveGood {
+  //   position: absolute;
+  //   left: 0;
+  //   top: 0;
+  //   width: 27px;
+  //   height: 14px;
+  // }
+}
+
+.content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.title {
+  font-size: @fontSize;
+  font-weight: 500;
+  color: #333333;
+  margin-bottom: 5px;
+}
+
+.subTitle {
+  font-size: 12px;
+  font-weight: 400;
+  color: @gray5;
+}
+
+.placeholder {
+  flex: 1;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  line-height: 18px;
+}
+
+.giveText {
+  width: 45px;
+  height: 18px;
+  background: linear-gradient(137deg, rgba(129, 116, 248, 0.14) 0%, rgba(57, 124, 253, 0.14) 100%);
+  border-radius: 9px;
+  text-align: center;
+
+  text{
+    font-size: @fontSizeMini;
+    line-height: 18px;
+    color: #5F78FB;
+  }
+}
+
+.footer_left {
+  display: flex;
+  align-items: baseline;
+}
+
+.footer_right {
+  font-size: @fontSizeSm;
+  font-weight: 400;
+  color: @gray5;
+}

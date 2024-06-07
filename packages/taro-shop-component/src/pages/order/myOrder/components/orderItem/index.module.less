@@ -1,0 +1,46 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.title {
+  color: @gray6;
+  font-size: @fontSizeSm;
+  font-weight: 400;
+}
+
+.itemStatus {
+  color: #F11C27;
+  font-size: @fontSizeMini;
+  font-weight: 400;
+}
+.itemStatusGray {
+  color: @gray6;
+}
+
+.allPrice {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  color: @gray5;
+  font-size: @fontSizeSm;
+  font-weight: 400;
+  margin-top: 7px;
+}
+
+.pay {
+  display: flex;
+  justify-content: flex-end;
+  align-items: baseline;
+  font-weight: 400;
+  margin-top: 20px;
+}
+
+.btnBox {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: @spacingLarge;
+}
+
+.goods {
+  &:not(:last-child) {
+    margin-bottom: @spacing;
+  }
+}

@@ -1,0 +1,38 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.searchStyle {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+
+  .head {
+    background: #ffffff;
+  }
+
+  .head_search {
+    padding: 5px 10px;
+  }
+
+  .content {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+    min-height: 0;
+  }
+}
+
+.searchModule {
+  flex: 1;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+}
+
+.masonryList {
+  padding: 0 @spacing;
+}
+
+.boxShadow{
+  box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.08);
+}

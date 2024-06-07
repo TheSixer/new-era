@@ -1,0 +1,43 @@
+@import '../styles/themes/default.less';
+
+.component {
+  position: fixed;
+  top: 0;
+  right: 0;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  background: #ffffff;
+  transform: translateX(100%);
+  transition: all linear 150ms;
+}
+
+.visible {
+  transform: translateX(0) !important;
+}
+
+.head {
+  display: flex;
+  align-items: flex-end;
+  padding: 0 16px 5px 16px;
+  border-bottom: 1px solid #efefef;
+  font-size: 18px;
+  font-weight: 700;
+}
+
+.content {
+  flex: 1;
+  padding: 15px;
+  overflow: hidden;
+}
+
+.foot {
+  display: flex;
+  justify-content: space-between;
+  border-top: 1px solid #efefef;
+  padding: 15px 24px;
+}
+
+.footBtn {
+  width: 88px;
+}

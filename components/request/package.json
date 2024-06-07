@@ -1,0 +1,15 @@
+{
+  "name": "@wmeimob/request",
+  "version": "1.5.0",
+  "description": "美萌请求库",
+  "files": [
+    "src"
+  ],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@tarojs/taro": "3.5.11",
+    "@tarojs/taro-h5": "3.5.11",
+    "@types/node": "*"
+  }
+}

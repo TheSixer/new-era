@@ -1,0 +1,47 @@
+@import '../styles/themes/default.less';
+
+.cardStyle {
+  background: #ffffff;
+  border-radius: 10px;
+  padding: 0 15px;
+
+  &.small {
+    padding: 0 10px;
+
+    .cardStyle_title {
+      padding-top: 8px;
+    }
+
+    .cardStyle_content {
+      padding: 8px 0;
+    }
+  }
+
+  &.large {
+    padding: 0 20px;
+
+    .cardStyle_title {
+      padding-top: 20px;
+    }
+
+    .cardStyle_content {
+      padding: 20px 0;
+    }
+  }
+}
+
+.cardStyle_title {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  padding-top: @spacingLarge;
+
+  font-size: @fontSize;
+  font-weight: 500;
+  color: @gray7;
+}
+
+.cardStyle_content {
+  padding: @spacingLarge 0;
+}

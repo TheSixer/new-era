@@ -1,0 +1,15 @@
+{
+  "name": "@wmeimob/taro-design",
+  "cname": "taro-design",
+  "documentTitle": "跨平台组件库",
+  "ui": {
+    "host": "http://47.103.40.50:3004/#/pages/"
+  },
+  "exclude": [
+    "head",
+    "styles",
+    "utils",
+    "test"
+  ],
+  "include": []
+}

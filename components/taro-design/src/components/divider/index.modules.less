@@ -1,0 +1,21 @@
+@import '../styles/themes/default.less';
+@import '../styles/utils/index.less';
+
+.divider {}
+
+.divider__horizontal {
+  height: 1px;
+  transform-origin: top;
+  transform: scaleY(0.5);
+}
+
+.divider__vertical {
+  width: 1px;
+  height: 100%;
+  transform: scaleX(0.5);
+}
+
+.divider__vertical_auto {
+  .divider__vertical();
+  height: auto;
+}

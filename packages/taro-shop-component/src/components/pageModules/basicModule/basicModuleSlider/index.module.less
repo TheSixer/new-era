@@ -1,0 +1,58 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.basicModuleSliderStyle {
+  width: 100%;
+}
+
+.content {
+  position: relative;
+  border-radius: 8px;
+  overflow: hidden;
+  width: 100%;
+}
+
+.swiperDots{
+  position: absolute;
+  bottom: 10px;
+  left: 0;
+  z-index: 1;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.dotItem{
+  width: 20px;
+  height: 3px;
+  margin-right: 10px;
+  background-color: #000000;
+  border-radius: 2px;
+  opacity: 0.43;
+  transition: background-color 1s;
+
+  &:last-child{
+    margin-right: 0;
+  }
+}
+
+.dotItemActive{
+  background-color: #FFFFFF;
+  opacity: 1;
+  transition: all 1s;
+}
+
+.swiperItem {
+  position: relative;
+  width: 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.img {
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: 100% 100%;
+  border-radius: 8px;
+  overflow: hidden;
+}

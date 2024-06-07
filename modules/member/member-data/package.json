@@ -1,0 +1,16 @@
+{
+  "name": "@wmeimob-modules/member-data",
+  "version": "1.0.0",
+  "description": "会员中心数据",
+  "main": "src/index.ts",
+  "scripts": {},
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wmeimob/utils": "workspace:^1.4.0",
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/backend-extend-types": "workspace:^1.0.0"
+  }
+}

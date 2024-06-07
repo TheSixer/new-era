@@ -1,0 +1,29 @@
+{
+  "name": "@wmeimob/taro-pages",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wmeimob/aliyun": "workspace:^1.4.0",
+    "@wmeimob/taro-api": "workspace:^1.0.0",
+    "@wmeimob/taro-design": "workspace:^1.5.1",
+    "@wmeimob/utils": "workspace:^1.4.0",
+    "@tarojs/plugin-platform-weapp": "3.5.11",
+    "@tarojs/api": "3.5.11",
+    "@tarojs/components": "3.5.11",
+    "@tarojs/taro": "3.5.11",
+    "@tarojs/taro-h5": "3.5.11",
+    "@types/react": "18.0.26",
+    "classnames": "^2.3.1",
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/taro-extend-types": "workspace:^1.0.0"
+  }
+}

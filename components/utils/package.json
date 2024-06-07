@@ -1,0 +1,18 @@
+{
+  "name": "@wmeimob/utils",
+  "version": "1.4.0",
+  "description": "",
+  "license": "ISC",
+  "author": "",
+  "dependencies": {
+    "react": "18.2.0",
+    "currency.js": "^2.0.4",
+    "dayjs": "^1.11.5",
+    "@tarojs/taro": "3.5.11",
+    "@tarojs/taro-h5": "3.5.11"
+  },
+  "devDependencies": {
+    "@types/node": "^17.0.21",
+    "@types/react": "18.0.26"
+  }
+}

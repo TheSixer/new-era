@@ -1,0 +1,72 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.preSaleDetailStyle {
+  height: 100%;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  background: url(./images/bg.png) no-repeat top center;
+  background-size: contain;
+  padding: 0 @spacing;
+}
+
+.preSaleDetailStyle_h5{
+  background-size: 100% 156px;
+}
+
+.header {
+  position: relative;
+  margin-bottom: 20px;
+}
+
+.title {
+  color: #fff;
+  font-size: @fontSizeHuge;
+  font-weight: 600;
+  text-align: center;
+}
+
+.card {
+  flex: 1;
+  overflow: hidden;
+  display: flex;
+  flex-flow: column;
+  border-radius: @borderRadius;
+}
+
+.name {
+  line-height: 20px;
+  background: #fff;
+  font-size: 15px;
+  font-weight: 500;
+  padding: @spacingLarge;
+}
+
+.timeRange {
+  position: relative;
+  background: #fff;
+  padding: 0 @spacingLarge;
+
+  &:after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    transform: translateY(100%);
+    height: 50px;
+    background: #fff;
+  }
+}
+
+.scrollContent {
+  background: #fff;
+  border-radius: 0 0 @borderRadius @borderRadius;
+  padding: 0 @spacingLarge;
+  padding-bottom: @spacingLarge;
+}
+
+.out {
+  flex: 1;
+  min-height: 0;
+}

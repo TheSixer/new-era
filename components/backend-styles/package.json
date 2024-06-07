@@ -1,0 +1,11 @@
+{
+  "name": "@wmeimob/backend-styles",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "antd": "^4.17.0"
+  }
+}

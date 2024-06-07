@@ -1,0 +1,55 @@
+.modal {
+  :global(.ant-modal-content) {
+    height: 100vh;
+  }
+}
+
+.content {
+  width: 375px;
+  height: 80%;
+  min-height: 500px;
+  max-height: 812px;
+  overflow-y: auto;
+  background: #fff;
+  border-radius: 2px;
+  border: 2px solid #ccc;
+  margin: 0 auto;
+
+  img,
+  video {
+    max-width: 100%;
+  }
+
+  audio {
+    border-radius: 2px;
+    border: 1px solid #f1f1f1;
+    padding: 16px;
+  }
+
+  /* 以下为还原编辑器中各标签的样式 */
+
+  p {
+    line-height: 1.5;
+    margin: 0;
+  }
+
+  blockquote {
+    background-color: var(--w-e-textarea-slight-bg-color);
+    border-left: 8px solid var(--w-e-textarea-selected-border-color);
+    display: block;
+    font-size: 100%;
+    line-height: 1.5;
+    margin: 10px 0;
+    padding: 10px;
+  }
+
+  ol {
+    padding-left: 20px;
+
+  }
+
+  li {
+    line-height: inherit;
+    margin: 10px 0;
+  }
+}

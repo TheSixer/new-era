@@ -1,0 +1,40 @@
+@import "../styles/themes/default.less";
+
+.MMSwitch {
+  position: relative;
+  width: 40px;
+  height: 22px;
+  border-radius: 11px;
+  background: @gray4;
+
+  &::after {
+    display: block;
+    content: " ";
+    position: absolute;
+    left: 4px;
+    top: 4px;
+    width: 14px;
+    height: 14px;
+    border-radius: 7px;
+    background: #fff;
+    transition: all 0.2s;
+    box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+    z-index: 2;
+  }
+}
+
+.MMSwitch__disabled {
+  opacity: 0.3;
+}
+
+.MMSwitch__checked {
+  background: @switchColor;
+
+  &::before {
+    transform: scale(0);
+  }
+
+  &::after {
+    left: 40px - 4 - 14;
+  }
+}

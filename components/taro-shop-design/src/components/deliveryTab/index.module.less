@@ -1,0 +1,119 @@
+@borderRadius: 10px;
+@borderRadiusActive: 20px;
+@activeColor: #ffebec;
+@disabledColor: #f6f6f6;
+
+.deliveryTabStyle {
+  width: 100%;
+  height: 100%;
+}
+
+.tabHead {
+  position: relative;
+
+  .tabHead_bg {
+    position: absolute;
+    z-index: 0;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    background-color: #ffffff;
+    height: @borderRadiusActive;
+  }
+
+  .tabHead_content {
+    display: flex;
+    align-items: flex-end;
+  }
+}
+
+.tabItem {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  height: 40px;
+  background: @activeColor;
+
+  &:before {
+    content: '';
+    position: absolute;
+    top: 0;
+    z-index: -1;
+    width: @borderRadiusActive;
+    height: @borderRadiusActive;
+    background: @activeColor;
+  }
+
+  &:first-child {
+    border-top-left-radius: @borderRadius;
+    border-bottom-right-radius: @borderRadiusActive;
+
+    &:before {
+      right: -5px;
+    }
+  }
+
+  &:last-child {
+    border-top-right-radius: @borderRadius;
+    border-bottom-left-radius: @borderRadiusActive;
+
+    &:before {
+      left: -5px;
+    }
+  }
+
+  &.tabItem__active {
+    height: 50px;
+    background: #ffffff;
+    z-index: 15;
+
+    &:before {
+      display: none;
+    }
+
+    &:first-child {
+      border-top-right-radius: @borderRadiusActive;
+      border-bottom-right-radius: 0;
+    }
+
+    &:last-child {
+      border-top-left-radius: @borderRadiusActive;
+      border-bottom-left-radius: 0px;
+    }
+
+    .tabItem_text {
+      font-weight: bold;
+    }
+  }
+
+  &.tabItem__disabled {
+    background: @disabledColor;
+
+    &:before {
+      background: @disabledColor;
+    }
+
+    .tabItem_text {
+      color: #999;
+    }
+  }
+}
+
+.tabItem_text {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  height: 100%;
+
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.tabContent {
+  background: #ffffff;
+  padding: 15px;
+  border-bottom-left-radius: @borderRadius;
+  border-bottom-right-radius: @borderRadius;
+}

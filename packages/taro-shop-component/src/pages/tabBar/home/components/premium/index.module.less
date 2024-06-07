@@ -1,0 +1,146 @@
+// src/components/CustomSwiper/CustomSwiper.scss
+.premium_container {
+  padding-top: 197rpx;
+  width: 100%;
+  height: 100%;
+  background-color: black;
+}
+
+.banner_title {
+  width: 100%;
+}
+
+.swiper_view {
+  padding: 40rpx;
+}
+
+
+.swiper_container {
+  position: relative;
+  width: 100%;
+  height: 866rpx;
+}
+
+.swiper_slide {
+  display: none;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  transition: all 0.5s ease, z-index 0s ease-in, z-index 0.5s ease-out;
+  transform: translate(-50%, 0) scale(0.9);
+  border-radius: 24rpx;
+}
+
+.next {
+  display: block;
+  transform: translate(-50%, -80rpx) scale(0.8);
+  filter: brightness(50%);
+  z-index: 1;
+  top: 10px;
+}
+
+.nnext {
+  display: block;
+  transform: translate(-50%, -40rpx) scale(0.8);
+  z-index: 0;
+}
+
+.prev {
+  display: block;
+  transform: translate(-50%, 60rpx) scale(1);
+  z-index: 3;
+}
+
+.pprev {
+  display: block;
+  transform: translate(100%, 60rpx) scale(1);
+  z-index: 3;
+}
+
+.current {
+  display: block;
+  filter: brightness(50%);
+  z-index: 2;
+}
+
+
+.swiper_button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  width: 64rpx;
+  height: 64rpx;
+  border-radius: 50%;
+  background-color: #BC9B6A;
+  transform: translateY(-50%);
+  color: #fff;
+  z-index: 4;
+  cursor: pointer;
+}
+
+.swiper_prev_btn {
+  left: -20rpx;
+  transform: rotate(90deg);
+}
+
+.swiper_next_btn {
+  right: -20rpx;
+  transform: rotate(-90deg);
+}
+
+.swiper_slide_view {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-direction: column;
+  padding: 50rpx;
+  height: 100%;
+}
+
+.swiper_slide_content {
+  width: 100%;
+}
+
+.swiper_slide_title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #000;
+  height: 54rpx;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* 控制显示的行数 */
+  -webkit-box-orient: vertical;
+  text-overflow: ellipsis;
+  white-space: normal;
+}
+
+.swiper_slide_price {
+  color: #BC9B6A;
+  font-size: 52rpx;
+}
+
+.swiper_slide_image {
+  margin-top: 12rpx;
+  width: 100%;
+  height: 374rpx;
+}
+
+.swiper_slide_footer {
+  margin-top: 38rpx;
+
+  .swiper_slide_footer__txt {
+    font-size: 32rpx;
+    color: #000;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .swiper_slide_btn {
+    margin-top: 12rpx;
+  }
+}

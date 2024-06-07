@@ -1,0 +1,86 @@
+{
+  "name": "@wmeimob/taro-shop-coupon",
+  "version": "2.2.1",
+  "description": "商城优惠券",
+  "keywords": [
+    "优惠券"
+  ],
+  "author": "xiang.hu <xiang.hu@weimob.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "src",
+  "directories": {
+    "src": "src"
+  },
+  "files": [
+    "src/components",
+    "src/pages"
+  ],
+  "publishConfig": {
+    "registry": "http://47.103.40.50:3200/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git remote add origin git@codeup.aliyun.com:5f855dfb1858a17210466fd0/r_d_center/mm-frontend.git"
+  },
+  "scripts": {
+    "dev": "cross-env REACT_APP_ENV=dev npm run build:weapp -- --watch",
+    "uat": "cross-env REACT_APP_ENV=uat npm run build:weapp",
+    "stg": "cross-env REACT_APP_ENV=stg npm run build:weapp",
+    "build": "cross-env REACT_APP_ENV=production npm run build:weapp",
+    "build:weapp": "taro build --type weapp",
+    "dev:h5": "cross-env REACT_APP_ENV=dev npm run build:h51 -- --watch --env development",
+    "uat:h5": "cross-env REACT_APP_ENV=uat npm run build:h51",
+    "stg:h5": "cross-env REACT_APP_ENV=stg npm run build:h51",
+    "build:h5": "cross-env REACT_APP_ENV=production npm run build:h51",
+    "build:h51": "taro build --type h5",
+    "build:swan": "taro build --type swan",
+    "build:alipay": "taro build --type alipay",
+    "build:tt": "taro build --type tt",
+    "build:rn": "taro build --type rn",
+    "build:qq": "taro build --type qq",
+    "build:jd": "taro build --type jd",
+    "build:quickapp": "taro build --type quickapp",
+    "dev:weapp": "npm run build:weapp -- --watch",
+    "dev:swan": "npm run build:swan -- --watch",
+    "dev:alipay": "npm run build:alipay -- --watch",
+    "dev:tt": "npm run build:tt -- --watch",
+    "dev:rn": "npm run build:rn -- --watch",
+    "dev:qq": "npm run build:qq -- --watch",
+    "dev:jd": "npm run build:jd -- --watch",
+    "dev:quickapp": "npm run build:quickapp -- --watch"
+  },
+  "dependencies": {
+    "@babel/runtime": "7.21.0",
+    "@tarojs/api": "3.5.11",
+    "@tarojs/components": "3.5.11",
+    "@tarojs/runtime": "3.5.11",
+    "@tarojs/taro": "3.5.11",
+    "@tarojs/taro-h5": "3.5.11",
+    "@tarojs/plugin-platform-weapp": "3.5.11",
+    "@wmeimob/shop-data": "workspace:^2.2.1",
+    "@wmeimob/taro-design": "workspace:^1.5.1",
+    "core-decorators": "0.20.0",
+    "immutable": "^4.0.0",
+    "react": "18.2.0",
+    "react-dom": "18.2.0"
+  },
+  "devDependencies": {
+    "@babel/core": "7.8.0",
+    "@tarojs/cli": "3.5.11",
+    "@tarojs/mini-runner": "3.5.11",
+    "@tarojs/plugin-mock": "^0.0.9",
+    "@tarojs/react": "3.5.11",
+    "@tarojs/webpack-runner": "3.5.11",
+    "@types/node": "^17.0.21",
+    "@types/react": "18.0.26",
+    "@types/taro-extend-types": "workspace:^1.0.0",
+    "@types/webpack-env": "1.13.6",
+    "babel-preset-taro": "3.5.11",
+    "classnames": "^2.3.1",
+    "cross-env": "^7.0.3",
+    "dayjs": "^1.10.7",
+    "stylelint": "9.3.0",
+    "typescript": "4.4.4"
+  }
+}

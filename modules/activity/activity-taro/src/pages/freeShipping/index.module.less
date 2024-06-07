@@ -1,0 +1,87 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.freeShippingStyle {
+  min-height: 50vh;
+  background-image: url(./images/bg.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: contain;
+}
+
+.isEmpty {
+  background-image: none;
+}
+
+.list {
+  display: flex;
+  flex-flow: wrap;
+  padding: 0 @spacingSmall;
+  padding-top: 20px;
+}
+
+.wrapper {
+  width: 50%;
+  padding: 0 @spacingSmall;
+  padding-bottom: @spacing;
+}
+
+.item {
+  background: #fff;
+  border-radius: @borderRadiusSmall;
+  padding-top: @spacingSmall;
+  padding-bottom: @spacingLarge;
+}
+
+.cover {
+  position: relative;
+  padding-bottom: 100%;
+  margin: 0 @spacingSmall;
+  margin-bottom: @spacing;
+}
+
+.cover_inner {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  z-index: initial;
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
+}
+
+.name {
+  min-height: 42px;
+  line-height: 20px;
+  font-size: @fontSize;
+  font-weight: 400;
+  word-break: break-all;
+  margin: 0 @spacing;
+}
+
+.status {
+  display: inline-block;
+  line-height: 18px;
+  background: @primaryColor;
+  border-radius: 3px;
+  color: #fff;
+  font-size: 11px;
+  padding: 0 @spacingSmall;
+  margin-right: @spacing;
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  color: @gray6;
+  font-size: 11px;
+  word-break: break-all;
+  margin-left: @spacing;
+  margin-top: @spacing;
+}
+
+.iconTimeImg {
+  width: 14px;
+  height: 14px;
+  margin-right: 2px;
+}

@@ -1,0 +1,37 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+
+.cell_content {
+  width: 100%;
+}
+
+.cell__isThisMonth {
+  color: @fontColor;
+}
+
+.cell__isSelected {
+  color: #fff;
+  background: #F11C27;
+  border-radius: @borderRadiusSmall;
+}
+
+.cell__isDisabled {
+  text-decoration: line-through;
+  opacity: .3;
+}
+
+.cell__dot {
+  position: relative;
+
+  &:after {
+    content: '';
+    position: absolute;
+    left: 50%;
+    bottom: -10px;
+    transform: translateX(-50%);
+    width: 6px;
+    height: 6px;
+    background: @primaryColor;
+    border-radius: 50%;
+  }
+}

@@ -1,0 +1,33 @@
+.banner_title {
+  display: flex;
+  position: relative;
+  align-items: flex-start;
+  justify-content: center;
+  width: 100%;
+  height: 86rpx;
+}
+
+.banner_title__text {
+  position: relative;
+  text-align: center;
+  font-weight: bold;
+  font-size: 48rpx;
+  color: #BC9B6A;
+  z-index: 1;
+}
+
+.banner_title__sub {
+  position: absolute;
+  top: 40rpx;
+  left: 50%;
+  font-size: 36rpx;  // 你可以根据需要调整字体大小
+  color: black;  // 设置文字颜色为透明
+  font-weight: bolder;
+  font-style: italic;
+  font-family: 'Mediasansextended-blackitalic'; // Mediasansextended blackitalic
+  -webkit-text-stroke: 3rpx #BC9B6A;  // 为文字添加边框
+  transform: translateX(-50%);
+  letter-spacing: 1rpx;
+  opacity: 0.5;
+  z-index: 0;
+}

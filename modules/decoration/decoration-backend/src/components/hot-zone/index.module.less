@@ -1,0 +1,45 @@
+@import '~@wmeimob/backend-styles/src/styles/theme.less';
+@import '../styleSetting/common.less';
+.text {
+  color: @primary-color;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+@customCard();
+
+.customCard {
+  height: 100%;
+  overflow: auto;
+  margin-left: 12px;
+}
+
+.linkItem {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  min-height: 32px;
+  margin-bottom: 6px;
+}
+
+.linkItem_num {
+  color: @primary-color;
+  margin-right: 6px;
+}
+.linkItem_jump {
+  flex: 1;
+}
+
+.linkItem_del {
+  font-size: 12px;
+  color: @text-color-secondary;
+  cursor: pointer;
+}
+
+.tip {
+  margin-right: 32px;
+}
+
+.tip_icon {
+  color: @primary-color;
+}

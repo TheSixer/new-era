@@ -1,0 +1,30 @@
+@import '~antd/dist/antd.less'; // 引入官方提供的 less 样式入口文件
+@import './theme.less'; // 定制主题样式覆盖官方样式
+@import './cover/index.less'; // cover目录用于样式覆盖
+
+html,
+body,
+#root {
+  height: 100%;
+}
+
+// 描述提示问题
+.textTip {
+  font-size: 12px;
+  color: @text-color-secondary;
+}
+
+.of(@n, @i: 2) when (@i =< @n) {
+  .textOverflow@{i} {
+    // white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    /* autoprefixer: ignore next */
+    -webkit-line-clamp: @i;
+  }
+  .of(@n, (@i + 1));
+}
+
+.of(3);

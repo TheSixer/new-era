@@ -1,0 +1,117 @@
+@import './themes/default.less';
+
+view,
+div,
+section {
+    box-sizing: border-box;
+}
+
+page,
+html,
+body {
+    font-size       : @fontSize;
+    color           : @fontColor;
+    background-color: @bodyBackground;
+    min-height      : 100%;
+    line-height     : 1.5;
+}
+
+textarea {
+    background-color: transparent;
+    resize          : none;
+}
+
+// 去除h5 :focus状态下的黄色边框
+
+/* #ifdef h5 /
+*:focus {
+    outline: none;
+}
+/ #endif */
+
+
+.container {
+  margin: 0 @containerSize;
+}
+
+.spacingSmall {
+  width: @spacingBase;
+  height: @spacingBase;
+}
+
+.spacing {
+  width: @spacingBase * 3;
+  height: @spacingBase * 2;
+}
+
+.spacingBig {
+  width: @spacingBase * 3;
+  height: @spacingBase * 3;
+}
+
+.spacingIphone {
+  height: 34px;
+}
+
+.flex {
+  display: flex;
+}
+
+.flexDC {
+  display: flex;
+  flex-direction: column;
+}
+
+.flexC {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.flexJC {
+  display: flex;
+  justify-content: center;
+}
+
+.flexJS {
+  display: flex;
+  justify-content: space-between;
+}
+
+.flexAC {
+  display: flex;
+  align-items: center;
+}
+
+.flex1 {
+  flex: 1;
+}
+
+.bgWhite {
+  background-color: @gray1;
+}
+
+// taro-design/src/components/picker/view.tsx 兼容h5 swiper高度不能修改bug
+.swiperPage {
+  height: 200px !important;
+
+  .swiper-container {
+    height: 200px !important;
+  }
+}
+
+// 文本超出几行换行
+.of(@n, @i: 1) when (@i =< @n) {
+  .text-over-flow-@{i} {
+    // white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    /* autoprefixer: ignore next */
+    -webkit-line-clamp: @i;
+  }
+  .of(@n, (@i + 1));
+}
+
+.of(4);

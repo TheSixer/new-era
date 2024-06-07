@@ -1,0 +1,36 @@
+@import '../styles/themes/default.less';
+
+.imageListStyle {
+  width: 100%;
+  overflow: hidden;
+}
+
+.content {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+}
+
+.item {
+  position: relative;
+  // width: calc((100% - @spacingBase * @imagePickerNumber) / @imagePickerNumber);
+  background-color: @gray4;
+  // margin-right: @spacingBase;
+  // margin-bottom: @spacingBase;
+  border-radius: @borderRadiusSize;
+  overflow: hidden;
+}
+
+.itemContent {
+  position: relative;
+  padding-bottom: 100%;
+}
+
+.itemCotentItem {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}

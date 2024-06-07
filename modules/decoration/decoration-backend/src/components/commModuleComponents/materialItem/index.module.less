@@ -1,0 +1,77 @@
+@import '~@wmeimob/backend-styles/src/styles/theme.less';
+
+.list {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  flex-wrap: wrap;
+}
+
+.item {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100px;
+  height: 100px;
+  margin-right: @margin-xs;
+  margin-bottom: @margin-xs;
+  border: 1px solid @border-color-base;
+  border-radius: @border-radius-base;
+  cursor: pointer;
+
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &:hover .hover {
+    opacity: 1;
+  }
+}
+
+.hover {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 24px;
+  color: white;
+  opacity: 0;
+  background-color: rgba(0, 0, 0, 0.3);
+  transition: all 0.3s;
+}
+
+:global {
+  .ant-form-item-has-error {
+    // 绑定到button上
+    :local(.item) {
+      border-color: @error-color;
+    }
+  }
+}
+
+.tip {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100%;
+  font-size: 12px;
+  color: @text-color-secondary;
+}
+
+.preview {
+  width: 75vw;
+  height: 70vh;
+  .image {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+  }
+}

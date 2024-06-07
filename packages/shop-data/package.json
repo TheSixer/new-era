@@ -1,0 +1,32 @@
+{
+  "name": "@wmeimob/shop-data",
+  "version": "2.2.1",
+  "description": "商城数据",
+  "author": "xiang.hu <xiang.hu@weimob.com>",
+  "homepage": "",
+  "license": "ISC",
+  "main": "src/index.ts",
+  "directories": {
+    "src": "src"
+  },
+  "files": [
+    "src"
+  ],
+  "publishConfig": {
+    "registry": "http://47.103.40.50:3200"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git remote add origin git@codeup.aliyun.com:5f855dfb1858a17210466fd0/r_d_center/mm-frontend.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  },
+  "dependencies": {
+    "dayjs": "^1.10.7",
+    "number-precision": "1.5.1",
+    "@wmeimob/utils": "workspace:^1.4.0",
+    "deepmerge": "^4.2.2",
+    "react": "18.2.0"
+  }
+}

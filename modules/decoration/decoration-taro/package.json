@@ -1,0 +1,25 @@
+{
+  "name": "@wmeimob-modules/decoration-taro",
+  "version": "1.0.0",
+  "description": "自定义装修前台",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wmeimob-modules/decoration-data": "workspace:^1.0.0",
+    "@wmeimob/taro-global-data": "workspace:^1.0.0",
+    "classnames": "^2.3.1",
+    "@tarojs/components": "3.5.11",
+    "@tarojs/taro": "3.5.11",
+    "@tarojs/taro-h5": "3.5.11",
+    "@tarojs/plugin-platform-weapp": "3.5.11",
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/taro-extend-types": "workspace:^1.0.0",
+    "@types/react": "18.0.26"
+  }
+}

@@ -1,0 +1,99 @@
+.popup_container {
+  padding: 0 20px;
+  padding-top: 24px;
+  padding-bottom: 3px;
+}
+
+.pickerStyle {
+  .mmPickerView {
+    width: 100%;
+    height: 220px; // 5 * 选项高度
+  }
+
+  .mmPickerView_view {
+    width: 100%;
+    text-align: center;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    font-size: 14px;
+    font-weight: 400;
+    color: #999999;
+
+    &.mmPickerView_view_active {
+      font-size: 14px;
+      font-weight: 500;
+      color: #231815;
+    }
+  }
+
+  &.h5 {
+    .mmPickerView {
+      display: flex;
+      position: relative;
+
+      ::-webkit-scrollbar {
+        display: none;
+      }
+    }
+
+    .mmPickerView_view_label {
+      width: 100%;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .maskContainer {
+      display: flex;
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      flex-direction: column;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .maskContainer_top {
+      flex: 1;
+      background-image: linear-gradient(to bottom, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.6));
+    }
+
+    .maskContainer_indicator {
+      display: flex;
+      border-top: 1px solid #edf2f9;
+      border-bottom: 1px solid #edf2f9;
+    }
+    .maskContainer_bottom {
+      flex: 1;
+      background-image: linear-gradient(to top, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.6));
+    }
+
+    .pickerViewColumn {
+      overflow: scroll;
+      overflow-x: hidden;
+      position: relative;
+      flex: 1;
+      text-align: center;
+    }
+  }
+}
+
+.pickerFooter {
+  display: flex;
+  align-items: center;
+
+  .pickerFooter_button {
+    height: 40px;
+    font-size: 16px;
+    font-weight: 500;
+    flex: 1;
+  }
+
+  .pickerFooter_button__cancel {
+    font-weight: 400;
+  }
+}

@@ -1,0 +1,98 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.twoLevelsStyle {
+  position: relative;
+  height: 100%;
+  padding-left: 90px;
+  background: #ffffff;
+  overflow: hidden;
+}
+
+.tabHead {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 90px;
+  height: 100%;
+  background: #f6f6f6;
+}
+
+.tabHead_item {
+  display: flex;
+  align-items: center;
+  height: 58px;
+  font-size: 13px;
+  line-height: 18px;
+  font-weight: 400;
+  color: #333333;
+
+  &.active {
+    font-size: 14px;
+    background: #ffffff;
+    line-height: 20px;
+    font-weight: 500;
+
+    .active_line {
+      width: 4px;
+      height: 12px;
+      background: @primaryColor;
+    }
+  }
+
+  .text {
+    flex: 1;
+    text-align: center;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 0 5px;
+  }
+}
+
+.tabContent {
+  width: 100%;
+  height: 100%;
+}
+
+.tabContent_inner {
+  padding: 20px 0;
+}
+
+.tabContent_head {
+  padding-left: 20px;
+  height: 20px;
+  line-height: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #333333;
+}
+
+.tabContent_thirdList {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 10px;
+}
+
+.tabContent_thirdList_item {
+  display: flex;
+  flex-flow: column;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  width: 33.3333%;
+  // width: 100%;
+}
+
+.tabContent_thirdList_item_text {
+  font-size: 12px;
+  font-weight: 400;
+  color: #666666;
+  text-align: center;
+  line-height: 17px;
+
+  width: 100%;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  margin-top: @spacing;
+}

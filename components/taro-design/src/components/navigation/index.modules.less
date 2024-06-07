@@ -1,0 +1,74 @@
+@import '../styles/themes/default.less';
+
+:export {
+  boxShadow: 0px 0px 4px 0px rgba(0,0,0,0.08);
+}
+
+.MMNavigation {
+  width: 100%;
+  height: 30px;
+}
+
+.fixed {
+  // 不用sticky 小程序有个bug
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  background: @gray1;
+  z-index: 1000;
+  //box-shadow: 0px 0px 4px 0px rgba(0,0,0,0.08);
+  color: @gray7;
+}
+
+.fixed__transparent {
+  background: transparent;
+  color: white;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.fixed__primary {
+  background: @primaryColor;
+  color: white;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  padding: 0 10px;
+  width: 100%;
+  height: 30px;
+  align-items: center;
+}
+
+// .leftBox {
+//   position: absolute;
+//   left: 10px;
+// }
+
+.goback,
+.leftBox {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  padding: 0 @containerSize;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0);
+}
+
+.title {
+  flex: 1;
+  text-align: center;
+  font-size: 17px;
+  font-weight: bold;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}

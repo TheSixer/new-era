@@ -1,0 +1,27 @@
+.months_container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  margin-top: 60rpx;
+  padding: 0 60rpx;
+}
+
+.month {
+  padding: 0 38rpx;
+  font-family: 'Mediasansextended-blackitalic'; // Mediasansextended blackitalic
+  font-style: normal;
+  font-size: 24rpx;
+  height: 68rpx;
+  line-height: 68rpx;
+  border-radius: 34rpx;
+  color: #FFF;
+
+  &.active {
+    color: #BC9B6A;
+    border: 1px solid #BC9B6A;
+
+    .month_text {
+      font-size: 52rpx;
+    }
+  }
+}

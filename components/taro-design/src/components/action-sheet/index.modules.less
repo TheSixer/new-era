@@ -1,0 +1,46 @@
+@import '../styles/themes/default.less';
+@import '../styles/utils/index.less';
+
+.MMActionSheet {
+  border-radius: 10px 10px 0px 0px;
+  background-color: @gray2;
+  overflow: hidden;
+}
+
+.title {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: white;
+  height: 50px;
+}
+
+.content__hide {
+  transition-timing-function: ease-in;
+  bottom: -100%;
+}
+
+.item {
+  background-color: white;
+  text-align: center;
+  height: 49px;
+  line-height: 49px;
+  color: @gray7;
+  font-size: 16px;
+
+  .divider('top');
+}
+
+.cancel {
+  background-color: white;
+  text-align: center;
+  height: 50px;
+  line-height: 50px;
+  font-size: 17px;
+  color: @primaryColor;
+}
+
+.gap {
+  height: 8px;
+  background-color: @bodyBackground;
+}

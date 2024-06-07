@@ -1,0 +1,39 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.orderSearchInputStyle {
+  width: 100%;
+  background: @primaryColor;
+  padding: 10px;
+}
+
+.inputWrapper {
+  display: flex;
+  align-items: center;
+  padding: 0 10px;
+  height: 32px;
+  background: #fff;
+  border-radius: 16px;
+}
+
+.searchIcon {
+  width: 16px;
+  height: 16px;
+  margin-right: @spacingSmall;
+}
+
+.input {
+  flex: 1;
+  height: 100%;
+  :global{
+    //不支持h5只能这样处理
+    .weui-input{
+      height: 32px;
+    }
+  }
+}
+
+.placeholderStyle {
+  font-size: @fontSize;
+  font-weight: 400;
+  color: @gray4;
+}

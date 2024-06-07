@@ -1,0 +1,11 @@
+{
+  "extends": "../../tsconfig.taro.json",
+  "compilerOptions": {
+    "paths": {
+      // "@wmeimob/*": ["src/modules/@wmeimob/*"],
+      "~/*": ["src/*"]
+    }
+  },
+  "include": ["./src", "./types"],
+  "compileOnSave": false
+}

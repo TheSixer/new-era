@@ -1,0 +1,11 @@
+{
+  "name": "@wmeimob/data-model",
+  "version": "1.1.0",
+  "description": "数据模型",
+  "main": "src/index.ts",
+  "files": [
+    "src"
+  ],
+  "author": "",
+  "license": "ISC"
+}

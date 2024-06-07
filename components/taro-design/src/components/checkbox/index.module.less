@@ -1,0 +1,31 @@
+@import '../styles/themes/default.less';
+
+.checkboxStyle {
+  display: inline-flex;
+  align-items: center;
+}
+
+.checkboxStyle_box {
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  &.disabled {
+    .unChecked {
+      background-color: @gray3;
+    }
+  }
+}
+
+.unChecked {
+  border: 1px solid @gray4;
+}
+
+.checkboxStyle_content {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+  flex: 1;
+  margin-left: 5px;
+}

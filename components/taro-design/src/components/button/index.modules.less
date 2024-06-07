@@ -1,0 +1,69 @@
+@import '../styles/themes/default.less';
+
+@loadingSize: 20;
+
+:export {
+  loadingSize: @loadingSize;
+}
+
+.MMButton_content {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.MMButton_loading {
+  width: 20px;
+  height: 20px;
+  margin-right: @spacingBase;
+}
+
+.MMButton {
+  box-sizing: border-box;
+  text-align: center;
+  color: @gray1;
+  border-radius: @buttonBorderRadius;
+  border-width: 1px;
+  border-style: solid;
+  padding: 0 @spacingBase * 3;
+  // display: inline-block;
+
+  &:active {
+    opacity: 0.8;
+  }
+
+  &.disabled {
+    opacity: 0.4 !important;
+
+    &:active {
+      // background: @buttonColor !important;
+      opacity: 0.4 !important;
+    }
+  }
+
+  &.large {
+    height: @buttonHeight + 4px;
+    font-size: @buttonFontSize + 2;
+  }
+
+  &.default {
+    height: @buttonHeight;
+    font-size: @buttonFontSize;
+  }
+
+  &.small {
+    height: @buttonHeight - 4px;
+    font-size: @buttonFontSize - 1px;
+  }
+
+  &.tiny {
+    height: @buttonHeight - 8px;
+    font-size: @buttonFontSize - 3px;
+    padding: 0 @spacingBase;
+  }
+  &.mini{
+    height: @buttonHeight - 10px;
+    font-size: @buttonFontSize - 2px;
+  }
+}

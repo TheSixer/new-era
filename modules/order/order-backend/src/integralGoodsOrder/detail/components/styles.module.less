@@ -1,0 +1,23 @@
+@import '~antd/lib/style/themes/default.less';
+
+.card {
+  margin-bottom: @margin-md;
+}
+
+.rowList {
+  & + & {
+    margin-top: @margin-xs;
+  }
+}
+
+.scrollView {
+  height: calc(100vh - 200px);
+  max-height: 450px;
+  overflow-y: auto;
+}
+
+.expressCard {
+  :global(.ant-typography) {
+    margin-bottom: 0;
+  }
+}

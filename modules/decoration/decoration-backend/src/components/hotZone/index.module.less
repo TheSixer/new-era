@@ -1,0 +1,87 @@
+@import '~@wmeimob/backend-styles/src/styles/theme.less';
+
+.hotZone {
+  position: relative;
+  overflow: hidden;
+  width: 375px;
+  // border: 1px solid #666;
+}
+
+.item {
+  position: absolute;
+  border: 1px solid #666;
+  background-color: rgba(255, 255, 255, 1);
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &::before {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -3px;
+    margin-top: -3px;
+    display: block;
+    content: ' ';
+    border: 1px solid #666;
+    width: 6px;
+    height: 6px;
+    border-radius: 3px;
+  }
+}
+
+.deleteIcon {
+  position: absolute;
+  right: -7px;
+  top: -7px;
+  width: 14px;
+  height: 14px;
+  line-height: 14px;
+  text-align: center;
+  font-size: 12px;
+  background-color: white;
+  border-radius: 7px;
+  cursor: pointer;
+}
+
+.number {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 12px;
+  width: 15px;
+  height: 15px;
+  color: #ffffff;
+  background: @primary-color;
+}
+
+.scaleIcon {
+  top: auto;
+  bottom: -7px;
+  right: -7px;
+}
+
+.clear {
+  position: absolute;
+  right: 0;
+  top: 0;
+  width: 20px;
+  height: 20px;
+  line-height: 20px;
+  text-align: center;
+  background-color: white;
+  cursor: pointer;
+
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+.img {
+  width: 375px;
+  height: auto;
+}

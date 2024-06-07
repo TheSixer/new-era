@@ -1,0 +1,120 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+@import '../styles/var.less';
+
+.weekWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: @calendarWidth;
+  margin: 0 auto;
+  margin-bottom: @spacing;
+}
+
+.weekName {
+  flex: none;
+  width: @cellWidth;
+  line-height: @cellWidth;
+  color: @fontColorAssistant;
+  text-align: center;
+  margin: 0 8px;
+}
+
+.cells {
+  display: flex;
+  justify-content: center;
+  flex-flow: wrap;
+  width: @calendarWidth;
+  margin: 0 auto;
+}
+
+.cell {
+  flex: none;
+  display: flex;
+  width: @cellWidth;
+  line-height: @cellWidth;
+  box-sizing: content-box;
+  text-align: center;
+  color: @gray4;
+  font-size: @fontSize;
+  font-weight: 500;
+  margin: 10px 0;
+  padding: 0 8px;
+
+  &:nth-child(7n + 1) {
+    padding-left: 0;
+  }
+
+  &:nth-child(7n) {
+    padding-right: 0;
+  }
+
+  each(range(7), {
+    &:nth-last-child(@{value}) {
+      margin-bottom: 0;
+    }
+  });
+}
+
+.cell_content {
+  width: 100%;
+}
+
+.cell__isThisMonth {
+  color: @fontColor;
+}
+
+.cell__isSelected {
+  color: #fff;
+  background: #F11C27;
+  border-radius: 50%;
+}
+
+.cell__isDisabled {
+  opacity: 0.3;
+}
+
+.cell_range {
+  .cell__isSelected {
+    position: relative;
+    border-radius: 0;
+
+    &:before {
+      content: '';
+      position: absolute;
+      left: -8px;
+      width: 8px;
+      height: 100%;
+      background: #F11C27;
+    }
+
+    &:after {
+      content: '';
+      position: absolute;
+      right: -8px;
+      width: 8px;
+      height: 100%;
+      background: #F11C27;
+    }
+  }
+
+  .cell__isBegin {
+    border-radius: (@cellWidth / 2) 0 0 (@cellWidth / 2);
+
+    &:before {
+      display: none;
+    }
+  }
+
+  .cell__isEnd {
+    border-radius: 0 (@cellWidth / 2) (@cellWidth / 2) 0;
+
+    &:after {
+      display: none;
+    }
+  }
+
+  // 开始和结束为同一天
+  .cell__isBegin.cell__isEnd {
+    border-radius: 50%;
+  }
+}

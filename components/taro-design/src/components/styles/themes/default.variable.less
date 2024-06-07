@@ -1,0 +1,136 @@
+@import '../color/colors.less';
+
+// -------------------------颜色---------------------------------------
+@primaryColor: @blue; // 网站主色
+@primaryColorGradient: @blue5; // 网站主色渐变
+@secondColor: #fea600; // 辅助色
+
+@fontColor: @gray7; // 页面基础字体颜色
+@fontColorSecondary: @gray6; // 次要字体色
+@fontColorAssistant: @gray5; // 辅助文字字体色
+@borderColor: @gray4; // 边框颜色
+@dividerColor: @gray2; // 分割线颜色
+@bodyBackground: @gray2; // 网站背景色
+
+// -------------------------文字---------------------------------------
+
+@fontSizeHuge: 24px;
+@fontSizeXL: 20px;
+@fontSizeLarge: 16px;
+@fontSize: 14px; // 正文
+@fontSizeSm: 12px; // 正文（小）
+@fontSizeMini: 11px; // auxiliary 辅助文字
+
+// -------------------------间距---------------------------------------
+// 用于margin 或者padding
+@spacingBase: 4px; // 基础间距
+@spacingSmall: @spacingBase; // 小间距
+@spacing: @spacingBase * 2; // 默认间距
+@spacingLarge: @spacingBase * 3; // 大间距
+
+/** 通用边框圆角 4的倍数*/
+@borderRadiusSmall: @spacingBase;
+@borderRadius: @spacingBase * 2;
+@borderRadiusLarge: @spacingBase * 3;
+
+@containerSize: @spacingBase * 3; // 屏幕边缘间距
+
+@virtualHomeHeight: 34px; // iPhone 虚拟 Home 安全高度
+
+@borderRadiusSize: 4px; // 圆角大小
+
+// 过渡动画秒数
+@transitionTiming: 0.5s;
+
+// -------------------------组件样式---------------------------------------
+
+// button
+@buttonHeight: 44px;
+@buttonFontSize: 16px;
+@buttonBorderRadius: 5px;
+
+@buttonRedColor: @red;
+@buttonRedColorGradient: @red5;
+@buttonRedColorActive: @red7;
+
+@buttonGrayColor: @gray7;
+@buttonGrayColorGradient: @gray6;
+@buttonGrayColorActive: @gray8;
+
+// tabBar
+@tabBarFontColor: @gray4;
+@tabBarIconSize: 22;
+
+// calendar
+@calendarSelectedColor: @blue1;
+@calendarItemHeight: 50;
+
+// switch
+@switchColor: @green;
+
+// imagePicker
+@imagePickerNumber: 4;
+
+// stars
+@starsColor: @primaryColor; // 星级选中颜色
+@starsVoidColor: @gray4; // 星级未选中颜色
+
+// sku
+@skuColor_selected: @primaryColor; // sku按钮选中背景色
+@skuBorderColor: @primaryColor; // sku边框颜色
+@skuBackgroundColor_selected: rgba(255, 65, 59, 0.15); // sku按钮选中背景色
+
+:export {
+  primaryColor: @primaryColor; // 网站主色
+  primaryColorGradient: @primaryColorGradient; // 网站主色渐变
+  secondColor: @secondColor; // 辅助色
+
+  fontColor: @fontColor; // 页面基础字体颜色
+  fontColorSecondary: @fontColorSecondary; // 次要字体色
+  fontColorAssistant: @fontColorAssistant; // 辅助文字字体色
+  borderColor: @borderColor; // 边框颜色
+  dividerColor: @dividerColor; // 分割线颜色
+  bodyBackground: @bodyBackground; // 网站背景色
+
+  // -------------------------文字---------------------------------------
+
+  fontSizeHuge: @fontSizeHuge;
+  fontSizeXL: @fontSizeXL;
+  fontSizeLarge: @fontSizeLarge;
+  fontSize: @fontSize; // 正文
+  fontSizeSm: @fontSizeSm; // 正文（小）
+  fontSizeMini: @fontSizeMini; // auxiliary 辅助文字
+
+  // -------------------------间距---------------------------------------
+  spacingSmall: @spacingBase; // 小间距
+  spacing: @spacingBase * 2; // 默认间距
+  spacingLarge: @spacingBase * 3; // 大间距
+  /** 通用边框圆角 为5的倍数 */
+  borderRadiusSmall: @borderRadiusSmall;
+  borderRadius: @borderRadius;
+  borderRadiusLarge: @borderRadiusLarge;
+
+  containerSize: @containerSize; // 屏幕边缘间距
+
+  virtualHomeHeight: @virtualHomeHeight; // iPhone 虚拟 Home 安全高度
+
+  borderRadiusSize: @borderRadiusSize; // 圆角大小
+
+  // 过渡动画秒数
+  transitionTiming: @transitionTiming;
+
+  spacingBase: @spacingBase;
+  gray1: @gray1;
+  gray2: @gray2;
+  gray3: @gray3;
+  gray4: @gray4;
+  gray5: @gray5;
+  gray6: @gray6;
+  gray7: @gray7;
+  gray8: @gray8;
+
+  starsColor: @starsColor;
+  starsVoidColor: @starsVoidColor;
+
+  yellow: @yellow;
+}

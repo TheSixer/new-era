@@ -1,0 +1,140 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.scoreRecordStyle {
+  min-height: 100%;
+  background: url(./images/header_bg.png) no-repeat;
+  background-size: contain;
+}
+
+.header {
+  position: relative;
+  //display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 184px;
+  padding-top: 42px;
+}
+
+.item {
+  flex: 1;
+  display: flex;
+  align-items: flex-end;
+  line-height: 17px;
+  color: #ffd8d7;
+  font-size: @fontSizeSm;
+  font-weight: 400;
+  padding-left: 20px;
+}
+
+.itembottom{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+  line-height: 22px;
+  color: #ffd8d7;
+  font-size: @fontSizeSm;
+  font-weight: 400;
+  padding-left: 20px;
+  .tip{
+    margin-right: 15px;
+  }
+}
+.line{
+  //width: px;
+  width: calc(100% - 40px);
+  height: 0px;
+  //background: #e6e6e6;
+  border-top: 0.5px solid #e6e6e6;
+  margin: 30px 20px 20px;
+}
+
+.icon {
+  width: 48px;
+  height: 48px;
+  margin-right: @spacing;
+}
+
+.icon_line {
+  flex: none;
+  width: 1px;
+  height: auto;
+}
+
+.score_count {
+  line-height: 30px;
+  font-size: @fontSizeHuge;
+  font-weight: 600;
+  color: #fff;
+}
+
+.score_mini {
+  line-height: 22px;
+  font-size: @fontSizeLarge;
+  font-weight: 600;
+  color: #fff;
+}
+
+.otherScore {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 62px;
+}
+
+.scoreList {
+  border-radius: @borderRadiusLarge @borderRadiusLarge 0 0;
+  background: #fff;
+}
+
+.scoreList_header {
+  padding: @spacingLarge;
+  padding-bottom: 0;
+}
+
+.scoreList_title {
+  position: relative;
+  line-height: 22px;
+  font-size: @fontSizeLarge;
+  font-weight: 600;
+  padding-left: 13px;
+  margin-bottom: @spacingLarge;
+
+  &:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 4px;
+    height: 16px;
+    background: @primaryColor;
+    border-radius: 4px;
+  }
+}
+
+.record {
+  padding: 0 @spacingLarge;
+
+  &:not(:first-child) {
+    padding-top: @spacingLarge;
+  }
+}
+
+.record_info {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  line-height: 20px;
+  font-size: @fontSize;
+  font-weight: 600;
+  color: @fontColor;
+  padding-bottom: @spacingSmall;
+}
+
+.record_time {
+  line-height: 17px;
+  font-size: @fontSizeSm;
+  font-weight: 400;
+  color: @fontColorAssistant;
+  padding-bottom: @spacingLarge;
+}

@@ -1,0 +1,42 @@
+.tabListStyle {
+  min-width: 100%;
+  margin-bottom: 10px;
+  overflow-x: auto;
+  overflow-y: hidden;
+}
+
+.tabContent {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.tabItem {
+  min-width: 0;
+  flex: 33.33%;
+  flex-shrink: 0;
+  text-align: center;
+}
+
+.tabItem_text {
+  border-radius: 8px;
+  padding: 2px 6px;
+}
+
+.subTitle {
+  margin-top: 3px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #999999;
+  padding: 2px 4px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+
+.tabItem_active {
+  color: #cb0024;
+
+  .tabItem_text {
+    color: #ffffff;
+    background: #cb0024;
+  }
+}

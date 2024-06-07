@@ -1,0 +1,20 @@
+{
+  "name": "@wmeimob/taro-utils",
+  "version": "1.0.0",
+  "description": "taro工具库",
+  "main": "index.js",
+  "scripts": {},
+  "dependencies": {
+    "@wmeimob/utils": "workspace:^1.4.0",
+    "url-search-params": "^1.1.0",
+    "@tarojs/api": "3.5.11",
+    "@tarojs/components": "3.5.11",
+    "@tarojs/taro": "3.5.11",
+    "@tarojs/taro-h5": "3.5.11",
+    "@types/react": "18.0.26",
+    "react": "18.2.0"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

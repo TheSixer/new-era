@@ -1,0 +1,67 @@
+@import '../styles/themes/default.less';
+
+:export {
+  borderColor: @borderColor;
+  gray5: @gray5;
+}
+
+.modalContent {
+  position: relative;
+  width: 100%;
+  min-height: 50px;
+  padding-top: @spacingLarge;
+  background-color: #ffffff;
+  border-radius: 12px 12px 0px 0px;
+}
+
+.icon_close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  z-index: 100;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+}
+
+.title {
+  position: relative;
+  //box-sizing: border-box;
+  width: calc(100% - 30px);
+  min-height: 24px;
+  padding: 0 0 @spacingLarge 0;
+  color: #333333;
+  margin: 0 auto;
+  font-weight: 600;
+  // text-align: center;
+  font-size: 16px;
+
+  //border-bottom: 1px solid #F0F0F0;
+}
+
+.subTitle {
+  min-height: 17px;
+  padding: 0 @spacingLarge @spacingLarge @spacingLarge;
+  color: #cccccc;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  text-align: center;
+}
+
+.scrollVeiw {
+  flex: 1;
+  // overflow: hidden;
+}
+
+.scrollVeiwContent {
+  padding: 0 @spacingLarge @spacingLarge @spacingLarge;
+}
+
+.footer {
+  padding: 10px 15px;
+  background-color: #ffffff;
+  border-top: 1px solid @gray2;
+}

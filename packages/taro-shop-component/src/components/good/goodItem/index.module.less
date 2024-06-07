@@ -1,0 +1,101 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.goodItemStyle {
+  display: flex;
+
+  width: 100%;
+
+  padding: 10px 15px;
+  background: #ffffff;
+}
+
+.good_cover {
+  flex-shrink: 0;
+  position: relative;
+  border-radius: 5px;
+  margin-right: 15px;
+  overflow: hidden;
+
+  .good_cover_img {
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.good_content {
+  padding: 15px 0 15px 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  flex: 1;
+  overflow: hidden;
+}
+
+.good_title {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+  line-height: 20px;
+
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  /* autoprefixer: ignore next */
+  -webkit-line-clamp: 2;
+
+  margin-bottom: 10px;
+}
+
+.good_footer {
+  display: flex;
+  // justify-content: space-between;
+  line-height: 17px;
+  align-items: center;
+}
+
+.good_footer_left {
+  font-size: 12px;
+  font-weight: 500;
+  color: #ff413b;
+}
+
+.good_footer_right {
+  margin-left: 10px;
+  font-size: 12px;
+  font-weight: 400;
+  text-decoration: line-through;
+  color: #999999;
+}
+
+.discountListBox {
+  display: flex;
+  flex-wrap: wrap;
+  overflow: hidden;
+  width: 100%;
+
+  .discountList {
+    line-height: 20px;
+    border-radius: @borderRadiusSmall;
+    background: #ffeeee;
+    color: @primaryColor;
+    padding: 2px 6px;
+    box-sizing: border-box;
+    float: left;
+    font-size: 11px;
+    font-weight: 400;
+    margin-bottom: 5px;
+    font-weight: 500;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+
+    &.discountTag {
+      max-width: calc(100% / 2 - 2.5px);
+    }
+
+    &:nth-child(even) {
+      margin-left: 5px;
+    }
+  }
+}

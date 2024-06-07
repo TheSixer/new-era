@@ -1,0 +1,38 @@
+@import '../styles/themes/default.less';
+
+.rangeInputStyle {
+}
+
+.inputContent {
+  display: flex;
+  align-items: center;
+}
+
+.input {
+  flex: 1;
+  height: 28px;
+  background: #f6f6f6;
+  border-radius: 14px;
+  text-align: center;
+
+  &.error {
+    border: 1px solid @red;
+  }
+}
+
+.line {
+  width: 6px;
+  height: 1px;
+  background: #333333;
+  margin: 0 7px;
+
+  &.error {
+    background: @red;
+  }
+}
+
+.rangeInput_error {
+  margin-top: 8px;
+  color: @red;
+  font-size: 12px;
+}

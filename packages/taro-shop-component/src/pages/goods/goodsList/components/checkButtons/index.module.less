@@ -1,0 +1,44 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.checkButtonsStyle {
+  display: flex;
+  flex-wrap: wrap;
+
+  width: 100%;
+  overflow: hidden;
+  margin: -7.5px;
+}
+
+.checkButtonsItem {
+  flex-shrink: 0;
+  padding: 7.5px;
+}
+
+.item {
+  height: 28px;
+
+  background: #f6f6f6;
+  border-radius: 14px;
+
+  border: 1px solid transparent;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  font-size: 12px;
+  font-weight: 400;
+  color: #333333;
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+
+  transition: all 0.2 linear;
+
+  &.active {
+    background: rgba(255, 65, 59, 0.15);
+    border-color: #ff413b !important;
+    color: #ff413b;
+  }
+}

@@ -1,0 +1,60 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.addressInfoCardStyle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: white;
+  min-height: 61px;
+
+  &.empty {
+    justify-content: flex-start;
+  }
+
+  .add_icon {
+    width: 12px;
+    height: 12px;
+    margin-right: 5px;
+  }
+
+  .add_text {
+    font-size: 14px;
+    font-weight: 400;
+    color: #333333;
+  }
+
+  .addressIcon {
+    width: 24px;
+    height: 24px;
+    margin-right: @spacingLarge;
+  }
+
+  .rightIcon {
+    width: 15px;
+    height: 15px;
+    margin-left: @spacingLarge;
+  }
+
+  .addressContent {
+    flex: 1;
+  }
+
+  .name {
+    font-size: @fontSize;
+    font-weight: 600;
+    color: @fontColor;
+  }
+
+  .phone {
+    margin-left: @spacing;
+  }
+
+  .address {
+    word-break: break-all;
+    line-height: 18px;
+    font-size: @fontSize;
+    font-weight: 300;
+    color: @gray6;
+    margin-top: @spacingSmall;
+  }
+}

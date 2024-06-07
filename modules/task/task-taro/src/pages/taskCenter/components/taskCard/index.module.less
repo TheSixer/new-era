@@ -1,0 +1,51 @@
+.taskCardStyle {
+  background: #ffffff;
+  padding: 0 15px;
+
+  & + & {
+    .task {
+      border-top: 1px solid #e6e6e6;
+    }
+  }
+}
+
+.task {
+  height: 80px;
+  display: flex;
+  align-items: center;
+}
+
+.task_content {
+  margin-left: 20px;
+  flex: 1;
+}
+
+.task_name {
+  display: flex;
+  align-items: center;
+  height: 20px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #333333;
+}
+
+.task_score {
+  font-size: 14px;
+  font-weight: 600;
+  color: #ffa700;
+}
+
+.task_line {
+  width: 100%;
+  height: 0.5px;
+  background-color: #e6e6e6;
+}
+
+.task_description {
+  height: 16px;
+  font-size: 12px;
+  font-weight: 400;
+  color: #999999;
+  line-height: 16px;
+  margin-top: 4px;
+}

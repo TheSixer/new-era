@@ -1,0 +1,48 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.receivingAddressStyle {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+
+}
+.icon {
+  flex: none;
+  width: 24px;
+  height: 24px;
+  margin-right: @spacingLarge;
+}
+
+.addIcon {
+  .icon();
+  margin-right: @spacing;
+}
+
+.content {
+  flex: 1;
+  word-break: break-all;
+  margin-right: @spacingLarge;
+
+  .contentT {
+    display: flex;
+    font-weight: 600;
+    font-size: @fontSize;
+    margin-bottom: @spacingSmall;
+
+    .name {
+      margin-right: @spacing;
+    }
+  }
+
+  .address {
+    display: flex;
+    color: @gray6;
+    font-size: @fontSizeMini;
+    justify-content: space-between;
+    font-weight: 300;
+  }
+}
+
+.empty {
+  padding: @spacing 0;
+}

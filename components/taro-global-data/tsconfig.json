@@ -1,0 +1,5 @@
+{
+  "extends": "../../tsconfig.taro.json",
+  "include": ["src/**/*"],
+  "exclude": ["node_modules", "build", "dist", "scripts", "src/.umi/*", "webpack", "jest"]
+}

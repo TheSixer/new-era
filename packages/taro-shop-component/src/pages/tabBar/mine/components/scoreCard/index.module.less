@@ -1,0 +1,61 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.scoreCardStyle {
+  display: flex;
+  flex-flow: wrap;
+  border-radius: @borderRadiusLarge;
+  background: #fff;
+  margin-top: @spacingLarge;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  height: 80px;
+  padding: 0 @spacingLarge;
+
+}
+
+.span1 {
+  width: 100%;
+}
+
+.span2 {
+  width: 50%;
+
+  &+& {
+    border-left: 1px solid @bodyBackground;
+  }
+}
+
+.item_icon {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  margin-right: @spacing;
+}
+
+.item_content {
+  flex: 1;
+}
+
+.item_title {
+  line-height: 20px;
+  font-size: @fontSize;
+  font-weight: 500;
+  color: @fontColor;
+  margin-bottom: 3px;
+}
+
+.item_desc {
+  line-height: 17px;
+  font-size: @fontSizeSm;
+  font-weight: 400;
+  color: @fontColorAssistant;
+}
+
+.item_next {
+  color: @fontColorAssistant;
+  font-size: @fontSizeSm;
+  font-weight: 400;
+}

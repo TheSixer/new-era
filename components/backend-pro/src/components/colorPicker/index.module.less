@@ -1,0 +1,35 @@
+@import '~antd/es/style/themes/default.less';
+
+.colorPicker {
+  .colorBolck {
+    display: flex;
+    align-items: center;
+    width: 120px;
+    height: @height-base;
+    border: @border-width-base @border-style-base @border-color-base;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+
+  .colorText {
+    flex: 1;
+    font-size: 12px;
+    text-align: center;
+  }
+  .colorBg {
+    width: 32px;
+    height: 100%;
+  }
+}
+
+:global {
+  .colorPicker_tooltip {
+    .ant-tooltip-inner {
+      background: transparent;
+      box-shadow: none;
+    }
+    .ant-tooltip-arrow::before {
+      background: none;
+    }
+  }
+}

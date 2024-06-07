@@ -1,0 +1,64 @@
+{
+  "name": "root",
+  "private": true,
+  "workspaces": [
+    "packages/*",
+    "components/*"
+  ],
+  "engines": {
+    "node": ">=16.19.x <17.0.0",
+    "pnpm": ">=8.x"
+  },
+  "scripts": {
+    "api": "node ./scripts/api.mjs",
+    "clean": "pnpm -r exec rimraf node_modules && rimraf node_modules",
+    "clean:dist": "pnpm -r exec rimraf dist"
+  },
+  "devDependencies": {
+    "@changesets/cli": "^2.24.1",
+    "eslint": "^8.12.0",
+    "@wmeimob/eslint-config-wmeimob": "1.0.0",
+    "inquirer": "^9.1.2",
+    "rimraf": "^3.0.2"
+  },
+  "pnpm": {
+    "overrides": {
+      "@babel/runtime": "7.21.0",
+      "@tarojs/components": "3.5.11",
+      "@tarojs/helper": "3.5.11",
+      "@tarojs/plugin-platform-weapp": "3.5.11",
+      "@tarojs/plugin-platform-alipay": "3.5.11",
+      "@tarojs/plugin-platform-tt": "3.5.11",
+      "@tarojs/plugin-platform-swan": "3.5.11",
+      "@tarojs/plugin-platform-jd": "3.5.11",
+      "@tarojs/plugin-platform-qq": "3.5.11",
+      "@tarojs/router": "3.5.11",
+      "@tarojs/runtime": "3.5.11",
+      "@tarojs/shared": "3.5.11",
+      "@tarojs/taro": "3.5.11",
+      "@tarojs/taro-h5": "3.5.11",
+      "@tarojs/react": "3.5.11",
+      "swagger-typescript-api>typescript": "4.4.4",
+      "@tarojs/plugin-framework-react": "3.5.11",
+      "number-precision": "1.6.0",
+      "moment": "2.29.4",
+      "lodash": "4.17.21",
+      "exceljs": "4.3.0",
+      "@ant-design/pro-list": "1.21.85",
+      "typescript": "4.9.5",
+      "antd": "4.22.8",
+      "react": "18.2.0",
+      "react-dom": "18.2.0",
+      "@types/react": "18.0.26",
+      "@swc/core": "1.3.42"
+    }
+  },
+  "resolutions": {
+    "@swc/core": "1.3.42"
+  },
+  "peerDependencyRules": {
+    "ignoreMissing": [
+      "react"
+    ]
+  }
+}

@@ -1,0 +1,63 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+:export {
+  gray6: @gray6;
+}
+
+.goodInfoStyle {
+  padding: 15px;
+  background: #ffffff;
+}
+
+.goodsNameBox {
+  display: flex;
+  margin-top: 5px;
+
+  .goodsName {
+    flex: 1;
+    margin-right: 20px;
+    color: #333333;
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 20px;
+  }
+
+  .share {
+    font-size: 10px;
+  }
+}
+
+.head_saled {
+  align-items: center;
+  color: #999999;
+  font-weight: 400;
+  font-size: 12px;
+}
+
+.goodsName {
+  color: #333333;
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.marketPrice {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.salePriceBox {
+  display: flex;
+  align-items: center;
+
+  .marketPrice {
+    margin-left: 10px;
+  }
+
+  .saled {
+    flex: 1;
+    color: #999999;
+    font-size: @fontSizeSm;
+    text-align: right;
+  }
+}

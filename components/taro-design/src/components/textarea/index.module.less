@@ -1,0 +1,25 @@
+@import '../styles/themes/default.less';
+
+.textareaStyle {
+  position: relative;
+  width: 100%;
+  padding: @spacingBase * 2;
+  border-radius: @borderRadiusSize;
+  background-color: @bodyBackground;
+  z-index: 0;
+
+  :global {
+    .taro-textarea {
+      background-color: #f6f6f6 !important;
+    }
+  }
+}
+
+.inputLimit {
+  position: absolute;
+  right: @spacingBase * 2;
+  bottom: @spacingBase * 2;
+
+  color: @fontColorAssistant;
+  font-size: 12px;
+}

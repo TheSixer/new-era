@@ -1,0 +1,72 @@
+@import '../styles/themes/default.less';
+
+.cellStyle {
+  width: 100%;
+  padding: 0 15px;
+  font-weight: 500;
+  font-size: 13px;
+  background: #ffffff;
+
+  .warpper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: (@spacingLarge / 2) 0;
+
+    &.border {
+      border-bottom: 1px solid @borderColor;
+    }
+  }
+
+  &.noStyle {
+    padding: 0 !important;
+  }
+
+  &.small {
+    padding: 0 @spacingLarge;
+
+    .warpper {
+      padding: (@spacingLarge / 2) 0;
+    }
+  }
+
+  &.large {
+    padding: 0 15px;
+
+    .warpper {
+      padding: 15px 0;
+    }
+  }
+}
+
+.title {
+  flex-shrink: 0;
+  margin-right: @spacingLarge;
+  color: @gray7;
+  font-weight: 400;
+  font-size: 13px;
+}
+
+.value {
+  display: flex;
+  flex: 1;
+  align-items: center;
+  min-height: 19px;
+  overflow: hidden;
+  color: @gray7;
+  font-weight: 500;
+  font-size: 13px;
+  word-break: break-all;
+  line-break: anywhere;
+}
+
+.placeholder {
+  color: @gray6;
+  font-weight: normal;
+  font-size: @fontSize;
+}
+
+.arrow {
+  width: 15px;
+  height: 15px;
+}

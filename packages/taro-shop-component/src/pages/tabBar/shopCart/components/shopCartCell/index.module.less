@@ -1,0 +1,106 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+:export {
+  primaryColor: @primaryColor;
+  fontColorSecondary: @fontColorSecondary;
+}
+
+.shopCartCellStyle {
+  margin-bottom: 10px;
+  padding: 0 10px;
+
+  // &.disabled {
+  //   opacity: 0.49;
+  // }
+}
+
+.content {
+  display: flex;
+}
+
+.goodImg {
+  position: relative;
+  flex: none;
+  border-radius: 5px;
+  background-color: @gray2;
+  margin: 0 10px 0 5px;
+  overflow: hidden;
+
+  .disabledTag {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 56px;
+    height: 56px;
+    background: #000000;
+    border-radius: 50%;
+
+    font-size: 12px;
+    font-weight: 400;
+    color: #ffffff;
+    opacity: 0.49;
+  }
+}
+
+.goodContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  overflow: hidden;
+}
+
+.goodName {
+  font-size: 14px;
+  font-weight: 400;
+  color: #333333;
+  margin-bottom: 5px;
+}
+
+.goodSku {
+  display: flex;
+  width: 100%;
+}
+
+.goodSku_left {
+  display: inline-flex;
+  align-items: center;
+  max-width: 100%;
+  height: 20px;
+  background: #f6f6f6;
+  border-radius: 4px;
+  padding: 0px 5px;
+
+  font-size: 12px;
+  font-weight: 400;
+  color: @fontColorSecondary;
+
+}
+
+.goodSku_text {
+  flex: 1;
+  margin-right: 5px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.goodSku_right {
+  flex: 1;
+}
+
+.goodFoot {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.goodFoot_tip {
+  color: @primaryColor;
+  font-size: 10px;
+  margin: 5px 0;
+}

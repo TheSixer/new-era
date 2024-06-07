@@ -1,0 +1,25 @@
+@import '../styles/themes/default.less';
+
+.spaceStyle {
+  overflow: hidden;
+
+  &.row {
+    display: inline-block;
+  }
+
+  &.column {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  & image,
+  & img {
+    vertical-align: middle;
+  }
+}
+
+.spaceStyle_wrapper {
+  display: flex;
+  align-items: center;
+}

@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html style="height: 100%">
+  <head>
+    <title>企业直播WEB SDK DEMO</title>
+    <meta content="text/html; charset=utf-8" http-equiv="Content-Type" />
+    <link rel="shortcut icon" href=//p1-live.byteimg.com/tos-cn-i-gjr78lqtd0/3f061494968a653d3409e0607259939e.png~tplv-gjr78lqtd0-image.image sizes="16x16">
+    <meta
+      name="viewport"
+      content="width=device-width,initial-scale=1.0,minimum-scale=1.0,
+            maximum-scale=1.0, user-scalable=no, shrink-to-fit=no, viewport-fit=cover"
+    />
+    <link rel="stylesheet" href="https://lf-cdn-tos.bytescm.com/obj/static/livesaas-client/mobile/css/index.1.2.10.css" />
+    <style>
+      .app {
+        display: flex;
+        height: 100%;
+        flex-direction: column;
+        background-image: url('//p6-live.byteimg.com/tos-cn-i-gjr78lqtd0/923a9e572712a19d5b8c84fa66e90bd6.png~tplv-gjr78lqtd0-image.image');
+        background-size: 100% 100%;
+        background-attachment: fixed;
+      }
+
+      .player {
+        width: 100vw;
+        height: calc(100vw / 16 * 9);
+      }
+
+      .menu {
+        flex: 1 1;
+        min-height: 300px;
+        overflow: hidden;
+      }
+    </style>
+  </head>
+
+  <body style="font-size: 10px; margin: 0; background-color: #080b12; height: 100%; overflow: hidden">
+    <div class="app">
+      <div id="player" class="player"></div>
+      <div id="content" class="menu"></div>
+    </div>
+    <script src="https://lf-cdn-tos.bytescm.com/obj/static/livesaas-client/mobile/js/index.1.2.10.js"></script>
+  </body>
+  <script>
+    var url = window.location
+    var params = new URLSearchParams(url.search)
+    var webSDK = new window.ByteLiveWebSDK({
+      activityId: params.get('activityId'),
+      token: params.get('token'),
+      service: 'liveDemo',
+      mode: 2,
+      modules: [
+        {
+          id: 'player', // 接入方页面内的元素ID, 视频模块会嵌入到此元素内
+          mode: 'player'
+        },
+        {
+          id: 'content', // 接入方页面内的元素ID, 菜单栏模块会嵌入到此元素内
+          mode: 'menu'
+        }
+      ],
+      options: {
+        mobileBackgroundTransparent: true,
+        saveUserInfo: true
+      }
+    })
+    webSDK.on('error', console.log)
+  </script>
+</html>

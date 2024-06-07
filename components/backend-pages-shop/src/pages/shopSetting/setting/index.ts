@@ -1,0 +1,12 @@
+export { SettingContext } from './store'
+
+export { default as UserAgreement } from './components/userAgreement'
+export { default as OrderSetting } from './components/orderSetting'
+export { default as CommentSetting } from './components/commentSetting'
+export { default as RefundReasonsSetting } from './components/refundReasonsSetting'
+export { default as NewcomerCouponSetting } from './components/newcomerCouponSetting'
+export { default as OrderPresentSetting } from './components/orderPresentSetting'
+export { default as PayAmountRateSetting } from './components/payAmountRateSetting'
+export { default as ScoreGlobalSetting } from './components/scoreGlobalSetting'
+export { default as RechargeAmountSetting } from './components/rechargeAmountSetting'
+export { default as RechargeExplainSetting } from './components/rechargeExplainSetting'

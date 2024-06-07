@@ -1,0 +1,15 @@
+{
+  "name": "@wmeimob/taro-global-data",
+  "version": "1.0.0",
+  "description": "taro全局数据",
+  "main": "./src/index.ts",
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "react": "18.2.0",
+    "@tarojs/taro": "3.5.11",
+    "@tarojs/taro-h5": "3.5.11",
+    "@wmeimob/shop-data": "workspace:^2.2.1"
+  }
+}

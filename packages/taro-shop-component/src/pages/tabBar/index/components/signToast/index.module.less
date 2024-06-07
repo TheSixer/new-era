@@ -1,0 +1,45 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.dialogStyle {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  width: 100vw;
+  height: 100vh;
+}
+.dialogStyle_wrapper {
+  // padding: @spacing;
+  width: 255px;
+  height: 252px;
+  border-radius: @borderRadius;
+  background: #ffffff;
+  overflow: hidden;
+}
+.dialogStyle_content_wrapper {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  //padding: 20px;
+}
+
+.dialog_image {
+  width: 255px;
+  height: 154px;
+}
+.sign_text {
+  position: absolute;
+  top: 31px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 15px;
+  font-weight: 600;
+  color: @primaryColor;
+  line-height: 21px;
+}
+
+.dialog_button {
+  margin-top: 30px;
+  width: 155px;
+}

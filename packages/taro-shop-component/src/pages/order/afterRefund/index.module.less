@@ -1,0 +1,51 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.afterRefundStyle {
+}
+
+.cardTitle {
+  font-size: @fontSizeLarge;
+  font-weight: 500;
+}
+
+.goods {
+  &:not(:last-child) {
+    margin-bottom: @spacing;
+  }
+}
+
+.texterea {
+  display: block;
+  width: 100%;
+  height: 118px;
+  box-sizing: border-box;
+  background: @gray2;
+  border-radius: @borderRadius;
+  padding: @spacingSmall;
+
+  textarea {
+    padding: 0;
+  }
+}
+
+.saledetail_onload {
+  .onload_img {
+    width: 88px;
+    height: 88px;
+  }
+}
+
+.refundExplain {
+  display: flex;
+  align-items: center;
+  color: @fontColorAssistant;
+  font-size: @fontSizeSm;
+  padding: 0 15px 7.5px 15px;
+}
+
+.required {
+  &::after {
+    content: '*';
+    color: @red;
+  }
+}

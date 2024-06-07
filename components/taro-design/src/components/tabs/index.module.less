@@ -1,0 +1,139 @@
+@import '../styles/themes/default.less';
+@import '../styles/utils/index.less';
+
+:export {
+  tabBarFontColor: @tabBarFontColor;
+  primaryColor: @primaryColor;
+}
+
+.MMTabs {
+  position: relative;
+}
+
+.content {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.item {
+  height: 40px;
+  line-height: 40px;
+  flex: 1;
+  text-align: center;
+  font-size: 13px;
+}
+
+.selected {
+  font-size: 16px;
+  color: @primaryColor;
+}
+
+.line {
+  position: absolute;
+  left: 50%;
+  bottom: 0;
+  margin-left: -13px;
+  width: 26px;
+  height: 3px;
+  background-color: @primaryColor;
+  transition: all 0.4s;
+}
+
+.MMTabs__scroll {
+  overflow-x: auto;
+  // background-color: white;
+
+  .content {
+    display: flex;
+    justify-content: flex-start;
+    padding-left: @containerSize;
+    padding-right: @spacingBase * 4;
+    white-space: nowrap;
+  }
+
+  .item {
+    flex: initial;
+    position: relative;
+    padding-right: @spacingBase * 4;
+    white-space: nowrap;
+    display: inline-block;
+  }
+
+  .line {
+    margin-left: -13px - @spacingBase * 2;
+    display: none;
+  }
+
+  .selected {
+    .line {
+      display: block;
+    }
+  }
+}
+
+.MMTabs__circle {
+  .content {
+    justify-content: space-around;
+  }
+
+  .item {
+    flex: initial;
+    padding: 0 15px;
+    height: 30px;
+    line-height: 30px;
+    border-radius: 15px;
+  }
+
+  .selected {
+    font-size: 16px;
+    color: @gray1;
+    background-color: @primaryColor;
+  }
+  d .line {
+    display: none;
+  }
+}
+
+.MMTabs__button {
+  background-color: initial;
+
+  .item {
+    height: 30px;
+    line-height: 28px;
+  }
+
+  .selected {
+    font-size: 13px;
+  }
+
+  &::after {
+    display: none;
+  }
+
+  .line {
+    display: none;
+  }
+
+  .item {
+    color: @primaryColor;
+    border: 1px solid @primaryColor;
+    border-right: none;
+    box-sizing: border-box;
+
+    &:first-of-type {
+      border-radius: @borderRadiusSize 0 0 @borderRadiusSize;
+    }
+
+    &:last-of-type {
+      border-right: 1px solid @primaryColor;
+      box-sizing: border-box;
+      border-radius: 0 @borderRadiusSize @borderRadiusSize 0;
+    }
+  }
+
+  .selected {
+    color: @gray1;
+    background-color: @primaryColor;
+  }
+}

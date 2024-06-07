@@ -1,0 +1,57 @@
+.phoneHeader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  padding: 0 5px;
+  .stateBar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 22px;
+    font-size: 12px;
+    font-weight: 500;
+  }
+
+  .operator {
+    margin: 0 5px;
+  }
+
+  .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 42px;
+    font-size: 16px;
+    font-weight: bold;
+  }
+}
+
+.battery {
+  display: flex;
+  align-items: center;
+
+  .icon {
+    position: relative;
+    height: 12px;
+    width: 25px;
+    padding: 2px;
+    border-radius: 2px;
+    border: 1px solid;
+    margin: 0 3px;
+
+    .power {
+      height: 100%;
+      background: #333333;
+    }
+    &::after {
+      position: absolute;
+      right: -5px;
+      top: 3px;
+      display: block;
+      border: 1px solid;
+      content: '';
+      height: 50%;
+    }
+  }
+}

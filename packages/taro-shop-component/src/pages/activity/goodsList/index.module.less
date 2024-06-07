@@ -1,0 +1,123 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+@explainButtonWidth: 68px;
+
+.goodsListStyle {
+  height: 100%;
+  //min-height: 50%;1
+  background-image: url("./images/bg.png");
+  //background-color: #FF3117;
+  background-repeat: no-repeat;
+  background-size: 100% 540px;
+}
+
+.header {
+  position: relative;
+  color: #fff;
+  font-weight: 300;
+  padding: 0 @spacingLarge;
+  padding-top: @spacing;
+}
+
+.explain {
+  position: absolute;
+  right: -(@spacing + 1);
+  top: 10px;
+  width: @explainButtonWidth;
+  line-height: 26px;
+  text-align: center;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 400;
+  border-radius: 13px 0 0 13px;
+  border: 1px solid rgba(255, 255, 255, 0.17);
+  background: rgba(255, 255, 255, 0.17);
+}
+
+.name {
+  word-break: break-all;
+  font-size: 18px;
+  font-weight: 600;
+  margin-right: @explainButtonWidth - @spacingLarge;
+}
+
+.desc {
+  line-height: 18px;
+  word-break: break-all;
+  font-size: @fontSize;
+}
+
+.discount_info {
+  flex: 1;
+  display: flex;
+  font-size: 13px;
+  margin-top: 17px;
+  margin-bottom: 20px;
+}
+
+.discount_group {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  flex-flow: wrap;
+}
+
+.discount_group_item {
+  word-break: break-all;
+
+  &:not(:last-child) {
+    margin-right: @spacingLarge;
+  }
+}
+
+.discount_num {
+  font-style:oblique;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+.discount_condition {
+  margin-right: 3px;
+}
+
+.discount_icon {
+  flex: none;
+  width: 20px;
+  height: 20px;
+  margin-right: @spacing;
+}
+
+.list {
+  height: 50%; // 页面初始化时防止背景图穿帮
+  background: @bodyBackground;
+  border-radius: @borderRadiusLarge @borderRadiusLarge 0 0;
+  padding: 0 @spacing;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+}
+
+.listItem{
+  height: auto;
+  overflow: auto;
+}
+
+.explain_detail {
+  width: 100%;
+  max-height: 60vh;
+  overflow-y: auto;
+  overflow-x: hidden;
+  word-wrap : break-word !important;
+  color: @gray6;
+  font-size: @fontSize;
+  margin-top: 20px;
+  text-align: left;
+}
+
+.empty{
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+}

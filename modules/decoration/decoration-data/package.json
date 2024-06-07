@@ -1,0 +1,19 @@
+{
+  "name": "@wmeimob-modules/decoration-data",
+  "version": "1.0.0",
+  "description": "自定义装修数据",
+  "main": "src/index.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@wmeimob/utils": "workspace:^1.4.0",
+    "antd": "^4.17.0",
+    "react": "18.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "18.0.26"
+  }
+}

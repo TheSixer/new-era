@@ -1,0 +1,73 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.addressListStyle {
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  min-height: 0;
+}
+
+.innerContent {
+  padding: 10px;
+}
+
+.listTop {
+  display: flex;
+  align-items: center;
+
+  .name {
+    color: #333333;
+    font-weight: 500;
+
+    font-size: 14px;
+    line-height: 20px;
+  }
+
+  .line {
+    width: 1px;
+    height: 12px;
+    margin: 0 5px;
+    background: #d5d5d5;
+  }
+
+  .phone {
+    color: #666666;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+  }
+}
+
+.centerAddress {
+  width: 100%;
+  padding: 15px 0px;
+  color: #666666;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 17px;
+  border-bottom: 1px solid #e6e6e6;
+}
+
+.listBot {
+  display: flex;
+  padding-top: 15px;
+}
+
+.lRed {
+  flex: 1;
+  color: #4A7AFC;
+  font-size: @fontSize;
+}
+
+.choice {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 50px;
+  margin-left: 20px;
+}

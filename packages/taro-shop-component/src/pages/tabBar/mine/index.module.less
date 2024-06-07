@@ -1,0 +1,203 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.indexStyle {
+  display: flex;
+  flex-flow: column;
+  height: 100%;
+  // background-image : url('https://xishadaoxian.oss-cn-beijing.aliyuncs.com/test/bc719583-a867-7b56-35c2-8cb16fe60f74.png');
+  // background-repeat: no-repeat;
+  // background-size  : 100% calc(100vw / 375 * 227);
+}
+
+.headerArea {
+  width: 100%;
+  padding: 20px 15px 0 15px;
+}
+
+.scroll {
+  height: 100%;
+  // 开启这个h5 首页直接进入个人页面滚动条会丢失
+  // overflow: hidden;
+}
+
+.content {
+  flex: 1;
+  min-height: 100vh;
+  background-image: url(./images/vip_bg.png), url('./images/bg.png');
+  background-repeat: no-repeat;
+  background-size: 100% auto;
+  background-position: center 309rpx, center top;
+}
+
+.content_h5{
+  background-size: @bgH5Size;
+}
+
+.orderCard {
+  margin-top: 20px;
+
+  .cardExtra {
+    display: flex;
+    align-items: center;
+    color: #999999;
+    font-weight: 400;
+
+    font-size: 12px;
+  }
+}
+
+.vip_area {
+  padding: 100rpx 40rpx 0;
+  width: 100%;
+  height: 328rpx;
+}
+
+.vip_title {
+  margin-bottom: 24rpx;
+  text-align: center;
+}
+
+.vip_title_text {
+  font-size: 36rpx;
+  color: #BC9B6A;
+  font-weight: 500;
+}
+
+.vip_title_subtext {
+  font-size: 18rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+.vip_info {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.vip_points {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  flex: 1;
+}
+
+.vip_points_text {
+  font-size: 46rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.vip_points_subtext {
+  font-size: 18rpx;
+  color: #fff;
+  text-decoration: underline;
+}
+
+.mine_body {
+  padding-top: 50rpx;
+  padding-bottom: 197rpx;
+  background-image: url(./images/body_bg.png);
+  background-size: 100% auto;
+  background-position: center top;
+  background-repeat: no-repeat;
+}
+
+.mine_body__title {
+  font-size: 36rpx;
+  font-weight: bold;
+  color: #261C02;
+  text-align: center;
+}
+
+.card {
+  margin-bottom: 10px;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+}
+
+.cell {
+  flex: 1;
+  color: #333333;
+  font-weight: 400;
+  font-size: 11px;
+  text-align: center;
+
+  .cell_img {
+    position: relative;
+    display: inline-block;
+  }
+}
+
+.orderCard_icon {
+  width: 64rpx;
+  height: 64rpx;
+}
+
+.activity_card {
+  margin: 32rpx 40rpx;
+  padding: 20rpx 30rpx 20rpx;
+  height: 180rpx;
+  background-image: url(./images/act_reservation.png);
+  background-size: cover;
+}
+
+.my_activity_card {
+  background-image: url(./images/my_reservation.png);
+}
+
+.activity_card_title {
+  margin-bottom: 6rpx;
+  font-size: 52rpx;
+  line-height: 52rpx;
+  font-weight: bold;
+  color: #BC9B6A;
+}
+
+.activity_card_content {
+  font-size: 36rpx;
+  line-height: 36rpx;
+  font-weight: bold;
+  color: #fff;
+}
+
+.activity_card_desc {
+  display: flex;
+  align-items: flex-end;
+}
+
+.activity_card_btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8rpx;
+  margin-right: 0;
+  padding: 0 22rpx;
+  width: 178rpx;
+  height: 50rpx;
+  line-height: 50rpx;
+  color: #fff;
+  font-size: 24rpx;
+  font-weight: bold;
+  border-radius: 25rpx;
+  background-color: #BC9B6A;
+}
+
+.footer_area {
+  margin-top: 68rpx;
+  text-align: center;
+}
+
+.footer_area_text {
+  font-size: 18rpx;
+  color: #A7A9AC;
+  font-weight: bold;
+}
+
+.footer_area_link {
+  text-decoration: underline;
+}

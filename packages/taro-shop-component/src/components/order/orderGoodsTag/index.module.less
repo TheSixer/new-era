@@ -1,0 +1,32 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.orderGoodsTagStyle {
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: 2;
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 20px;
+  background: @secondColor;
+  border-radius: @borderRadiusSmall 0 @borderRadiusSmall 0;
+  color: #fff;
+  font-size: 11px;
+  padding: 0 @spacingSmall;
+}
+
+.orderGoodsTagStyle__preSale {
+  background: @purple8;
+}
+.orderGoodsTagStyle__exchangeCoupon {
+  background: linear-gradient(137deg, #FA2E39 0%, #E70914 100%);
+}
+
+.orderGoodsTagStyle__gift {
+  background: linear-gradient(137deg, #FD333E 0%, #E50611 100%);
+}
+.orderGoodsTagStyle__giftCoupon {
+  background: linear-gradient(137deg, #8174F8 0%, #397CFD 100%);
+}

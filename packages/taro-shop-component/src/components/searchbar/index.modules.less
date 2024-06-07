@@ -1,0 +1,78 @@
+.MMInputSearch {
+  display: flex;
+  flex-direction: row;
+  padding: 0 40rpx;
+}
+
+.icon {
+  width: 38rpx;
+  height: 38rpx;
+}
+
+.MMInputSearch__focus {
+  .content {
+    padding: 0 20rpx;
+    justify-content: start;
+  }
+
+  .placeholder {
+    display: none;
+  }
+
+  .text {
+    display: flex;
+  }
+
+  .input_box {
+    position: relative;
+    width: auto;
+    height: auto;
+    display: block;
+    margin-left: 20rpx;
+    opacity: 1;
+  }
+}
+
+.content {
+  position: relative;
+  display: flex;
+  flex: 1;
+  padding: 0 20rpx;
+  border-radius: 16rpx;
+  height: 80rpx;
+  flex-direction: row;
+  align-items: center;
+  background-color: rgba(255, 255, 255, .2);
+  color: #767575;
+  border: 1rpx solid #767575;
+}
+
+.input_box {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+
+  flex: 1;
+
+  input {
+    width: 100%;
+    height: 100%;
+    color: #fff;
+  }
+}
+
+.placeholder {
+  margin-left: 20rpx;
+}
+
+.text {
+  display: none;
+  padding-left: 20rpx;
+  align-items: center;
+  justify-content: center;
+  color: #333;
+  border-radius: 8rpx;
+}

@@ -1,0 +1,21 @@
+{
+  "name": "@wmeimob/wx-rich-text",
+  "version": "1.0.2",
+  "description": "微信小程序富文本解析组件",
+  "author": "xiang.hu <xiang.hu@weimob.com>",
+  "homepage": "",
+  "license": "ISC",
+  "directories": {
+    "richText": "richText"
+  },
+  "files": [
+    "richText"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git remote add origin git@codeup.aliyun.com:5f855dfb1858a17210466fd0/r_d_center/mm-frontend.git"
+  },
+  "scripts": {
+    "test": "echo \"Error: run tests from root\" && exit 1"
+  }
+}

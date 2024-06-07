@@ -1,0 +1,161 @@
+@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+
+.logisticsStyle {
+  padding: 10px 0;
+}
+//快递信息
+.logistics {
+  //height: 114px;
+  background: #FFFFFF;
+  border-radius: 10px;
+  overflow: hidden;
+  margin-bottom: 15px;
+
+  .title{
+    color: @gray6;
+  }
+
+  .color28{
+    color: #282828;
+  }
+
+  .no_copy {
+    width: 33px;
+    height: 16px;
+    color: @gray7;
+    background: #E6E6E6;
+    border-radius: 8px;
+    font-size: 10px;
+    text-align: center;
+    line-height: 16px;
+    margin-left: 10px;
+  }
+
+  .logistics_content {
+    display: flex;
+    align-items: center;
+  }
+
+  .logistics_info {
+    flex: 1;
+    margin-left: 15px;
+  }
+
+  .expressCompany {
+    margin-bottom: 10px;
+    color: #231815;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 21px;
+  }
+
+  .expressNo {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    color: #282828;
+    font-weight: 400;
+
+    font-size: 13px;
+
+    .no {
+      flex: 1;
+      margin-right: 5px;
+    }
+
+  }
+}
+// 物流走向
+.log_list {
+  //margin-bottom: 6px;
+  .log_list_t {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    //margin-left: 5px;
+    .log_list_yuan {
+      width: 9px;
+      height: 9px;
+      margin-right: 20px;
+      background: #EBEBEB;
+      border-radius: 50%;
+      position: relative;
+      &:after{
+        content: "";
+        display: block;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #C4C4C4;
+      }
+    }
+    .log_list_time {
+      flex: 1;
+      height: 17px;
+      color: #949698;
+      font-weight: 400;
+      font-size: 12px;
+      font-family: PingFangSC-Regular, PingFang SC;
+      line-height: 17px;
+    }
+  }
+  .log_list_b {
+    margin: 0px 0 0 3px;
+    padding: 5px 0 20px 14px;
+    color: #333333;
+    font-weight: 400;
+    font-size: 14px;
+    font-family: PingFangSC-Regular, PingFang SC;
+    //border-left: 1px solid #EBEBEB;
+    position: relative;
+    &:after{
+      content: "";
+      display: inline-block;
+      position: absolute;
+      top: -5px;
+      left: 1px;
+      width: 1px;
+      height: 120%;
+      background: #EBEBEB;
+    }
+  }
+}
+.log_list:first-of-type {
+  .log_list_t {
+    margin-left: 0;
+    .log_list_yuan {
+      width: 9px;
+      height: 9px;
+      background: #CED6FF;
+      box-shadow: 0px 0px 4px 0px rgba(171,34,50,0.2);
+      margin-right: 15px;
+      background-size: 100% 100%;
+      position: relative;;
+      &:after{
+        content: "";
+        display: block;
+        position: absolute;
+        top: 2px;
+        left: 2px;
+        width: 5px;
+        height: 5px;
+        border-radius: 50%;
+        background: #6780F7;
+      }
+    }
+  }
+  .log_list_b {
+    //border-left: 1px solid #EBEBEB;
+  }
+}
+.log_list:last-of-type {
+  .log_list_b {
+    border-left: 0;
+    &:after{
+      height: 0;
+    }
+  }
+}
