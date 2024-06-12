@@ -118,6 +118,407 @@ export interface AuthMobileInputDto {
   code?: string;
 }
 
+export interface ActiveOrderListParam {
+  /**
+   * 开始时间
+   */
+  beginTime?: string;
+  /**
+   * 结束时间
+   */
+  endTime?: string;
+  /**
+   * 主键
+   */
+  id?: number;
+  /**
+   * 姓名/手机号/昵称/报名编号
+   */
+  name?: string;
+  /**
+   * nextToken
+   */
+  nextToken?: number;
+  /**
+   * 状态 0：待分配座位 1：已分配座位 2：已核销 3：已取消
+   */
+  orderStatus?: number;
+  /**
+   * 当前页码
+   */
+  pageNum?: number;
+  /**
+   * 每页数据量
+   */
+  pageSize?: number;
+  /**
+   * 场次id
+   */
+  unifyId?: number;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«PagedResult«ActivityOrderOutputDto»»
+ */
+export interface JsonResultActivityOrderOutputDto {
+  code?: number;
+  data?: PagedResultActivityOrderOutputDto;
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* PagedResult«ActivityOrderOutputDto»
+*/
+export interface PagedResultActivityOrderOutputDto {
+  list?: ActivityOrderOutputDto[];
+  total?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivityOrderOutputDto
+*/
+export interface ActivityOrderOutputDto {
+  activity?: ActivityOutputDto;
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 证件号
+   */
+  cardNo?: string;
+  /**
+   * 证件类型
+   */
+  cardType?: string;
+  createUser?: string;
+  gmtCreated?: Date;
+  gmtModified?: Date;
+  /**
+   * 编号
+   */
+  id?: number;
+  modifyUser?: string;
+  /**
+   * 核销二维码
+   */
+  qrCode?: string;
+  status?: number;
+  /**
+   * 场次id 0表示统一场次
+   */
+  unifyId?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivityOutputDto
+*/
+export interface ActivityOutputDto {
+  /**
+   * 活动限制人数
+   */
+  activityMaxNum?: number;
+  /**
+   * 活动状态 0：未开始 1：进行中 2：已结束
+   */
+  activityStatus?: number;
+  /**
+   * 详细地址
+   */
+  address?: string;
+  /**
+   * 区
+   */
+  area?: string;
+  /**
+   * 报名时间-结束时间
+   */
+  bookEndTime?: Date;
+  /**
+   * 报名费用
+   */
+  bookFree?: number;
+  /**
+   * 已预约人数
+   */
+  bookNum?: number;
+  /**
+   * 报名时间-开始时间
+   */
+  bookStartTime?: Date;
+  /**
+   * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
+   */
+  checkType?: number;
+  /**
+   * 市
+   */
+  city?: string;
+  /**
+   * 活动类型id
+   */
+  classifyId?: number;
+  /**
+   * 活动封面
+   */
+  cover?: string;
+  createUser?: string;
+  /**
+   * 活动详情
+   */
+  details?: string;
+  /**
+   * 距离
+   */
+  distance?: number;
+  /**
+   * 活动时间-结束时间
+   */
+  endTime?: Date;
+  gmtCreated?: Date;
+  gmtModified?: Date;
+  /**
+   * 编号
+   */
+  id?: number;
+  /**
+   * 活动图片
+   */
+  imgs?: string;
+  /**
+   * 首页展示封面
+   */
+  indexCover?: string;
+  /**
+   * 首页展示 1是
+   */
+  indexView?: boolean;
+  /**
+   * 活动简介
+   */
+  intro?: string;
+  /**
+   * 纬度
+   */
+  latitude?: string;
+  /**
+   * 级别限制 0不限
+   */
+  level?: number;
+  /**
+   * 经度
+   */
+  longitude?: string;
+  modifyUser?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  /**
+   * 参与用户 0：全部用户 1：白名单
+   */
+  participate?: number;
+  /**
+   * 省
+   */
+  province?: string;
+  /**
+   * 统一场次席位
+   */
+  seat?: number;
+  /**
+   * 活动座位
+   */
+  seatCreateInputListDtos?: ActivitySeatCreateInputListDto[];
+  /**
+   * 活动座位分配规则
+   */
+  seatRuleCreateInputDtos?: ActivitySeatRuleCreateInputDto[];
+  /**
+   * 活动时间-开始时间
+   */
+  startTime?: Date;
+  status?: number;
+  /**
+   * 是否统一场次 1是
+   */
+  unify?: boolean;
+  /**
+   * 活动场次
+   */
+  unifyCreateInputDtos?: ActivityUnifyCreateInputDto[];
+  /**
+   * 显示座位号
+   */
+  viewSeatNo?: boolean;
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatCreateInputListDto
+*/
+export interface ActivitySeatCreateInputListDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 区域名称
+   */
+  areaName?: string;
+  /**
+   * 区域对应排号
+   */
+  seatCreateInputDtos?: ActivitySeatCreateInputDto[];
+}
+
+/**
+ * ActivityWhiteCreateInputDto
+ */
+export interface ActivityWhiteCreateInputDto {
+  id?: number;
+  /**
+   * 手机号
+   */
+  mobile?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  [property: string]: any;
+}
+
+export interface ActivityWhiteQueryListParam {
+  /**
+   * 开始时间
+   */
+  beginTime?: string;
+  /**
+   * 结束时间
+   */
+  endTime?: string;
+  /**
+   * 主键
+   */
+  id?: number;
+  /**
+   * 姓名/手机号
+   */
+  name?: string;
+  /**
+   * nextToken
+   */
+  nextToken?: number;
+  /**
+   * 当前页码
+   */
+  pageNum?: number;
+  /**
+   * 每页数据量
+   */
+  pageSize?: number;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«PagedResult«ActivityWhiteOutputDto»»
+ */
+export interface ActivityWhiteOutputDto {
+  code?: number;
+  data?: PagedResultActivityWhiteOutputDto;
+  msg?: string;
+}
+
+/**
+* PagedResult«ActivityWhiteOutputDto»
+*/
+export interface PagedResultActivityWhiteOutputDto {
+  list?: ActivityWhiteOutputDto[];
+  total?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivityWhiteOutputDto
+*/
+export interface ActivityWhiteOutputDto {
+  /**
+   * 编号
+   */
+  id?: number;
+  /**
+   * 手机号
+   */
+  mobile?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatCreateInputDto
+*/
+export interface ActivitySeatCreateInputDto {
+  /**
+   * 排号
+   */
+  rowNumber?: string;
+  /**
+   * 座位数量
+   */
+  seat?: number;
+}
+
+/**
+* ActivitySeatRuleCreateInputDto
+*/
+export interface ActivitySeatRuleCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 适用座位id集合
+   */
+  seatIds?: string;
+  /**
+   * 排序值
+   */
+  sort?: number;
+  /**
+   * 标签id
+   */
+  tagId?: number;
+}
+
+/**
+* ActivityUnifyCreateInputDto
+*/
+export interface ActivityUnifyCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 活动席位
+   */
+  seat?: number;
+  /**
+   * 场次日期
+   */
+  unifyDate?: Date;
+  /**
+   * 场次时间
+   */
+  unifyTime?: string;
+}
+
 export interface LiveStatisticsDto {
   /**
    * 销量数量
@@ -7655,6 +8056,54 @@ export interface HotKeywordUpdateDto {
   url?: string;
 }
 
+/**
+ * BannerCreateInputDto
+ */
+export interface BannerCreateInputDto {
+  /**
+   * 适用日期，尖货必传
+   */
+  applicableDate?: string;
+  /**
+   * 类型 0 图片，1 视频
+   */
+  bannerType?: number;
+  /**
+   * 内容
+   */
+  content?: string;
+  /**
+   * 图片链接
+   */
+  imgUrl: string;
+  /**
+   * 名称
+   */
+  name?: string;
+  /**
+   * 显示位置 开屏页:OPEN_SCREEN 玩转积分:PLAY_WITH_POINTS 尖货:GOODS banner:BANNER 主推故事:MAIN_STORY
+   * 品牌故事:BRAND_STORY
+   */
+  position?: string;
+  /**
+   * 显示状态 1显示0不显示
+   */
+  showStatus: number;
+  /**
+   * 排序值
+   */
+  sort: number;
+  /**
+   * 外链地址
+   */
+  url?: string;
+  /**
+   * 外链类型
+   */
+  urlType?: number;
+  [property: string]: any;
+}
+
 export interface EventTypeDto {
   /**
    * id
@@ -9161,6 +9610,192 @@ export interface MarketingActivityOfFullDto {
    * @format date-time
    */
   startTime?: string;
+}
+
+export interface MarketingUserTagsParam {
+  /**
+   * 开始时间
+   */
+  beginTime?: string;
+  /**
+   * 结束时间
+   */
+  endTime?: string;
+  /**
+   * 主键
+   */
+  id?: number;
+  /**
+   * 名称
+   */
+  name?: string;
+  /**
+   * nextToken
+   */
+  nextToken?: number;
+  /**
+   * 当前页码
+   */
+  pageNum?: number;
+  /**
+   * 每页数据量
+   */
+  pageSize?: number;
+  /**
+   * 是否特殊 1是
+   */
+  special?: boolean;
+  [property: string]: any;
+}
+export interface BannerSearchParam {
+  /**
+   * 开始时间
+   */
+  beginTime?: string;
+  /**
+   * 结束时间
+   */
+  endTime?: string;
+  /**
+   * 主键
+   */
+  id?: number;
+  /**
+   * 名称
+   */
+  name?: string;
+  /**
+   * nextToken
+   */
+  nextToken?: number;
+  /**
+   * 当前页码
+   */
+  pageNum?: number;
+  /**
+   * 每页数据量
+   */
+  pageSize?: number;
+  /**
+   * 显示位置 开屏页:OPEN_SCREEN 玩转积分:PLAY_WITH_POINTS 尖货:GOODS banner:BANNER 主推故事:MAIN_STORY
+   * 品牌故事:BRAND_STORY
+   */
+  position?: string;
+  /**
+   * 显示状态 1显示0不显示
+   */
+  showStatus?: number;
+  [property: string]: any;
+}
+/**
+ * BannerCreateInputDto
+ */
+export interface BannerCreateInputDto {
+  /**
+   * 适用日期，尖货必传
+   */
+  applicableDate?: string;
+  /**
+   * 类型 0 图片，1 视频
+   */
+  bannerType?: number;
+  /**
+   * 内容
+   */
+  content?: string;
+  /**
+   * 图片链接
+   */
+  imgUrl: string;
+  /**
+   * 名称
+   */
+  name?: string;
+  /**
+   * 显示位置 开屏页:OPEN_SCREEN 玩转积分:PLAY_WITH_POINTS 尖货:GOODS banner:BANNER 主推故事:MAIN_STORY
+   * 品牌故事:BRAND_STORY
+   */
+  position?: string;
+  /**
+   * 显示状态 1显示0不显示
+   */
+  showStatus: number;
+  /**
+   * 排序值
+   */
+  sort: number;
+  /**
+   * 外链地址
+   */
+  url?: string;
+  /**
+   * 外链类型
+   */
+  urlType?: number;
+  // [property: string]: any;
+}
+
+/**
+ * CheckUserCreateInputDto
+ */
+export interface CheckUserCreateInputDto {
+  id?: number;
+  /**
+   * 手机号
+   */
+  mobile?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  [property: string]: any;
+}
+
+export interface CheckUserParam {
+  /**
+   * 开始时间
+   */
+  beginTime?: string;
+  /**
+   * 结束时间
+   */
+  endTime?: string;
+  /**
+   * 主键
+   */
+  id?: number;
+  /**
+   * 姓名/手机号
+   */
+  name?: string;
+  /**
+   * nextToken
+   */
+  nextToken?: number;
+  /**
+   * 当前页码
+   */
+  pageNum?: number;
+  /**
+   * 每页数据量
+   */
+  pageSize?: number;
+  [property: string]: any;
+}
+
+/**
+ * TagCreateInputDto
+ */
+export interface MarketingUserTagsDto {
+  /**
+   * 名称
+   */
+  name?: string;
+  /**
+   * 是否特殊 1是
+   */
+  special: boolean;
+  [property: string]: any;
 }
 
 export interface MarketingActivityClassifyDto {
@@ -16077,6 +16712,121 @@ export interface JsonResultPagedResultEventTypesVo {
   msg?: string;
 }
 
+/**
+ * JsonResult«PagedResult«BannerOutputDto»»
+ */
+export interface JsonResultPagedResultBannerOutputDto {
+  code?: number;
+  data?: PagedResultBannerOutputDto;
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* PagedResult«BannerOutputDto»
+*/
+export interface PagedResultBannerOutputDto {
+  list?: BannerOutputDto[];
+  total?: number;
+  [property: string]: any;
+}
+
+/**
+* BannerOutputDto
+*/
+export interface BannerOutputDto {
+  /**
+   * 适用日期，尖货必传
+   */
+  applicableDate?: string;
+  /**
+   * 类型 0 图片，1 视频
+   */
+  bannerType?: number;
+  /**
+   * 内容
+   */
+  content?: string;
+  /**
+   * 编号
+   */
+  id?: number;
+  /**
+   * 图片链接
+   */
+  imgUrl: string;
+  /**
+   * 名称
+   */
+  name?: string;
+  /**
+   * 显示位置 开屏页:OPEN_SCREEN 玩转积分:PLAY_WITH_POINTS 尖货:GOODS banner:BANNER 主推故事:MAIN_STORY
+   * 品牌故事:BRAND_STORY
+   */
+  position?: string;
+  /**
+   * 显示状态 1显示0不显示
+   */
+  showStatus: number;
+  /**
+   * 排序值
+   */
+  sort: number;
+  /**
+   * 外链地址
+   */
+  url?: string;
+  /**
+   * 外链类型
+   */
+  urlType?: number;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«PagedResult«TagOutputDto»»
+ */
+export interface JsonResultPagedResultUserTagsVo {
+  code?: number;
+  data?: PagedResultTagOutputDto;
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* PagedResult«TagOutputDto»
+*/
+export interface PagedResultTagOutputDto {
+  list?: TagOutputDto[];
+  total?: number;
+  [property: string]: any;
+}
+
+/**
+* TagOutputDto
+*/
+export interface TagOutputDto extends MarketingUserTagsDto {
+  /**
+   * 编号
+   */
+  id?: number;
+}
+
+/**
+* CheckUserOutputDto
+*/
+
+export interface JsonResultPagedResultMarketingActivityVo {
+  /** @format int32 */
+  code?: number;
+  data?: PagedResultMarketingActivityVo;
+  msg?: string;
+}
+
+/**
+* CheckUserOutputDto
+*/
+
 export interface JsonResultPagedResultMarketingActivityVo {
   /** @format int32 */
   code?: number;
@@ -16761,6 +17511,208 @@ export interface AdminActivityClassifyGetParams {
   [property: string]: any;
 }
 
+/**
+ * ActivityCreateInputDto
+ */
+export interface ActivityCreateInputDto {
+  /**
+   * 活动状态 0：未开始 1：进行中 2：已结束
+   */
+  activityStatus?: number;
+  /**
+   * 详细地址
+   */
+  address?: string;
+  /**
+   * 区
+   */
+  area?: string;
+  /**
+   * 报名时间-结束时间
+   */
+  bookEndTime?: Date;
+  /**
+   * 报名费用
+   */
+  bookFree?: number;
+  /**
+   * 报名时间-开始时间
+   */
+  bookStartTime?: Date;
+  /**
+   * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
+   */
+  checkType?: number;
+  /**
+   * 市
+   */
+  city?: string;
+  /**
+   * 活动类型id
+   */
+  classifyId?: number;
+  /**
+   * 活动封面
+   */
+  cover?: string;
+  /**
+   * 活动详情
+   */
+  details?: string;
+  /**
+   * 活动时间-结束时间
+   */
+  endTime?: Date;
+  /**
+   * 活动图片
+   */
+  imgs?: string;
+  /**
+   * 首页展示封面
+   */
+  indexCover?: string;
+  /**
+   * 首页展示 1是
+   */
+  indexView?: boolean;
+  /**
+   * 活动简介
+   */
+  intro?: string;
+  /**
+   * 纬度
+   */
+  latitude?: string;
+  /**
+   * 级别限制 0不限
+   */
+  level?: number;
+  /**
+   * 经度
+   */
+  longitude?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  /**
+   * 参与用户 0：全部用户 1：白名单
+   */
+  participate?: number;
+  /**
+   * 省
+   */
+  province?: string;
+  /**
+   * 统一场次席位
+   */
+  seat?: number;
+  /**
+   * 活动座位
+   */
+  seatCreateInputListDtos?: ActivitySeatCreateInputListDto[];
+  /**
+   * 活动座位分配规则
+   */
+  seatRuleCreateInputDtos?: ActivitySeatRuleCreateInputDto[];
+  /**
+   * 活动时间-开始时间
+   */
+  startTime?: Date;
+  /**
+   * 是否统一场次 1是
+   */
+  unify?: boolean;
+  /**
+   * 活动场次
+   */
+  unifyCreateInputDtos?: ActivityUnifyCreateInputDto[];
+  /**
+   * 显示座位号
+   */
+  viewSeatNo?: boolean;
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatCreateInputListDto
+*/
+export interface ActivitySeatCreateInputListDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 区域名称
+   */
+  areaName?: string;
+  /**
+   * 区域对应排号
+   */
+  seatCreateInputDtos?: ActivitySeatCreateInputDto[];
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatCreateInputDto
+*/
+export interface ActivitySeatCreateInputDto {
+  /**
+   * 排号
+   */
+  rowNumber?: string;
+  /**
+   * 座位数量
+   */
+  seat?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatRuleCreateInputDto
+*/
+export interface ActivitySeatRuleCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 适用座位id集合
+   */
+  seatIds?: string;
+  /**
+   * 排序值
+   */
+  sort?: number;
+  /**
+   * 标签id
+   */
+  tagId?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivityUnifyCreateInputDto
+*/
+export interface ActivityUnifyCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 活动席位
+   */
+  seat?: number;
+  /**
+   * 场次日期
+   */
+  unifyDate?: Date;
+  /**
+   * 场次时间
+   */
+  unifyTime?: string;
+  [property: string]: any;
+}
 export interface AdminActivityFlashSaleGetParams {
   /** 活动名称 */
   activityName?: string;

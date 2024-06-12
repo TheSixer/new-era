@@ -73,7 +73,7 @@
     "@wmeimob-modules/member-taro": "workspace:^1.0.0",
     "@wmeimob-modules/task-data": "workspace:^1.0.0",
     "@wmeimob-modules/task-taro": "workspace:^1.0.0",
-    "@wmeimob/aliyun": "workspace:^1.4.0",
+    "@wmeimob/tencent-cloud": "workspace:^1.0.0",
     "@wmeimob/data-model": "workspace:^1.1.0",
     "@wmeimob/decorator": "2.0.0",
     "@wmeimob/request": "workspace:^1.5.0",

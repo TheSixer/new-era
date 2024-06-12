@@ -3,7 +3,7 @@ import MMGoodsCreatePage, { ImageList, useService } from '@wmeimob-modules/goods
 import { Form } from 'antd'
 import { ColumnType } from 'antd/lib/table'
 import { history } from 'umi'
-import { upload } from '~/components/aliyun'
+import { upload } from '~/components/tencent-cloud'
 import { systemConfig } from '~/config'
 import { api } from '~/request'
 import { GoodsSkuDTO } from '@wmeimob/backend-api'

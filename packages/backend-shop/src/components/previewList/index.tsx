@@ -1,7 +1,7 @@
 import { FC, CSSProperties } from 'react'
 import { Badge, Image, Space } from 'antd'
 import { ImageProps } from 'antd/es/image'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 
 export interface IProps extends Pick<ImageProps, 'fallback'> {
   /** 首图是否标签化 */

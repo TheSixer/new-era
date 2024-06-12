@@ -3,7 +3,7 @@ import { View, Image } from '@tarojs/components'
 import { IGoodItemProps } from './const'
 import styles from './index.module.less'
 import GoodPrice from '../goodPrice'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import classNames from 'classnames'
 
 const imgStyle = { width: 120, height: 120 }

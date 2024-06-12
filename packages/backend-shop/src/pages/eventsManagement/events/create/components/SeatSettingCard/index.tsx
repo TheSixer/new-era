@@ -1,189 +1,74 @@
-import { FC, memo, useRef, useState } from 'react'
+import { FC, memo } from 'react'
 import styles from './index.module.less'
 import { IActivitySettingCardProps } from './const'
-import { Button, Card, Form, Space, Typography } from 'antd'
-import { ProFormDependency, ProFormDigit } from '@ant-design/pro-form'
-import { EActivityType } from '@wmeimob/shop-data/src/enums/activity/EActivityType'
-import { EActivityConditionType } from '~/enums/activity/EActivityConditionType'
-import { EActivityPromotionType } from '~/enums/activity/EActivityPromotionType'
-import { PlusOutlined } from '@ant-design/icons'
-import AssignPresentGood from '../assignPresentGood'
-import PresentGoodItem from '../presentGoodItem'
-import mmFormRule from '@wmeimob/form-rules'
-import { GoodsVO } from '@wmeimob/backend-api'
+import { Button, Card, Form, Input } from 'antd'
 
 const Component: FC<IActivitySettingCardProps> = (props) => {
   const { disabled } = props
-  const conditionName = ['promotionParam', 'promotionConditionType']
-  const promotionTypeName = ['promotionParam', 'promotionType']
-  const promotionConditionListName = ['promotionParam', 'promotionConditionList']
-
-  const { showModal, setShowModal } = useAssPresentGoodService()
-  const editIndex = useRef(-1)
 
   return (
     <Card title="活动设置" className={styles.activitySettingCardStyle}>
-
-      <ProFormDependency name={['activityType', conditionName, promotionTypeName, promotionConditionListName]}>
-        {({ activityType, promotionParam }, form) => {
-          const { promotionConditionType, promotionType, promotionConditionList } = promotionParam
-
-          const isStep = promotionType === EActivityPromotionType.Step
-          const placeholders = {
-            [EActivityConditionType.Price]: ['请输入满减金额', '元'],
-            [EActivityConditionType.Packages]: ['请输入件数', '件']
-          }[promotionConditionType]
-
-          const placeholders2 = {
-            [EActivityType.Deduction]: ['减', '请输入金额', '元'],
-            [EActivityType.Discount]: ['打', '请输入折扣', '折'],
-            [EActivityType.Presented]: ['赠', '', '']
-          }[activityType]
-
-          const promoFieldProps = activityType === EActivityType.Discount ? { min: 0, max: 10, precision: 2 } : { min: 0, max: 99999, precision: 2 }
-
-          // 满赠只能填一项，不允许增加
-          const canAdd = activityType !== EActivityType.Presented || (activityType === EActivityType.Presented && !promotionConditionList?.length)
-
-          return (
-            <>
-              <Form.List name={promotionConditionListName}>
-                {(fields, { add, remove }) => (
-                  <Card>
-                    {fields.map(({ key, name, ...restField }, index) => {
-                      const preConNamePath = ['promotionParam', 'promotionConditionList', index - 1, 'con']
-                      const prePromoNamePath = ['promotionParam', 'promotionConditionList', index - 1, 'promo']
-                      return (
-                        <Space key={key} className={styles.formList} align="baseline">
-                          <span>满</span>
-                          <ProFormDigit
-                            {...restField}
-                            wrapperCol={{ span: 24 }}
-                            name={[name, 'con']}
-                            disabled={disabled}
-                            dependencies={index > 0 ? [preConNamePath] : undefined}
-                            rules={[
-                              ...mmFormRule.required,
-                              {
-                                validator: async (_rule, value) => {
-                                  if (index > 0) {
-                                    const con = form.getFieldValue(preConNamePath)
-                                    if (!!con && !!value && value <= con) {
-                                      throw new Error('下一项值必须大于上一项')
-                                    }
-                                  }
-                                  return true
-                                }
-                              }
-                            ]}
-                            fieldProps={{
-                              min: 0.01,
-                              max: 99999,
-                              precision: promotionConditionType === EActivityConditionType.Packages ? 0 : 2,
-                              placeholder: placeholders[0]
-                            }}
-                            width={190}
-                          />
-                          <span>
-                            {placeholders[1]},{placeholders2[0]}
-                          </span>
-                          {activityType === EActivityType.Presented ? (
-                            <>
-                              <Form.Item
-                                name={[name]}
-                                wrapperCol={{ span: 24 }}
-                                rules={[
-                                  {
-                                    validator: (__, value: GoodsVO) => (value?.goodsNo ? Promise.resolve() : Promise.reject(new Error('请选择商品 ')))
-                                  }
-                                ]}
-                              >
-                                <PresentGoodItem
-                                  disabled={disabled}
-                                  onChooseGood={() => {
-                                    editIndex.current = index
-                                    setShowModal(true)
-                                  }}
-                                />
-                              </Form.Item>
-                              <Form.Item name={[name, 'skuNo']} hidden />
-                              <ProFormDigit name={[name, 'promo']} initialValue={1} hidden />
-                            </>
-                          ) : (
-                            <ProFormDigit
-                              {...restField}
-                              wrapperCol={{ span: 24 }}
-                              name={[name, 'promo']}
-                              disabled={disabled}
-                              dependencies={index > 0 ? [prePromoNamePath] : undefined}
-                              rules={[
-                                ...mmFormRule.required,
-                                {
-                                  validator: async (_rule, value) => {
-                                    if (index > 0) {
-                                      const promo = form.getFieldValue(prePromoNamePath)
-                                      const activityType = form.getFieldValue(['activityType'])
-                                      if (activityType === EActivityType.Deduction && !!promo && !!value && value <= promo) {
-                                        throw new Error('下一项值必须大于上一项')
-                                      } else if (activityType === EActivityType.Discount && !!promo && !!value && value >= promo) {
-                                        throw new Error('下一项值必须小于上一项')
-                                      }
-                                    }
-                                    return true
-                                  }
-                                }
-                              ]}
-                              fieldProps={{
-                                ...promoFieldProps,
-                                placeholder: placeholders2[1]
+      <Form.List name="seatCreateInputListDtos">
+        {(fields, { add, remove }) => (
+          <div style={{ display: 'flex', rowGap: 16, flexDirection: 'column' }}>
+            {fields.map((field) => (
+              <Card
+                size="small"
+                title={(
+                  <Form.Item label="区域名称" name={[field.name, "areaName"]} style={{ marginBottom: 0 }}>
+                    <Input  disabled={disabled} placeholder="区域名称" />
+                  </Form.Item>
+                )}
+                key={field.key}
+                extra={
+                  <Button
+                    onClick={() => {
+                      remove(field.name);
+                    }}
+                  >
+                    删除
+                  </Button>
+                }
+              >
+                {/* Nest Form.List */}
+                <Form.List name={[field.name, 'seatCreateInputDtos']}>
+                  {(subFields, subOpt) => (
+                    <div style={{ display: 'flex', flexDirection: 'column', rowGap: 16 }}>
+                      {subFields.map((subField) => (
+                        <Card key={subField.key}>
+                          <Form.Item label="排号" name={[subField.name, 'rowNumber']}>
+                            <Input placeholder="排号" />
+                          </Form.Item>
+                          <Form.Item label="座位数量" name={[subField.name, 'seat']}>
+                            <Input placeholder="座位数量" />
+                          </Form.Item>
+                                                
+                          <Form.Item wrapperCol={{ offset: 3 }}>
+                            <Button
+                              onClick={() => {
+                                subOpt.remove(subField.name);
                               }}
-                              width={190}
-                            />
-                          )}
-                          <span>{placeholders2[2]}</span>
-
-                          {disabled ? null : isStep ? (
-                            <Button type="link" size="small" onClick={() => remove(name)}>
+                            >
                               删除
                             </Button>
-                          ) : (
-                            <Typography.Text type="secondary" style={{ fontSize: 12 }}>
-                              例：满300-30 则600-60 / 900-90 依次类推
-                            </Typography.Text>
-                          )}
-                        </Space>
-                      )
-                    })}
-                    {!disabled && isStep && canAdd && (
-                      <Button type="dashed" onClick={() => add({})} block icon={<PlusOutlined />}>
-                        新增区间
+                          </Form.Item>
+                        </Card>
+                      ))}
+                      <Button type="dashed" onClick={() => subOpt.add()} block>
+                        添加排号
                       </Button>
-                    )}
-                  </Card>
-                )}
-              </Form.List>
+                    </div>
+                  )}
+                </Form.List>
+              </Card>
+            ))}
 
-              <AssignPresentGood
-                visible={showModal}
-                value={[]}
-                onClose={() => setShowModal(false)}
-                onOk={(value) => {
-                  const list = form.getFieldValue(promotionConditionListName)
-                  const newData = list.map((item, index) => {
-                    if (index === editIndex.current) {
-                      return { ...item, ...value }
-                    }
-                    return item
-                  })
-
-                  form.setFields([{ name: promotionConditionListName, value: newData }])
-                  setShowModal(false)
-                }}
-              />
-            </>
-          )
-        }}
-      </ProFormDependency>
+            <Button type="dashed" onClick={() => add({areaName: '', seatCreateInputDtos: [{rowNumber: '', seat: ''}]})} block>
+              添加区域
+            </Button>
+          </div>
+        )}
+      </Form.List>
     </Card>
   )
 }
@@ -192,12 +77,3 @@ Component.displayName = 'ActivitySettingCard'
 
 const ActivitySettingCard = memo(Component)
 export default ActivitySettingCard
-
-function useAssPresentGoodService() {
-  const [showModal, setShowModal] = useState(false)
-
-  return {
-    showModal,
-    setShowModal
-  }
-}

@@ -10,7 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "@wmeimob-modules/decoration-data": "workspace:^1.0.0",
-    "@wmeimob/aliyun": "workspace:^1.4.0",
+    "@wmeimob/tencent-cloud": "workspace:^1.0.0",
     "@wmeimob/backend-api": "workspace:^1.0.0",
     "@wmeimob/backend-pages": "workspace:^1.0.0",
     "@wmeimob/backend-pages-shop": "workspace:^1.0.0",

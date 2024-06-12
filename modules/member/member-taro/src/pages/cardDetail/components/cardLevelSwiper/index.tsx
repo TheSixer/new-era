@@ -1,6 +1,6 @@
 import { View, Swiper, SwiperItem, Image } from '@tarojs/components'
 import { EMemberLevel } from '@wmeimob-modules/member-data/src/enums/EMemberLevel'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import mmCurrenty from '@wmeimob/utils/src/mmCurrency'
 import { FC, memo } from 'react'
 import { ICurrentLevelInfo, ILevelList } from '../..'

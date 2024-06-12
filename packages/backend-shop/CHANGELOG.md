@@ -25,7 +25,7 @@
 
 - Updated dependencies
   - @wmeimob/form-rules@1.2.0
-  - @wmeimob/aliyun@1.4.0
+  - @wmeimob/tencent-cloud@1.4.0
   - @wmeimob/backend-notice@2.0.0
   - @wmeimob/backend-pro@1.2.0
   - @wmeimob/request@1.5.0
@@ -43,7 +43,7 @@
 
 - Updated dependencies
   - @wmeimob/form-rules@1.1.0
-  - @wmeimob/aliyun@1.3.0
+  - @wmeimob/tencent-cloud@1.3.0
   - @wmeimob/backend-notice@1.1.0
   - @wmeimob/backend-pro@1.1.0
   - @wmeimob/request@1.4.0

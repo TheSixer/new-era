@@ -1,7 +1,7 @@
 import { View, Image, Text } from '@tarojs/components'
 import { MemCardDto } from '@wmeimob/taro-api'
 import { FC, memo } from 'react'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import styles from './index.module.less'
 
 interface IMemberCardProps {

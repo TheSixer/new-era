@@ -5,7 +5,7 @@ import { FC, memo, useMemo } from 'react'
 import styles from './index.module.less'
 import iconTimeImg from './images/icon_time.png'
 import dayjs from 'dayjs'
-import { assembleResizeUrl } from '@wmeimob/aliyun'
+import { assembleResizeUrl } from '@wmeimob/tencent-cloud'
 
 interface IActivityListItemProps {
   activity: MarketingActivityDto

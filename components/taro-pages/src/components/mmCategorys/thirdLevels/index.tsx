@@ -1,5 +1,5 @@
 import { Image, ScrollView, Text, View } from '@tarojs/components'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import classNames from 'classnames'
 import { FC, memo, useMemo, useState } from 'react'
 import { TCateItem } from '..'

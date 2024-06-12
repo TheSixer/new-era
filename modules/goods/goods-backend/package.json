@@ -11,7 +11,7 @@
   "dependencies": {
     "@ant-design/pro-layout": "^6.32.0",
     "@wmeimob-modules/goods-data": "workspace:^1.0.0",
-    "@wmeimob/aliyun": "workspace:^1.4.0",
+    "@wmeimob/tencent-cloud": "workspace:^1.0.0",
     "@wmeimob/backend-api": "workspace:^1.0.0",
     "@wmeimob/backend-pages": "workspace:^1.0.0",
     "@wmeimob/backend-pro": "workspace:^1.2.0",

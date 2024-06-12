@@ -7,7 +7,7 @@ import classnames from 'classnames'
 import styles from './index.module.less'
 import { IDragCardItemProps, IDragCardProps } from './interface'
 import { useDragged } from '../../hooks/createDragged'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import cc from '../../../../../config'
 const { config } = cc.systemConfig
 

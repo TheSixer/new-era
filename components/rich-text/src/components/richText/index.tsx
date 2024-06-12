@@ -7,7 +7,7 @@ import { defaultUploadImage, defaultUploadVideo, IMMRichTextProps, InsertFnType 
 import PreviewModal from '../previewModal'
 import audioConfig from '../audio'
 import { message } from 'antd'
-import { getVideoSnapshotUrl } from '@wmeimob/aliyun'
+import { getVideoSnapshotUrl } from '@wmeimob/tencent-cloud'
 
 audioConfig.register()
 

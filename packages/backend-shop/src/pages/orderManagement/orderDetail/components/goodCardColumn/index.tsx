@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { Avatar } from 'antd'
 import styles from './index.module.less'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import { IGoodCardColumnProps } from './const'
 
 const Component: FC<IGoodCardColumnProps> = (props) => {

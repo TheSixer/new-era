@@ -1,7 +1,7 @@
 import { FC, memo, ReactNode } from 'react'
 import { View, Image } from '@tarojs/components'
 import styles from './index.module.less'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import classNames from 'classnames'
 import { GoodsVO } from '@wmeimob/taro-api'
 import GoodsPriceWithIntegral from '@wmeimob-modules/goods-taro/src/components/goodsPriceWithIntegral'

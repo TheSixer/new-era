@@ -17,7 +17,7 @@
   ],
   "dependencies": {
     "@ant-design/icons": "^4.7.0",
-    "@wmeimob/aliyun": "workspace:^1.4.0",
+    "@wmeimob/tencent-cloud": "workspace:^1.0.0",
     "@wmeimob/backend-styles": "workspace:^1.0.0",
     "@wmeimob/form-rules": "workspace:^1.2.0",
     "@wmeimob/rich-text": "workspace:^1.2.0",

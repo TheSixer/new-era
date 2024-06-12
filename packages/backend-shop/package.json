@@ -63,7 +63,7 @@
     "@wmeimob-modules/member-data": "workspace:^1.0.0",
     "@wmeimob-modules/order-backend": "workspace:^1.0.0",
     "@wmeimob-modules/task-backend": "workspace:^1.0.0",
-    "@wmeimob/aliyun": "workspace:^1.4.0",
+    "@wmeimob/tencent-cloud": "workspace:^1.0.0",
     "@wmeimob/backend-api": "workspace:^1.0.0",
     "@wmeimob/backend-notice": "workspace:^2.0.1",
     "@wmeimob/backend-pages": "workspace:^1.0.0",

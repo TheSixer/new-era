@@ -14,7 +14,7 @@ import MMCard from '@wmeimob/taro-design/src/components/card'
 import { useSetAtom } from 'jotai'
 import { commentOrderAtom } from '../../../pages/order/store'
 import { routeNames } from '../../../routes'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 
 /**
  * 商品评论组件

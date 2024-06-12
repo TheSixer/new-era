@@ -4,6 +4,11 @@ export default [
     path: '/sysSetting',
     routes: [
       {
+        name: '首屏设置',
+        path: '/sysSetting/initScreen',
+        component: './sysSetting/initScreen'
+      },
+      {
         name: '人员管理',
         path: '/sysSetting/employeeManagement',
         component: './sysSetting/employeeManagement'

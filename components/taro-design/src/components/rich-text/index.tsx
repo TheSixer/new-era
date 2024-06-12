@@ -4,7 +4,7 @@ import { IComponentProps } from '../types'
 import classNames from 'classnames'
 import { nextTick } from '@tarojs/taro'
 import styles from './index.module.less'
-import { getImage } from '@wmeimob/aliyun'
+import { getImage } from '@wmeimob/tencent-cloud'
 
 interface IRichTextProps extends IComponentProps {
   /**

@@ -24,7 +24,7 @@
 
 - Updated dependencies
   - @wmeimob/swagger-api-templates@1.2.0
-  - @wmeimob/aliyun@1.4.0
+  - @wmeimob/tencent-cloud@1.4.0
   - @wmeimob/decorator@1.2.0
   - @wmeimob/request@1.5.0
   - @wmeimob/shop-data@2.2.0
@@ -45,7 +45,7 @@
 
 - Updated dependencies
   - @wmeimob/swagger-api-templates@1.1.0
-  - @wmeimob/aliyun@1.3.0
+  - @wmeimob/tencent-cloud@1.3.0
   - @wmeimob/decorator@1.1.0
   - @wmeimob/request@1.4.0
   - @wmeimob/shop-data@2.1.0

@@ -4,7 +4,7 @@ import { ScrollView, View, Text, Image } from '@tarojs/components'
 import { IThirdLevelsProps, TCateItem } from './const'
 import styles from './index.module.less'
 import classNames from 'classnames'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 
 const imgStyle = { width: 68, height: 68 }
 

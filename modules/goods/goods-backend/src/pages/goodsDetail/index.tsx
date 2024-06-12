@@ -1,7 +1,7 @@
 import { PageContainer } from '@ant-design/pro-layout'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
 import { MGoodScore } from '@wmeimob-modules/goods-data/src/enums/EGoodScore'
-import { getVideoSnapshotUrl } from '@wmeimob/aliyun'
+import { getVideoSnapshotUrl } from '@wmeimob/tencent-cloud'
 import { api } from '@wmeimob/backend-api'
 import { GoodsSkuDTO, GoodsVO, MenuTreeOutputDto } from '@wmeimob/backend-api/src/request/data-contracts'
 import PreviewList from '@wmeimob/backend-pro/src/components/previewList'

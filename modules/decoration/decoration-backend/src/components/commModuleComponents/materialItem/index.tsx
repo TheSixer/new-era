@@ -1,7 +1,7 @@
 import { FC, ReactNode, useMemo, useState } from 'react'
 import { Modal } from 'antd'
 import { EditOutlined, EyeOutlined } from '@ant-design/icons'
-import { getResizeUrl, getVideoSnapshotUrl } from '@wmeimob/aliyun'
+import { getResizeUrl, getVideoSnapshotUrl } from '@wmeimob/tencent-cloud'
 import styles from './index.module.less'
 import { MaterialType } from '@wmeimob/backend-pages/src/components/material/const'
 import MaterialModal from '@wmeimob/backend-pages/src/components/material'

@@ -1,10 +1,9 @@
-import { FC, memo, useRef, useState } from 'react'
+import { FC, memo, useState } from 'react'
 import styles from './index.module.less'
 import { IActivitySettingCardProps } from './const'
 import { Button, Card, Form } from 'antd'
-import { ProFormDateTimeRangePicker, ProFormDependency, ProFormDigit, ProFormRadio } from '@ant-design/pro-form'
+import { ProFormDatePicker, ProFormDateTimePicker, ProFormDependency, ProFormDigit, ProFormRadio, ProFormTimePicker } from '@ant-design/pro-form'
 import { PlusOutlined } from '@ant-design/icons'
-import AssignPresentGood from '../assignPresentGood'
 import mmFormRule from '@wmeimob/form-rules'
 import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormLimitInput'
 import moment from 'moment'
@@ -12,10 +11,7 @@ import useDisableActivityTime from '~/hooks/activity/useDisableActivityTime'
 
 const Component: FC<IActivitySettingCardProps> = (props) => {
   const { disabled } = props
-  const promotionConditionListName = ['promotionParam', 'promotionConditionList']
 
-  const { showModal, setShowModal } = useAssPresentGoodService()
-  const editIndex = useRef(-1)
   const disableActivityTimeProps = useDisableActivityTime()
 
   return (
@@ -37,11 +33,10 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
 
           return (
             <>
-              <Form.List name={promotionConditionListName}>
+              <Form.List name="unifyCreateInputDtos">
                 {(fields, { add, remove }) => (
                   <Card>
                     {fields.map(({ key, name, ...restField }, index) => {
-                      const prePromoNamePath = ['promotionParam', 'promotionConditionList', index - 1, 'promo']
                       return (
                         <Card
                           key={key}
@@ -55,23 +50,25 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
                           }
                           style={{ marginBottom: 10 }}
                         >
-                          <ProFormDateTimeRangePicker
-                            label="活动时间"
-                            name="activityTime"
-                            rules={[
-                              ...mmFormRule.required,
-                              {
-                                validator: (_, value: [moment.Moment?, moment.Moment?]) => {
-                                  if (!value?.length) return Promise.resolve()
-                                  return moment().isBefore(value[1], 'minutes') ? Promise.resolve() : Promise.reject(new Error('活动结束时间必须晚于当前时间'))
-                                }
-                              }
-                            ]}
+                          <ProFormDatePicker
+                            label="场次日期"
+                            name={[name, "unifyDate"]}
+                            rules={mmFormRule.required}
                             disabled={disabled}
+                            // extra={!!activityNo && '编辑活动无法修改时间'}
                             fieldProps={{
                               format: 'YYYY-MM-DD',
-                              showTime: { format: 'HH:mm' },
                               ...disableActivityTimeProps
+                            }}
+                          />
+
+                          <ProFormTimePicker.RangePicker
+                            label="场次时间"
+                            name={[name, "unifyTime"]}
+                            rules={mmFormRule.required}
+                            disabled={disabled}
+                            fieldProps={{
+                              format: 'HH:mm'
                             }}
                           />
 
@@ -79,9 +76,8 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
                             {...restField}
                             label="活动席位"
                             wrapperCol={{ span: 24 }}
-                            name={[name, 'promo']}
+                            name={[name, "seat"]}
                             disabled={disabled}
-                            dependencies={index > 0 ? [prePromoNamePath] : undefined}
                             rules={mmFormRule.required}
                             fieldProps={{
                               placeholder: '请输入活动席位'
@@ -93,30 +89,13 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
                     })}
                     {!disabled && unify === 0 && (
                       <Button type="dashed" onClick={() => add({})} block icon={<PlusOutlined />}>
-                        新增区间
+                        添加场次
                       </Button>
                     )}
                   </Card>
                 )}
               </Form.List>
 
-              <AssignPresentGood
-                visible={showModal}
-                value={[]}
-                onClose={() => setShowModal(false)}
-                onOk={(value) => {
-                  const list = form.getFieldValue(promotionConditionListName)
-                  const newData = list.map((item, index) => {
-                    if (index === editIndex.current) {
-                      return { ...item, ...value }
-                    }
-                    return item
-                  })
-
-                  form.setFields([{ name: promotionConditionListName, value: newData }])
-                  setShowModal(false)
-                }}
-              />
             </>
           )
         }}
@@ -129,12 +108,3 @@ Component.displayName = 'ActivitySettingCard'
 
 const ActivitySettingCard = memo(Component)
 export default ActivitySettingCard
-
-function useAssPresentGoodService() {
-  const [showModal, setShowModal] = useState(false)
-
-  return {
-    showModal,
-    setShowModal
-  }
-}

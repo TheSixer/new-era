@@ -6,7 +6,7 @@ import dayjs from 'dayjs'
 import { MallConfMaterialVo, MaterialType } from '../../const'
 import { download } from '../../contexts/util'
 import styles from './index.module.less'
-import { assembleResizeUrl, getVideoSnapshotUrl } from '@wmeimob/aliyun'
+import { assembleResizeUrl, getVideoSnapshotUrl } from '@wmeimob/tencent-cloud'
 import CopyToClipboard from 'copy-to-clipboard'
 
 interface IProps {

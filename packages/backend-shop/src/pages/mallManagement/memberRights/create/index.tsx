@@ -1,6 +1,6 @@
 import { FC, memo } from 'react'
 import PageMemberCreate, { useService } from '@wmeimob-modules/member-backend/src/pages/create'
-import { upload } from '~/components/aliyun'
+import { upload } from '~/components/tencent-cloud'
 
 interface ICreateProps {}
 

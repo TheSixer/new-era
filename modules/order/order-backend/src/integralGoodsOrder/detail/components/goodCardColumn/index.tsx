@@ -1,7 +1,7 @@
 import { FC, memo } from 'react'
 import { Avatar, Space, Tag } from 'antd'
 import styles from './index.module.less'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import { IGoodCardColumnProps } from './const'
 import { EOrderRefundStatus, MOrderRefundStatus } from '@wmeimob/shop-data/src/enums/refund/EOrderRefundStatus'
 import { ExclamationCircleOutlined } from '@ant-design/icons'

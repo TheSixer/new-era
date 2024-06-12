@@ -18,7 +18,7 @@
   },
   "dependencies": {
     "@wmeimob-modules/member-data": "workspace:^1.0.0",
-    "@wmeimob/aliyun": "workspace:^1.4.0",
+    "@wmeimob/tencent-cloud": "workspace:^1.0.0",
     "@wmeimob/taro-api": "workspace:^1.0.0",
     "@wmeimob/taro-design": "workspace:^1.5.1",
     "@wmeimob/taro-store": "workspace:^1.0.0",

@@ -6,7 +6,7 @@ import GoodDetailContext, { GoodDetailContextValue } from '../context'
 import useGoodPoster from './useGoodPoster'
 import { appName, isH5, isWeapp } from '../../../../config'
 import { isWebApp } from '@wmeimob/taro-pages/src/config'
-import { upload } from '../../../../components/aliyun'
+import { upload } from '../../../../components/tencent-cloud'
 import { useToast } from '@wmeimob/taro-design'
 import { routeNames } from '../../../../routes'
 

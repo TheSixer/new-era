@@ -4,7 +4,12 @@
 
 import { ITaroRequestConfig } from "@wmeimob/request/src/types/taro-type";
 import {
+  ActiveOrderListParam,
+  ActivityCreateInputDto,
   ActivityOpenDto,
+  ActivityWhiteCreateInputDto,
+  ActivityWhiteOutputDto,
+  ActivityWhiteQueryListParam,
   AddressCreateInputDto,
   AddressModifyInputDto,
   AdminActivityClassifyGetParams,
@@ -94,6 +99,8 @@ import {
   BannerModifyStatusInputDto,
   BatchShipInfoParam,
   CharSequence2,
+  CheckUserCreateInputDto,
+  CheckUserParam,
   CommentsImportInputDto,
   CouponCodeCreateInputDto,
   CouponRecordDetailQuery,
@@ -115,6 +122,7 @@ import {
   GoodsStatusInputDto,
   HotKeywordSaveDto,
   HotKeywordUpdateDto,
+  JsonResultActivityOrderOutputDto,
   JsonResultAddressOutputDto,
   JsonResultBalanceGetOutputDto,
   JsonResultBannerOutputDto,
@@ -188,6 +196,7 @@ import {
   JsonResultPagedResultSysUserVo,
   JsonResultPagedResultUserAgreementRecordDto,
   JsonResultPagedResultUserAgreeRecordDto,
+  JsonResultPagedResultUserTagsVo,
   JsonResultPopupAdsDto,
   JsonResultRefundMasterDto,
   JsonResultResourceDetailVo,
@@ -215,6 +224,8 @@ import {
   MarketingActivityOfFreeShippingDto,
   MarketingActivityOfFullDto,
   MarketingActivityOfPreSaleDto,
+  MarketingUserTagsDto,
+  MarketingUserTagsParam,
   MaterialAddParam,
   MaterialGroupSaveDto,
   MaterialGroupUpdateDto,
@@ -258,6 +269,73 @@ import requestInstance from "./instance";
 type RequestConfig = Omit<ITaroRequestConfig, "url" | "method">;
 
 export const API = {
+  /**
+   * @description 新增
+   * @name POST /admin/mall/activityWhite/add
+   * @summary 白名单新增
+   * @response `200` `JsonResultString` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/activityWhite/add_POST": (body: ActivityWhiteCreateInputDto, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/activityWhite/add`,
+      method: "POST",
+      data: body,
+      ...options
+    }) as unknown as Promise<JsonResultString>,
+  /**
+   * @description 修改
+   * @name POST /admin/mall/activityWhite/update
+   * @summary 白名单修改
+   * @response `200` `JsonResultString` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/activityWhite/update_PUT": (body: ActivityWhiteCreateInputDto, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/activityWhite/update`,
+      method: "PUT",
+      data: body,
+      ...options
+    }) as unknown as Promise<JsonResultString>,
+    
+  /**
+   * @description 修改
+   * @name POST /admin/mall/activityWhite/update
+   * @summary 白名单修改
+   * @response `200` `JsonResultString` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/activityWhite/delete/{id}_DELETE": (id: number, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/activityWhite/delete/${id}`,
+      method: "DELETE",
+      ...options
+    }) as unknown as Promise<JsonResultVoid>,
+  /**
+   * No description
+   * @name GET /admin/mall/activityWhite/queryList
+   * @summary 列表
+   * @tags admin/Banner
+   * @response `200` `JsonResultPagedResultBannerOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/activityWhite/queryList_GET": (query: ActivityWhiteQueryListParam, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/activityWhite/queryList`,
+      method: "GET",
+      params: query,
+      ...options
+    }) as unknown as Promise<ActivityWhiteOutputDto>,
+  /**
+   * No description
+   * @name GET /admin/mall/activityOrder/queryList
+   * @summary 列表
+   * @tags admin/Banner
+   * @response `200` `JsonResultPagedResultBannerOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/activityOrder/queryList_GET": (query: ActiveOrderListParam, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/activityOrder/queryList`,
+      method: "GET",
+      params: query,
+      ...options
+    }) as unknown as Promise<JsonResultActivityOrderOutputDto>,
   /**
    * @description 新增
    * @name POST /admin/mall/activity/add
@@ -310,19 +388,161 @@ export const API = {
       params: query,
       ...options
     }) as unknown as Promise<JsonResultPagedResultMarketingActivityVo>,
-    /**
-     * @description 列表
-     * @name GET /admin/mall/activityClassify/queryList
-     * @summary 活动类型分页查询
-     * @response `200` `JsonResultPagedResultMarketingActivityVo` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
-     */
-    "/admin/mall/activityClassify/queryClassifyList_GET": (query: AdminActivityClassifyGetParams, options: RequestConfig = {}) =>
-      requestInstance({
-        url: `/admin/mall/activityClassify/queryClassifyList`,
-        method: "GET",
-        params: query,
-        ...options
-      }) as unknown as Promise<JsonResultPagedResultEventTypesVo>,
+  /**
+   * @description 列表
+   * @name GET /admin/mall/activityClassify/queryList
+   * @summary 活动类型分页查询
+   * @response `200` `JsonResultPagedResultMarketingActivityVo` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/activityClassify/queryClassifyList_GET": (query: AdminActivityClassifyGetParams, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/activityClassify/queryClassifyList`,
+      method: "GET",
+      params: query,
+      ...options
+    }) as unknown as Promise<JsonResultPagedResultEventTypesVo>,
+  
+  /**
+   * @description 新增
+   * @name POST /admin/mall/tag/add
+   * @summary 活动类型新增
+   * @response `200` `JsonResultString` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/tag/add_POST": (body: MarketingUserTagsDto, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/tag/add`,
+      method: "POST",
+      data: body,
+      ...options
+    }) as unknown as Promise<JsonResultString>,
+  /**
+   * @description 修改
+   * @name POST /admin/mall/tag/update
+   * @summary 活动类型修改
+   * @response `200` `JsonResultString` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/tag/update_PUT": (body: MarketingActivityClassifyDto, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/tag/update`,
+      method: "PUT",
+      data: body,
+      ...options
+    }) as unknown as Promise<JsonResultString>,
+    
+  /**
+   * @description 修改
+   * @name POST /admin/mall/tag/update
+   * @summary 活动类型修改
+   * @response `200` `JsonResultString` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/tag/delete/{id}_DELETE": (id: number, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/tag/delete/${id}`,
+      method: "DELETE",
+      ...options
+    }) as unknown as Promise<JsonResultVoid>,
+  /**
+   * @description 列表
+   * @name GET /admin/mall/tag/queryList
+   * @summary 活动类型分页查询
+   * @response `200` `JsonResultPagedResultMarketingActivityVo` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/tag/get/{id}_GET": (id: string, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/tag/get/${id}`,
+      method: "GET",
+      ...options
+    }) as unknown as Promise<JsonResultPagedResultMarketingActivityVo>,
+  /**
+   * @description 列表
+   * @name GET /admin/mall/tag/queryList
+   * @summary 活动类型分页查询
+   * @response `200` `JsonResultPagedResultMarketingActivityVo` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/tag/queryList_GET": (query: MarketingUserTagsParam, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/tag/queryList`,
+      method: "GET",
+      params: query,
+      ...options
+    }) as unknown as Promise<JsonResultPagedResultUserTagsVo>,
+
+  /**
+   * @description 新增
+   * @name POST /admin/mall/checkUser/add
+   * @summary 核销人员新增
+   * @response `200` `JsonResultString` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/checkUser/add_POST": (body: CheckUserCreateInputDto, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/checkUser/add`,
+      method: "POST",
+      data: body,
+      ...options
+    }) as unknown as Promise<JsonResultString>,
+  /**
+   * @description 修改
+   * @name POST /admin/mall/tag/update
+   * @summary 活动类型修改
+   * @response `200` `JsonResultString` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/checkUser/update_PUT": (body: CheckUserCreateInputDto, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/checkUser/update`,
+      method: "PUT",
+      data: body,
+      ...options
+    }) as unknown as Promise<JsonResultString>,
+    
+  /**
+   * @description 修改
+   * @name POST /admin/mall/checkUser/update
+   * @summary 活动类型修改
+   * @response `200` `JsonResultString` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/checkUser/delete/{id}_DELETE": (id: number, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/checkUser/delete/${id}`,
+      method: "DELETE",
+      ...options
+    }) as unknown as Promise<JsonResultVoid>,
+  /**
+   * @description 列表
+   * @name GET /admin/mall/checkUser/get/${id}
+   * @summary 活动类型查询
+   * @response `200` `JsonResultPagedResultMarketingActivityVo` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/checkUser/get/{id}_GET": (id: number, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/checkUser/get/${id}`,
+      method: "GET",
+      ...options
+    }) as unknown as Promise<JsonResultPagedResultMarketingActivityVo>,
+  /**
+   * @description 列表
+   * @name GET /admin/mall/checkUser/queryList
+   * @summary 活动类型分页查询
+   * @response `200` `JsonResultPagedResultMarketingActivityVo` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/checkUser/queryList_GET": (query: CheckUserParam, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/checkUser/queryList`,
+      method: "GET",
+      params: query,
+      ...options
+    }) as unknown as Promise<JsonResultPagedResultUserTagsVo>,
+  /**
+   * @description banner查询
+   * @name GET /admin/mall/banner/get/${id}
+   * @summary banner查询
+   * @response `200` `JsonResultPagedResultMarketingActivityVo` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/banner/banner/{id}_GET": (id: number, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/banner/get/${id}`,
+      method: "GET",
+      ...options
+    }) as unknown as Promise<JsonResultPagedResultMarketingActivityVo>,
   /**
    * @description 列表
    * @name GET /admin/activity/flashSale
@@ -337,6 +557,19 @@ export const API = {
       params: query,
       ...options
     }) as unknown as Promise<JsonResultPagedResultMarketingActivityVo>,
+  /**
+   * @description 新增
+   * @name POST /admin/mall/activity/add
+   * @summary 活动新增
+   * @response `200` `JsonResultString` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/activity/add_POST": (body: ActivityCreateInputDto, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/activity/add`,
+      method: "POST",
+      data: body,
+      ...options
+    }) as unknown as Promise<JsonResultString>,
   /**
    * @description 列表
    * @name GET /admin/activity/flashSale

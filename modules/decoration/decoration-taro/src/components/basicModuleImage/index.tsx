@@ -8,7 +8,7 @@ import { getMaxScreenWitdh } from '../../const'
 import useComponentStyle from '../../hooks/useComponentStyle'
 import HotZone from '../hotZone'
 import styles from './index.module.less'
-import { getImage } from '../../../../../../components/aliyun'
+import { getImage } from '../../../../../../components/tencent-cloud'
 
 export interface IBasicModuleImageProps extends BasicModuleImageDTO {
   /**

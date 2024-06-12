@@ -20,7 +20,7 @@
     "@wangeditor/core": ">=1.1.0",
     "@wangeditor/editor": "^5.1.1",
     "@wangeditor/editor-for-react": "^1.0.4",
-    "@wmeimob/aliyun": "workspace:^1.0.0",
+    "@wmeimob/tencent-cloud": "workspace:^1.0.0",
     "antd": "^4.17.0",
     "react": "18.2.0",
     "snabbdom": "^3.5.1"

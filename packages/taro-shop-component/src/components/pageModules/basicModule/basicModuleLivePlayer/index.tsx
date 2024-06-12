@@ -4,7 +4,7 @@ import { getModuleLivePlayerDefaultProps, IBasicModuleLivePlayerProps, ILiveInfo
 import styles from './index.module.less'
 import useComponentStyle from '@wmeimob-modules/decoration-taro/src/hooks/useComponentStyle'
 import dayjs from 'dayjs'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import classNames from 'classnames'
 import TimeCountDown from './timeCountDown'
 import { useEffect, useState, FC } from 'react'

@@ -1,4 +1,4 @@
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import IconFont from '@wmeimob/backend-pro/src/components/iconFont'
 import IconFontName from '@wmeimob/backend-pro/src/components/iconFont/name'
 import { FC, memo } from 'react'

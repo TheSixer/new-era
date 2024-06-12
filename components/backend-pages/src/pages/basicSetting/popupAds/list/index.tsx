@@ -1,7 +1,7 @@
 import { ModalForm, ProFormDatePicker, ProFormDigit, ProFormField, ProFormText } from '@ant-design/pro-form'
 import { PageContainer } from '@ant-design/pro-layout'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
-import { assembleResizeUrl } from '@wmeimob/aliyun'
+import { assembleResizeUrl } from '@wmeimob/tencent-cloud'
 import mmFormRule from '@wmeimob/form-rules'
 import { Button, message } from 'antd'
 import dayjs from 'dayjs'

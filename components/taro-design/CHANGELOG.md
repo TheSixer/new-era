@@ -15,7 +15,7 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @wmeimob/aliyun@1.4.0
+  - @wmeimob/tencent-cloud@1.4.0
   - @wmeimob/request@1.5.0
   - @wmeimob/utils@1.4.0
 
@@ -28,6 +28,6 @@
 ### Patch Changes
 
 - Updated dependencies
-  - @wmeimob/aliyun@1.3.0
+  - @wmeimob/tencent-cloud@1.3.0
   - @wmeimob/request@1.4.0
   - @wmeimob/utils@1.3.0

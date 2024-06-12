@@ -13,7 +13,7 @@ import {
 import { BasicModuleSignEnum } from '@wmeimob-modules/decoration-data'
 import { Button, Card, Empty, message, Modal, Space, Spin } from 'antd'
 import { FC, memo, useCallback, useEffect, useMemo, useRef, useState } from 'react'
-import { upload } from '~/components/aliyun'
+import { upload } from '~/components/tencent-cloud'
 import useQuery from '~/hooks/useQuery'
 import { api } from '~/request'
 import instance from '~/request/instance'

@@ -16,7 +16,7 @@ import { createElement } from 'react'
 import { ConfigProvider } from 'antd'
 import instance from '~/request/instance'
 import { setGlobalData } from '@wmeimob/backend-store'
-import { upload } from './components/aliyun'
+import { upload } from './components/tencent-cloud'
 
 setGlobalData({ upload, instance })
 

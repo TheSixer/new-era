@@ -1,7 +1,7 @@
 import { BaseEventOrig, Image, ScrollView, View } from '@tarojs/components'
 import { ScrollViewProps } from '@tarojs/components/types/ScrollView'
 import Taro, { getCurrentInstance } from '@tarojs/taro'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import { useThrottleLast } from '@wmeimob/utils/src/hooks/useThrottleLast'
 import { FC, memo, useEffect, useRef, useState } from 'react'
 import { TCateItem } from '..'

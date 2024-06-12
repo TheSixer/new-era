@@ -1,5 +1,5 @@
 import MMGoodsClassifyPage from '@wmeimob/backend-pages-shop/src/pages/goodsManagement/goodsClassify'
-import { upload } from '~/components/aliyun'
+import { upload } from '~/components/tencent-cloud'
 import { api } from '~/request'
 
 export default function Page() {

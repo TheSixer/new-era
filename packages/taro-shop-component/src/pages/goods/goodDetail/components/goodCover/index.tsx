@@ -3,7 +3,7 @@ import { memo, useEffect, useLayoutEffect, useMemo, useRef, useState, FC } from 
 import { View, Text, Swiper, SwiperItem, Video, Image } from '@tarojs/components'
 import { IGoodCoverProps, VIDEO_ID } from './const'
 import styles from './index.module.less'
-import { getResizeUrl, getVideoSnapshotUrl } from '@wmeimob/aliyun'
+import { getResizeUrl, getVideoSnapshotUrl } from '@wmeimob/tencent-cloud'
 import icon_play from '../../images/icon_play.png'
 import { systemConfig } from '../../../../../config'
 import { getGlobalData } from '@wmeimob/taro-global-data'

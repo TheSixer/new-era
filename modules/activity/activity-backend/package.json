@@ -40,7 +40,7 @@
     "umi": "^3.5.20",
     "validator": "^13.7.0",
     "@wmeimob-modules/activity-data": "workspace:^1.0.0",
-    "@wmeimob/aliyun": "workspace:^1.4.0",
+    "@wmeimob/tencent-cloud": "workspace:^1.0.0",
     "@wmeimob/backend-api": "workspace:^1.0.0",
     "@wmeimob/backend-pages": "workspace:^1.0.0",
     "@wmeimob/backend-pro": "workspace:^1.2.0",

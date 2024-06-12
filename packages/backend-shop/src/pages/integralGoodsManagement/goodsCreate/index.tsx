@@ -6,7 +6,7 @@ import { api } from '~/request'
 import { systemConfig } from '~/config'
 import { ColumnType } from 'antd/lib/table'
 import { EGoodsType } from '@wmeimob/shop-data/goods/enums/EGoodsType'
-import { upload } from '~/components/aliyun'
+import { upload } from '~/components/tencent-cloud'
 
 export default function Page() {
   const goodsType = EGoodsType.Integral

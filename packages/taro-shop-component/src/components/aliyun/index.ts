@@ -1,4 +1,4 @@
-import AliYunTaro from '@wmeimob/aliyun/src/taro'
+import AliYunTaro from '@wmeimob/tencent-cloud/src/taro'
 import { api } from '@wmeimob/taro-api'
 
 const { upload } = new AliYunTaro({

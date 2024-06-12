@@ -21,7 +21,7 @@ export let apiUrl =
 
 export const publicPath = PUBLIC_PATH
 
-export const applicationName = '微盟软件'
+export const applicationName = 'NEWERA'
 
 export const defaultAccount = 19999999999 // 默认账号
 export const defaultPwd = 'ocj123456' // 默认密码

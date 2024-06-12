@@ -8,7 +8,7 @@ import MMSkuList from '@wmeimob/taro-design/src/components/sku-list'
 import MMStepper from '@wmeimob/taro-design/src/components/stepper'
 import GoodPrice from '../goodPrice'
 import useGoodSku from './useGoodSku'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import { systemConfig } from '../../../config'
 import GoodsPriceWithIntegral from '@wmeimob-modules/goods-taro/src/components/goodsPriceWithIntegral'
 

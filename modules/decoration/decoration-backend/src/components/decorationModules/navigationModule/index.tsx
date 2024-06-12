@@ -1,4 +1,4 @@
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import { getGlobalData } from '@wmeimob/backend-store'
 import { IModuleInfo, BasicModuleSignEnum } from '@wmeimob-modules/decoration-data'
 import { ENavArrangeType } from '@wmeimob-modules/decoration-data/src/enums/ENavArrangeType'

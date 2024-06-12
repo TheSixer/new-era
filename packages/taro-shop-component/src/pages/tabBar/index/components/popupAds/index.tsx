@@ -4,7 +4,7 @@ import { IPopupAdsProps } from './const'
 import styles from './index.module.less'
 import MMOverlay from '@wmeimob/taro-design/src/components/overlay'
 import { navByLink } from '../../../../../components/pageModules/utils'
-import { assembleResizeUrl } from '@wmeimob/aliyun'
+import { assembleResizeUrl } from '@wmeimob/tencent-cloud'
 import { JumpTypeValue } from '../../../../../components/pageModules/const'
 import icon_close from './icon_close.png'
 

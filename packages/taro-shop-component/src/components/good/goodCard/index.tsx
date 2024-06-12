@@ -3,7 +3,7 @@ import styles from './index.module.less'
 import { memo, FC } from 'react'
 import GoodPrice from '../goodPrice'
 import classNames from 'classnames'
-import { getImage } from '@wmeimob/aliyun'
+import { getImage } from '@wmeimob/tencent-cloud'
 import { IGoodsVoWithActivity } from '@wmeimob/taro-api/src/types/goods/IGoodsVoWithActivity'
 
 export interface IGoodCardProps {

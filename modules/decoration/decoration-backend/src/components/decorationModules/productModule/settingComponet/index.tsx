@@ -1,5 +1,5 @@
 import { ProFormCascader, ProFormDependency, ProFormDigit, ProFormRadio, ProFormSelect } from '@ant-design/pro-form'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import { api } from '@wmeimob/backend-api/src/request'
 import { EProductDataType } from '@wmeimob-modules/decoration-data/src/enums/EProductDataType'
 import convertToTree from '@wmeimob/utils/src/tree/convertToTree'

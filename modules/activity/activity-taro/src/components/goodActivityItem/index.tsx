@@ -1,6 +1,6 @@
 import { Image, View } from '@tarojs/components'
 import GoodPrice from '@wmeimob-modules/goods-taro/src/components/goodsPrice'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import MMButton from '@wmeimob/taro-design/src/components/button'
 import shopVariable from '@wmeimob/taro-design/src/components/styles/themes/shop.variable'
 import classNames from 'classnames'

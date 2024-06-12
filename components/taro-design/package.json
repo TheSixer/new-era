@@ -44,7 +44,7 @@
   "author": "",
   "license": "MIT",
   "dependencies": {
-    "@wmeimob/aliyun": "workspace:^1.4.0",
+    "@wmeimob/tencent-cloud": "workspace:^1.0.0",
     "@wmeimob/decorator": "2.0.0",
     "@wmeimob/taro-global-data": "workspace:^1.0.0",
     "@wmeimob/utils": "workspace:^1.4.0"

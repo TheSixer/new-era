@@ -14,6 +14,24 @@ export const routeNames = {
   userSetting: '/user/setting',
   /** 消息中心 */
   userNotices: '/user/notices',
+  /** 用户列表 */
+  customerManagementList: '/customerManagement/list',
+  /** 用户详情 */
+  customerManagementDetail: '/customerManagement/detail',
+  /** 标签管理 */
+  customerManagementTags: '/customerManagement/tags',
+  /** 活动核销人员 */
+  customerManagementCheckUser: '/customerManagement/checkUser',
+  /** 活动类型 */
+  eventsManagementEventTypes: '/eventsManagement/eventTypes',
+  /** 活动列表 */
+  eventsManagementEvents: '/eventsManagement/events',
+  /** 活动管理新增编辑 */
+  eventsManagementEventsCreate: '/eventsManagement/events/create',
+  /** 报名列表 */
+  eventsManagementActivityOrders: '/eventsManagement/activityOrders',
+  /** 白名单 */
+  eventsManagementWhiteList: '/eventsManagement/whiteList',
   /** 商城基础设置 */
   basicSettingSetting: '/basicSetting/setting',
   /** 用户协议记录 */
@@ -32,6 +50,8 @@ export const routeNames = {
   decorationSettingDecorationList: '/decorationSetting/decorationList',
   /** 页面详情 */
   decorationSettingDecorationListDetail: '/decorationSetting/decorationList/detail',
+  /** 首页配置 */
+  decorationSettingHomePageSetting: '/decorationSetting/homePageSetting',
   /** 运费模板 */
   mallManagementFreightList: '/mallManagement/freight/list',
   /** 新增/编辑模版 */
@@ -122,6 +142,8 @@ export const routeNames = {
   marketingActivityHotKeyword: '/marketingActivity/hotKeyword',
   /** 直播页面管理 */
   liveBroadcastManagementList: '/liveBroadcastManagement/list',
+  /** 首屏设置 */
+  sysSettingInitScreen: '/sysSetting/initScreen',
   /** 人员管理 */
   sysSettingEmployeeManagement: '/sysSetting/employeeManagement',
   /** 角色管理 */
@@ -129,12 +151,6 @@ export const routeNames = {
   /** 操作日志 */
   sysSettingOperationLog: '/sysSetting/operationLog',
   /** 资源管理 */
-  sysSettingResourcesManagement: '/sysSetting/resourcesManagement',
-  /** 活动类型 */
-  eventsManagementEventTypes: '/eventsManagement/eventTypes',
-  /** 活动管理 */
-  eventsManagementEvents: '/eventsManagement/events',
-  /** 活动管理新增编辑 */
-  eventsManagementEventsCreate: '/eventsManagement/events/create'
+  sysSettingResourcesManagement: '/sysSetting/resourcesManagement'
 }
 

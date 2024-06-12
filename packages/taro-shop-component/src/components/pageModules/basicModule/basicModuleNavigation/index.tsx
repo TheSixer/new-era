@@ -1,7 +1,7 @@
 import { View, Image } from '@tarojs/components'
 import { getModuleNavigationDefaultProps, IBasicModuleNavigationProps } from './const'
 import styles from './index.module.less'
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import { ImageLinkDataDTO } from '@wmeimob-modules/decoration-data'
 import useComponentStyle from '@wmeimob-modules/decoration-taro/src/hooks/useComponentStyle'
 import { navByLink } from '../../utils'

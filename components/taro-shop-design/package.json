@@ -35,7 +35,7 @@
     "ios >= 8"
   ],
   "dependencies": {
-    "@wmeimob/aliyun": "workspace:^1.4.0",
+    "@wmeimob/tencent-cloud": "workspace:^1.0.0",
     "@wmeimob/taro-design": "workspace:^1.5.1",
     "@wmeimob/utils": "workspace:^1.4.0"
   },

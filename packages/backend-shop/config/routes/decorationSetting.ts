@@ -17,6 +17,11 @@ export default [
           hideFooter: true
         }
       },
+      {
+        name: '首页配置',
+        path: '/decorationSetting/homePageSetting',
+        component: './decorationSetting/homePageSetting'
+      },
       { redirect: '/decorationSetting/decorationList' }
     ]
   }

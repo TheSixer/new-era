@@ -5,7 +5,7 @@ import {
   OrderPresentSetting,
   OrderSetting,
   PayAmountRateSetting,
-  RefundReasonsSetting,
+  // RefundReasonsSetting,
   ScoreGlobalSetting,
   UserAgreement
 } from '@wmeimob/backend-pages-shop/src/pages/shopSetting/setting'
@@ -26,11 +26,11 @@ const Component: FC<IPageProps> = (props) => {
       key: ETabType.Basic,
       modules: (
         <>
-          <OrderSetting disabled={disabled} />
+          {/* <OrderSetting disabled={disabled} />
           <CommentSetting disabled={disabled} />
           <OrderPresentSetting disabled={disabled} />
-          <NewcomerCouponSetting disabled={disabled} />
-          <RefundReasonsSetting disabled={disabled} />
+          <NewcomerCouponSetting disabled={disabled} /> */}
+          {/* <RefundReasonsSetting disabled={disabled} /> */}
           <UserAgreement
             key="user"
             type={EAgreementType.User}
@@ -45,18 +45,18 @@ const Component: FC<IPageProps> = (props) => {
           />
         </>
       )
-    },
-
-    // 积分设置
-    {
-      key: ETabType.Score,
-      modules: (
-        <>
-          <ScoreGlobalSetting disabled={disabled} />
-          <PayAmountRateSetting />
-        </>
-      )
     }
+
+    // // 积分设置
+    // {
+    //   key: ETabType.Score,
+    //   modules: (
+    //     <>
+    //       <ScoreGlobalSetting disabled={disabled} />
+    //       <PayAmountRateSetting />
+    //     </>
+    //   )
+    // }
   ]
 
   return (

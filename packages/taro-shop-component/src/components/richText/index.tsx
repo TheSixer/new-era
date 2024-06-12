@@ -4,7 +4,7 @@ import { IMMRichTextProps } from './const'
 import classNames from 'classnames'
 import { isWeapp } from '../../config'
 import styles from './index.modules.less'
-import { getImage } from '@wmeimob/aliyun'
+import { getImage } from '@wmeimob/tencent-cloud'
 
 /**
  *

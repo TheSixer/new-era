@@ -1,4 +1,4 @@
-import { getResizeUrl } from '@wmeimob/aliyun'
+import { getResizeUrl } from '@wmeimob/tencent-cloud'
 import { IModuleInfo, BasicModuleSignEnum } from '@wmeimob-modules/decoration-data'
 import { EModuleCategory } from '@wmeimob-modules/decoration-data/src/enums/EModuleCategory'
 import { EVideoSource } from '@wmeimob-modules/decoration-data/src/enums/EVideoSource'
