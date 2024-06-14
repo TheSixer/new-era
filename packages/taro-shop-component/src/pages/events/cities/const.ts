@@ -4,5 +4,5 @@ export interface CityItem {
 }
 
 export interface ICitiesProps {
-    cities: CityItem[];
+    city: string;
 }

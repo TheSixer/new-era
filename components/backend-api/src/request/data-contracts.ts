@@ -118,6 +118,150 @@ export interface AuthMobileInputDto {
   code?: string;
 }
 
+export interface ActivityOrderSeatArrangeParam {
+  /**
+   * 活动id
+   */
+  activityId?: number | string;
+  /**
+   * 活动报名记录id
+   */
+  orderId?: number;
+  /**
+   * 活动座位id
+   */
+  seatId?: number;
+  /**
+   * 座位号
+   */
+  seatNo?: number;
+  /**
+   * 活动场次id
+   */
+  unifyId?: number;
+  [property: string]: any;
+}
+
+export interface ActiveOrderUnifyParam {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 开始时间
+   */
+  beginTime?: string;
+  /**
+   * 结束时间
+   */
+  endTime?: string;
+  /**
+   * 主键
+   */
+  id?: number;
+  /**
+   * 姓名/手机号
+   */
+  name?: string;
+  /**
+   * nextToken
+   */
+  nextToken?: number;
+  /**
+   * 当前页码
+   */
+  pageNum?: number;
+  /**
+   * 每页数据量
+   */
+  pageSize?: number;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«List«ActivitySeatOutputDto»»
+ */
+export interface JsonResultListActivitySeatOutputDto {
+  code?: number;
+  data?: ActivitySeatOutputDto[];
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatOutputDto
+*/
+export interface ActivitySeatOutputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 区域编号
+   */
+  areaCode?: string;
+  /**
+   * 区域名称
+   */
+  areaName?: string;
+  createUser?: string;
+  gmtCreated?: Date;
+  gmtModified?: Date;
+  modifyUser?: string;
+  /**
+   * 排号
+   */
+  rowNumber?: string;
+  /**
+   * 座位数量
+   */
+  seat?: number;
+  status?: number;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«List«ActivityUnifyOutputDto»»
+ */
+export interface JsonResultActivityUnifyOutputDto {
+  code?: number;
+  data?: ActivityUnifyOutputDto[];
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* ActivityUnifyOutputDto
+*/
+export interface ActivityUnifyOutputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  createUser?: string;
+  gmtCreated?: Date;
+  gmtModified?: Date;
+  /**
+   * 编号
+   */
+  id?: number;
+  modifyUser?: string;
+  /**
+   * 活动席位
+   */
+  seat?: number;
+  status?: number;
+  /**
+   * 场次日期
+   */
+  unifyDate?: Date;
+  /**
+   * 场次时间
+   */
+  unifyTime?: string;
+  [property: string]: any;
+}
+
 export interface ActiveOrderListParam {
   /**
    * 开始时间
@@ -237,7 +381,7 @@ export interface ActivityOutputDto {
   /**
    * 报名时间-结束时间
    */
-  bookEndTime?: Date;
+  bookEndTime: string;
   /**
    * 报名费用
    */
@@ -249,7 +393,7 @@ export interface ActivityOutputDto {
   /**
    * 报名时间-开始时间
    */
-  bookStartTime?: Date;
+  bookStartTime: string;
   /**
    * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
    */
@@ -278,7 +422,7 @@ export interface ActivityOutputDto {
   /**
    * 活动时间-结束时间
    */
-  endTime?: Date;
+  endTime: string;
   gmtCreated?: Date;
   gmtModified?: Date;
   /**
@@ -341,7 +485,7 @@ export interface ActivityOutputDto {
   /**
    * 活动时间-开始时间
    */
-  startTime?: Date;
+  startTime: string;
   status?: number;
   /**
    * 是否统一场次 1是
@@ -486,7 +630,7 @@ export interface ActivitySeatRuleCreateInputDto {
   /**
    * 适用座位id集合
    */
-  seatIds?: string;
+  seatIds?: string | (string | number)[];
   /**
    * 排序值
    */
@@ -9516,6 +9660,267 @@ export interface MaterialAddParam {
   type?: number;
 }
 
+/**
+ * JsonResult«PagedResult«ActivityOutputDto»»
+ */
+export interface JsonResultPagedResultActivityItemOutputDto {
+  code?: number;
+  data: ActivityOutputDto;
+  msg?: string;
+}
+
+/**
+ * ModifyEventStatusInputDto
+ */
+export interface ModifyEventStatusInputDto {
+  /**
+   * 编号
+   */
+  id?: number;
+  /**
+   * 显示状态 1显示0不显示
+   */
+  showStatus: number;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«PagedResult«ActivityOutputDto»»
+ */
+export interface JsonResultPagedResultActivityOutputDto {
+  code?: number;
+  data?: PagedResultActivityOutputDto;
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* PagedResult«ActivityOutputDto»
+*/
+export interface PagedResultActivityOutputDto {
+  list?: ActivityOutputDto[];
+  total?: number;
+}
+
+/**
+* ActivityOutputDto
+*/
+export interface ActivityOutputDto {
+  /**
+   * 活动限制人数
+   */
+  activityMaxNum?: number;
+  /**
+   * 活动状态 0：未开始 1：进行中 2：已结束
+   */
+  activityStatus?: number;
+  /**
+   * 详细地址
+   */
+  address?: string;
+  /**
+   * 区
+   */
+  area?: string;
+  /**
+   * 报名时间-结束时间
+   */
+  bookEndTime: string;
+  /**
+   * 报名费用
+   */
+  bookFree?: number;
+  /**
+   * 已预约人数
+   */
+  bookNum?: number;
+  /**
+   * 报名时间-开始时间
+   */
+  bookStartTime: string;
+  /**
+   * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
+   */
+  checkType?: number;
+  /**
+   * 市
+   */
+  city?: string;
+  /**
+   * 活动类型id
+   */
+  classifyId?: number;
+  /**
+   * 活动封面
+   */
+  cover?: string;
+  createUser?: string;
+  /**
+   * 活动详情
+   */
+  details?: string;
+  /**
+   * 距离
+   */
+  distance?: number;
+  /**
+   * 活动时间-结束时间
+   */
+  endTime: string;
+  gmtCreated?: Date;
+  gmtModified?: Date;
+  /**
+   * 编号
+   */
+  id?: number;
+  /**
+   * 活动图片
+   */
+  imgs?: string;
+  /**
+   * 首页展示封面
+   */
+  indexCover?: string;
+  /**
+   * 首页展示 1是
+   */
+  indexView?: boolean;
+  /**
+   * 活动简介
+   */
+  intro?: string;
+  /**
+   * 纬度
+   */
+  latitude?: string;
+  /**
+   * 级别限制 0不限
+   */
+  level?: number;
+  /**
+   * 经度
+   */
+  longitude?: string;
+  modifyUser?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  /**
+   * 参与用户 0：全部用户 1：白名单
+   */
+  participate?: number;
+  /**
+   * 省
+   */
+  province?: string;
+  /**
+   * 统一场次席位
+   */
+  seat?: number;
+  /**
+   * 活动座位
+   */
+  seatCreateInputListDtos?: ActivitySeatCreateInputListDto[];
+  /**
+   * 活动座位分配规则
+   */
+  seatRuleCreateInputDtos?: ActivitySeatRuleCreateInputDto[];
+  /**
+   * 活动时间-开始时间
+   */
+  startTime: string;
+  status?: number;
+  /**
+   * 是否统一场次 1是
+   */
+  unify?: boolean;
+  /**
+   * 活动场次
+   */
+  unifyCreateInputDtos?: ActivityUnifyCreateInputDto[];
+  /**
+   * 显示座位号
+   */
+  viewSeatNo?: boolean;
+}
+
+/**
+* ActivitySeatCreateInputListDto
+*/
+export interface ActivitySeatCreateInputListDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 区域名称
+   */
+  areaName?: string;
+  /**
+   * 区域对应排号
+   */
+  seatCreateInputDtos?: ActivitySeatCreateInputDto[];
+}
+
+/**
+* ActivitySeatCreateInputDto
+*/
+export interface ActivitySeatCreateInputDto {
+  /**
+   * 排号
+   */
+  rowNumber?: string;
+  /**
+   * 座位数量
+   */
+  seat?: number;
+}
+
+/**
+* ActivitySeatRuleCreateInputDto
+*/
+export interface ActivitySeatRuleCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 适用座位id集合
+   */
+  seatIds?: string | (string | number)[];
+  /**
+   * 排序值
+   */
+  sort?: number;
+  /**
+   * 标签id
+   */
+  tagId?: number;
+}
+
+/**
+* ActivityUnifyCreateInputDto
+*/
+export interface ActivityUnifyCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 活动席位
+   */
+  seat?: number;
+  /**
+   * 场次日期
+   */
+  unifyDate?: Date;
+  /**
+   * 场次时间
+   */
+  unifyTime?: string;
+}
+
 export interface MarketingActivityVo {
   /** 活动名称 */
   activityName?: string;
@@ -17538,7 +17943,7 @@ export interface ActivityCreateInputDto {
   /**
    * 报名时间-开始时间
    */
-  bookStartTime?: Date;
+  bookStartTime?: string;
   /**
    * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
    */
@@ -17679,7 +18084,7 @@ export interface ActivitySeatRuleCreateInputDto {
   /**
    * 适用座位id集合
    */
-  seatIds?: string;
+  seatIds?: string | (string | number)[];
   /**
    * 排序值
    */
@@ -17713,6 +18118,300 @@ export interface ActivityUnifyCreateInputDto {
   unifyTime?: string;
   [property: string]: any;
 }
+
+export interface AdminEventListGetParams {
+  /**
+   * 活动状态 0：未开始 1：进行中  2：已结束
+   */
+  activityStatus?: number;
+  /**
+   * 开始时间
+   */
+  beginTime?: string;
+  /**
+   * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
+   */
+  checkType?: number;
+  /**
+   * 活动类型id
+   */
+  classifyId?: number;
+  /**
+   * 结束时间
+   */
+  endTime?: string;
+  /**
+   * 主键
+   */
+  id?: number;
+  /**
+   * 纬度
+   */
+  latitude?: string;
+  /**
+   * 经度
+   */
+  longitude?: string;
+  /**
+   * 活动名称
+   */
+  name?: string;
+  /**
+   * nextToken
+   */
+  nextToken?: number;
+  /**
+   * 当前页码
+   */
+  pageNum?: number;
+  /**
+   * 每页数据量
+   */
+  pageSize?: number;
+  /**
+   * 省
+   */
+  province?: string;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«PagedResult«ActivityOutputDto»»
+ */
+export interface JsonResultPagedResultActivityOutputDto {
+  code?: number;
+  data?: PagedResultActivityOutputDto;
+  msg?: string;
+}
+
+/**
+* PagedResult«ActivityOutputDto»
+*/
+export interface PagedResultActivityOutputDto {
+  list?: ActivityOutputDto[];
+  total?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivityOutputDto
+*/
+export interface ActivityOutputDto {
+  /**
+   * 活动限制人数
+   */
+  activityMaxNum?: number;
+  /**
+   * 活动状态 0：未开始 1：进行中 2：已结束
+   */
+  activityStatus?: number;
+  /**
+   * 详细地址
+   */
+  address?: string;
+  /**
+   * 区
+   */
+  area?: string;
+  /**
+   * 报名时间-结束时间
+   */
+  bookEndTime: string;
+  /**
+   * 报名费用
+   */
+  bookFree?: number;
+  /**
+   * 已预约人数
+   */
+  bookNum?: number;
+  /**
+   * 报名时间-开始时间
+   */
+  bookStartTime: string;
+  /**
+   * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
+   */
+  checkType?: number;
+  /**
+   * 市
+   */
+  city?: string;
+  /**
+   * 活动类型id
+   */
+  classifyId?: number;
+  /**
+   * 活动封面
+   */
+  cover?: string;
+  createUser?: string;
+  /**
+   * 活动详情
+   */
+  details?: string;
+  /**
+   * 距离
+   */
+  distance?: number;
+  /**
+   * 活动时间-结束时间
+   */
+  endTime: string;
+  gmtCreated?: Date;
+  gmtModified?: Date;
+  /**
+   * 编号
+   */
+  id?: number;
+  /**
+   * 活动图片
+   */
+  imgs?: string;
+  /**
+   * 首页展示封面
+   */
+  indexCover?: string;
+  /**
+   * 首页展示 1是
+   */
+  indexView?: boolean;
+  /**
+   * 活动简介
+   */
+  intro?: string;
+  /**
+   * 纬度
+   */
+  latitude?: string;
+  /**
+   * 级别限制 0不限
+   */
+  level?: number;
+  /**
+   * 经度
+   */
+  longitude?: string;
+  modifyUser?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  /**
+   * 参与用户 0：全部用户 1：白名单
+   */
+  participate?: number;
+  /**
+   * 省
+   */
+  province?: string;
+  /**
+   * 统一场次席位
+   */
+  seat?: number;
+  /**
+   * 活动座位
+   */
+  seatCreateInputListDtos?: ActivitySeatCreateInputListDto[];
+  /**
+   * 活动座位分配规则
+   */
+  seatRuleCreateInputDtos?: ActivitySeatRuleCreateInputDto[];
+  /**
+   * 活动时间-开始时间
+   */
+  startTime: string;
+  status?: number;
+  /**
+   * 是否统一场次 1是
+   */
+  unify?: boolean;
+  /**
+   * 活动场次
+   */
+  unifyCreateInputDtos?: ActivityUnifyCreateInputDto[];
+  /**
+   * 显示座位号
+   */
+  viewSeatNo?: boolean;
+}
+
+/**
+* ActivitySeatCreateInputListDto
+*/
+export interface ActivitySeatCreateInputListDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 区域名称
+   */
+  areaName?: string;
+  /**
+   * 区域对应排号
+   */
+  seatCreateInputDtos?: ActivitySeatCreateInputDto[];
+}
+
+/**
+* ActivitySeatCreateInputDto
+*/
+export interface ActivitySeatCreateInputDto {
+  /**
+   * 排号
+   */
+  rowNumber?: string;
+  /**
+   * 座位数量
+   */
+  seat?: number;
+}
+
+/**
+* ActivitySeatRuleCreateInputDto
+*/
+export interface ActivitySeatRuleCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 适用座位id集合
+   */
+  seatIds?: string | (string | number)[];
+  /**
+   * 排序值
+   */
+  sort?: number;
+  /**
+   * 标签id
+   */
+  tagId?: number;
+}
+
+/**
+* ActivityUnifyCreateInputDto
+*/
+export interface ActivityUnifyCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 活动席位
+   */
+  seat?: number;
+  /**
+   * 场次日期
+   */
+  unifyDate?: Date;
+  /**
+   * 场次时间
+   */
+  unifyTime?: string;
+}
+
 export interface AdminActivityFlashSaleGetParams {
   /** 活动名称 */
   activityName?: string;

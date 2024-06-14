@@ -1,4 +1,4 @@
-import { FC, memo, useRef } from 'react'
+import { FC, memo, useEffect, useRef } from 'react'
 import styles from './index.module.less'
 import { IIndexProps } from './const'
 import MMNavigation from '@wmeimob/taro-design/src/components/navigation'
@@ -11,16 +11,19 @@ import icon_exchange_records from './images/icon_exchange_records.png'
 import { routeNames } from '../../../routes'
 import { PageContainer } from '@wmeimob/taro-design'
 import MMBadge from '@wmeimob/taro-design/src/components/badge'
-import { isNoStatusBar, systemConfig } from '../../../config'
+import { isNoStatusBar } from '../../../config'
 import TabBar from '../../../custom-tab-bar/tabBar'
 import classNames from 'classnames'
 import { ArrowDownFilled } from '../../../components/Icons'
-
-const { config } = systemConfig
+import { navByLink } from '../../../components/pageModules/utils'
+import { EJumpType } from '@wmeimob-modules/decoration-data/src/enums/EJumpType'
+import { useDidShow } from '@tarojs/taro'
+import { useGlobalStore } from '@wmeimob/taro-store'
+import useGetLocation from '../../../hooks/useGetLocation'
 
 const Component: FC<IIndexProps> = () => {
   const navHeight = useRef(MMNavigation.navigationHeight)
-  // const { user } = useGlobalStore()
+  const { user } = useGlobalStore()
 
   const orders = [
     { label: '会员权益', img: icon_vip, url: routeNames.orderMyOrder, params: { id: 1 }, num: 0 },
@@ -28,6 +31,12 @@ const Component: FC<IIndexProps> = () => {
     { label: '门店查询', img: icon_stores, url: routeNames.orderMyOrder, params: { id: 3 }, num: 0 },
     { label: '跟随我们', img: icon_follow, url: routeNames.orderCommentCenter, num: 0 }
   ];
+
+  useEffect(() => {
+    if (user.mobile && !user.registerIs) {
+      navByLink(EJumpType.DefaultNav, { url: routeNames.webAuth, params: {} })
+    }
+  }, [user])
 
   const jumpClick = (url?: string, params?: object) => {
     // eslint-disable-next-line @typescript-eslint/no-unused-expressions
@@ -47,11 +56,9 @@ const Component: FC<IIndexProps> = () => {
   //   setOrders(order_)
   // }
 
-  // useDidShow(() => {
-  //   if (user.mobile) {
-  //     getOrdersNum()
-  //   }
-  // })
+  useDidShow(() => {
+    useGetLocation()
+  })
 
   return (
     <PageContainer isTab className={styles.indexStyle}>
@@ -70,11 +77,11 @@ const Component: FC<IIndexProps> = () => {
             </View>
             <View className={styles.vip_info}>
               <View className={styles.vip_points}>
-                <Text className={styles.vip_points_text}>168</Text>
+                <Text className={styles.vip_points_text}>0</Text>
                 <Text className={styles.vip_points_subtext}>积分</Text>
               </View>
               <View className={styles.vip_points}>
-                <Text className={styles.vip_points_text}>168</Text>
+                <Text className={styles.vip_points_text}>0</Text>
                 <Text className={styles.vip_points_subtext}>卡券</Text>
               </View>
             </View>
@@ -101,7 +108,9 @@ const Component: FC<IIndexProps> = () => {
               </View>
 
               {/* 活动预约 */}
-              <View className={styles.activity_card}>
+              <View className={styles.activity_card} onClick={() => {
+                navByLink(EJumpType.DefaultNav, { url: routeNames.eventsPrefecture, params: {} })
+              }}>
                 <View className={styles.activity_card_title}>EVENT RESERVATION</View>
                 <View className={styles.activity_card_content}>活动预约</View>
                 <View className={styles.activity_card_desc}>
@@ -113,7 +122,9 @@ const Component: FC<IIndexProps> = () => {
               </View>
 
               {/* 我的 */}
-              <View className={classNames(styles.activity_card, styles.my_activity_card)}>
+              <View className={classNames(styles.activity_card, styles.my_activity_card)} onClick={() => {
+                navByLink(EJumpType.DefaultNav, { url: routeNames.mineEventsList, params: {} })
+              }}>
                 <View className={styles.activity_card_title}>MY RESERVATION</View>
                 <View className={styles.activity_card_content}>我的预约</View>
                 <View className={styles.activity_card_desc}>

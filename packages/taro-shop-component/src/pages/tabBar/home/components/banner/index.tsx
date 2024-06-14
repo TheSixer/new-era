@@ -1,21 +1,25 @@
 import { FC, memo, useState } from 'react';
 import { IBannerProps } from './const';
-import { View, Swiper, SwiperItem, Button, Text } from '@tarojs/components';
+import { View, Swiper, SwiperItem, Button, Text, RichText } from '@tarojs/components';
 import styles from './index.module.less';
 import classNames from 'classnames';
+import { useDidShow } from '@tarojs/taro';
+import { BannerPositionOutputDto, api } from '@wmeimob/taro-api';
+import LoadingView from '../loadingView';
+import MMRichText from '../../../../../components/richText';
+import { navByLink } from '../../../../../components/pageModules/utils';
 
 const Component: FC<IBannerProps> = () => {
   const [current, setCurrent] = useState(0);
 
-  const images = [
-    { src: 'https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/938a92ae-df38-700a-bf0b-1c425d370d88.jpg', alt: 'Image 1' },
-    { src: 'https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/7d30fdf3-72d5-20a4-2e45-c2740baf08e7.jpg', alt: 'Image 2' },
-    { src: 'https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/a4462a2c-7241-8ba5-fb1e-c5a7265d34ba.jpg', alt: 'Image 3' }
-    // 其他图片
-  ];
+  const {loading, banners} = useBannerService()
 
   const onChange = (event) => {
     setCurrent(event.detail.current);
+  }
+
+  if (loading) {
+    return <LoadingView />
   }
 
   return (
@@ -27,15 +31,17 @@ const Component: FC<IBannerProps> = () => {
         circular
         autoplay
       >
-        {images.map((image, index) => (
+        {banners.map((data, index) => (
           <SwiperItem key={index}>
-            <View className={styles.banner_image} style={{ backgroundImage: `url(${image.src})` }}>
+            <View className={styles.banner_image} style={{ backgroundImage: `url(${data.imgUrl})` }}
+              onClick={() => navByLink(Number(data.urlType) as any, data.url!)}
+            >
               <View className={styles.banner_description}>
-                <Text className='banner_title'>59FIFTY全封平檐帽</Text>
-                <Text className='banner_subtitle'>70年来，59FIFTY一直引领潮流</Text>
-                <Text className='banner_subtitle'>吸引着人们的目光并改变着游戏规则</Text>
+                <Text className='banner_title'>{data.name}</Text>
+                {/* <Text className='banner_subtitle'>{fixText(image.content)}</Text> */}
+                <MMRichText html={fixText(data.content)} className='banner_subtitle' />
 
-                <Button className='banner_btn'>查看更多</Button>
+                <Button className='banner_btn' onClick={() => navByLink(Number(data.urlType) as any, data.url!)}>查看更多</Button>
               </View>
             </View>
           </SwiperItem>
@@ -43,7 +49,7 @@ const Component: FC<IBannerProps> = () => {
       </Swiper>
 
       <View className={styles['dot_container']}>
-        {images.map((_, index) => (
+        {banners.map((_, index) => (
           <View
             key={index}
             className={classNames(styles['dot'], current === index? styles['dot_active'] : styles['dot_inactive'])}
@@ -56,3 +62,29 @@ const Component: FC<IBannerProps> = () => {
 
 const Banner = memo(Component)
 export default Banner
+
+function useBannerService() {
+  const [loading, setLoading] = useState(false)
+  const [banners, setBanners] = useState<BannerPositionOutputDto[]>([])
+
+  useDidShow(() => {
+    getBanners()
+  });
+
+  /** 获取banners */
+  async function getBanners() {
+    setLoading(true)
+    const { data = [] } = await api['/wechat/mall/banner/queryList_GET']({position: 'BANNER'})
+
+    setBanners(data)
+    setLoading(false)
+  }
+
+  return {loading, banners}
+}
+
+function fixText(text) {
+  const replaceRegex = /(\n\r|\r\n|\r|\n)/g;
+
+  return `<div style="text-align:center;">${text?.replace(replaceRegex, "<br/>")}</div>`;
+}

@@ -94,7 +94,7 @@ export default class MMInputSearch extends PureComponent<IMMInputSearchProps> {
             <Image src={SearchIcon} className={styles.icon} />
           <View className={styles.placeholder}>{this.props.placeholder}</View>
           <View className={classNames(styles.input_box, styles.input_box__focus)}>
-            <Input maxlength={30} value={this.state.value} onFocus={this.onFocus} onInput={this.onInput} onBlur={this.onBlur} />
+            <Input maxlength={30} value={this.state.value} onFocus={this.onFocus} onInput={this.onInput} onBlur={this.onBlur} onConfirm={this.onSearch}   />
           </View>
         </View>
         <View className={styles.text} onClick={this.onSearch}>

@@ -8,14 +8,11 @@ import { useSuperLock } from '@wmeimob/utils/src/hooks/useSuperLock'
 import { useForm } from 'antd/lib/form/Form'
 import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormLimitInput'
 import { ProFormDateRangePicker, ProFormDateTimeRangePicker, ProFormSelect } from '@ant-design/pro-form'
-import { EActivityType } from '@wmeimob/shop-data/src/enums/activity/EActivityType'
 import ProFormRichText from '@wmeimob/backend-pro/src/components/form/proFormRichText'
 import { EActivityPromotionType } from '~/enums/activity/EActivityPromotionType'
-import { MarketingActivityDto } from '@wmeimob/backend-api'
-import { ActivityCreateInputDto, EventTypeDto, api } from '~/request'
+import { ActivityCreateInputDto, ActivityOutputDto, EventTypeDto, api } from '~/request'
 import dayjs from 'dayjs'
 import { EActivityStatus } from '~/enums/activity/EActivityStatus'
-import { times } from 'number-precision'
 import useDisableActivityTime from '~/hooks/activity/useDisableActivityTime'
 import { history } from 'umi'
 import ProFormMaterial from '@wmeimob/backend-pages/src/components/form/proFormMaterial'
@@ -25,18 +22,19 @@ import ProFormCityCascader from '@wmeimob/backend-pro/src/components/form/proFor
 import EventCountCard from './components/eventCountCard'
 import SeatSettingCard from './components/seatSettingCard'
 import EventSettingCard from './components/eventSettingCard'
+import getCityInfoById from '@wmeimob/backend-pro/src/utils/getCityInfoByIds'
 
 const Component: FC<ICreateProps> = () => {
   const query = useQuery()
-  const activityNo = query.get('activityNo') || ''
+  const activityId = query.get('activityId') || ''
   const [loading, setLoading] = useState(false)
   const [eventTypes, setEventTypes] = useState<EventTypeDto[]>([])
-  const [activity, setActivity] = useState<MarketingActivityDto>({})
+  const [activity, setActivity] = useState<ActivityOutputDto>()
   const [form] = useForm()
 
   // 活动开始和结束阶段不能编辑
   const disabled = useMemo(
-    () => activity.activityStatus !== undefined && [EActivityStatus.Use, EActivityStatus.Finish].includes(activity.activityStatus),
+    () => activity?.status !== undefined && [EActivityStatus.Use, EActivityStatus.Finish].includes(activity?.status),
     [activity]
   )
 
@@ -45,28 +43,29 @@ const Component: FC<ICreateProps> = () => {
 
   useEffect(() => {
     async function init() {
-      if (activityNo) {
+      if (activityId) {
         setLoading(true)
         // 获取id
-        const { data = {} } = await api['/admin/activity/full/{activityNo}_GET'](activityNo)
+        const { data } = await api['/admin/mall/activity/get/{activityId}_GET'](activityId)
 
         // 处理活动设置
-        const { promotionParam = {}, activityType } = data
-        const { promotionConditionList = [] } = promotionParam
-        if (!promotionConditionList.length) {
-          return message.warn('请设置活动区间')
-        }
-
-        promotionParam.promotionConditionList = promotionConditionList.map((item) => {
-          // 折扣需要处理乘10
-          const promo = activityType === EActivityType.Discount ? parseFloat(times(item.promo || 0, 10).toFixed(2)) : item.promo
-          return { ...item, promo }
-        })
+        // const { promotionParam = {}, activityType } = data
 
         form.setFieldsValue({
           ...data,
-          promotionParam,
-          activityTime: [data.startTime, data.endTime]
+          activityTime: [data?.startTime, data?.endTime],
+          signTime: [data?.bookStartTime, data?.bookEndTime],
+          citys: [data?.provinceId, data?.cityId, data?.areaId],
+          imgs: data?.imgs?.split?.(','),
+          seatRuleCreateInputDtos: data?.seatRuleCreateInputDtos?.map?.((item) => ({...item, seatIds: JSON.parse(item?.seatIds) })),
+          unifyCreateInputDtos: data?.unifyCreateInputDtos?.map?.((item) => ({
+            ...item,
+             unifyDate: moment(item.unifyDate).format('YYYY-MM-DD'),
+             unifyTime: item.unifyTime?.split?.('-')?.map?.((it) => moment(it, 'HH:mm').format('HH:mm'))
+           })),
+           viewSeatNo: data?.viewSeatNo ? 1 : 0,
+           indexView: data?.viewSeatNo ? 1 : 0
+          // seatCreateInputListDtos: data?.seatCreateInputListDtos?.map?.((item) => ({...item, seatCreateInputDtos: item.seatCreateInputDtos?.map?.((it) => ({...it, areaCode: it.areaId}))}))
         })
 
         setActivity(data)
@@ -86,30 +85,38 @@ const Component: FC<ICreateProps> = () => {
   }, [])
 
   const [handleSave, saveLock] = useSuperLock(async () => {
-    const { activityTime, signTime, citys, imgs, seatRuleCreateInputDtos, unifyCreateInputDtos, ...result } = await form.validateFields()
+    const { activityTime, signTime, citys, imgs, seatRuleCreateInputDtos, unifyCreateInputDtos, seatCreateInputListDtos, ...result } = await form.validateFields()
     const [startTime, endTime] = activityTime
     const [bookStartTime, bookEndTime] = signTime
-    const [province, city, area] = citys
+    const [provinceId, cityId, areaId] = citys
+
+    const { province, city, district } = getCityInfoById({ province: provinceId, city: cityId, district: areaId })
 
     const params: ActivityCreateInputDto = {
       ...activity,
       ...result,
-      startTime: dayjs(startTime).format('YYYY-MM-DD'),
-      endTime: dayjs(endTime).format('YYYY-MM-DD'),
+      startTime: dayjs(startTime).format('YYYY-MM-DD') + ' 00:00:00',
+      endTime: dayjs(endTime).format('YYYY-MM-DD') + ' 23:59:59',
       bookStartTime: dayjs(bookStartTime).format('YYYY-MM-DD HH:mm') + ':00',
       bookEndTime: dayjs(bookEndTime).format('YYYY-MM-DD HH:mm') + ':59',
-      province,
-      city,
-      area,
+      provinceId,
+      province: province!.label,
+      cityId,
+      city: city!.label,
+      areaId,
+      area: district?.label || '',
       imgs: imgs?.join?.(','),
-      seatRuleCreateInputDtos: seatRuleCreateInputDtos?.map?.((item, idx) => ({...item, seatIds: item.seatIds.join(','), sort: idx})),
+      level: 0, //  等级默认先设置为0
+      seatRuleCreateInputDtos: seatRuleCreateInputDtos?.map?.((item, idx) => ({...item, seatIds: item.seatIds?.length && JSON?.stringify?.(item.seatIds), sort: idx})),
       unifyCreateInputDtos: unifyCreateInputDtos?.map?.((item) => ({
         ...item,
-        unifyDate: dayjs(item.unifyDate).format('YYYY-MM-DD'),
+        unifyDate: dayjs(item.unifyDate).format('YYYY-MM-DD') + ' 00:00:00',
         unifyTime: item?.unifyTime?.map?.((it) => dayjs(it).format('HH:mm'))?.join?.('-')
-      }))
+      })),
+      seatCreateInputListDtos: seatCreateInputListDtos?.map?.((item, index) => ({...item, seatCreateInputDtos: item?.seatCreateInputDtos?.map?.((it, i) => ({...it, areaCode:`${index}-${i}`}))})),
+      id: activityId
     }
-    await api['/admin/mall/activity/add_POST'](params)
+    !activityId ? await api['/admin/mall/activity/add_POST'](params) : await api['/admin/mall/activity/update_PUT'](params)
     message.success('保存成功')
     history.goBack()
   })
@@ -303,11 +310,11 @@ const Component: FC<ICreateProps> = () => {
             /> */}
           </Card>
 
-          <EventCountCard disabled={disabled || !!activityNo} />
+          <EventCountCard disabled={disabled || !!activityId} />
 
-          <SeatSettingCard disabled={disabled || !!activityNo} />
+          <SeatSettingCard disabled={disabled || !!activityId} />
 
-          <EventSettingCard disabled={disabled || !!activityNo} />
+          <EventSettingCard disabled={disabled || !!activityId} />
 
         </Space>
       </Form>

@@ -1,11 +1,11 @@
 export default defineAppConfig({
   pages: [
+    'pages/tabBar/mine/index', // 我的
     'pages/tabBar/home/index', // 首页
+    'pages/events/prefecture/index',  //  活动预约
     'pages/events/signUp/index',  //  填写个人信息
     'pages/events/detail/index',  //  活动详情
     'pages/events/cities/index',  //  城市选择
-    'pages/events/prefecture/index',  //  活动预约
-    'pages/initScreen/index', // 开屏页
     'pages/live/index', // 直播页面
     'pages/webPage/index', // 自定义H5链接页面
     'pages/liveList/index', // 直播列表
@@ -16,7 +16,6 @@ export default defineAppConfig({
 
     'pages/tabBar/categorys/index', // 分类
     'pages/tabBar/shopCart/index', // 购物车
-    'pages/tabBar/mine/index', // 我的
     'pages/auth/index', // 授权
     'pages/webAuth/index', // h5登录页
     'pages/decoration/index', // 自定义装修页
@@ -35,6 +34,8 @@ export default defineAppConfig({
       pages: [
         'userAgreement/index', // 用户协议
         'address/addressManagement/index', // 收货地址
+        'events/list/index',  //  我的活动预约
+        'events/detail/index',  //  我的活动详情
         'address/addressList/index', // 收货地址列表
         'personal/index', // 个人中心 个人信息
         'alter/index', // 个人信息修改

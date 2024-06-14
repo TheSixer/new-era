@@ -1,16 +1,21 @@
 // src/components/CustomSwiper/CustomSwiper.jsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Image, Text, Button } from '@tarojs/components';
 import styles from './index.module.less';
 import classNames from 'classnames';
 import Title from '../title';
 import Months from '../months';
 import { ArrowDownFilled } from '../../../../../components/Icons';
+import { useDidShow } from '@tarojs/taro';
+import { BannerPositionOutputDto, api } from '@wmeimob/taro-api';
+import { navByLink } from '../../../../../components/pageModules/utils';
 
-const CustomSwiper = ({ images: list }) => {
-  const images = [...list, ...list];
+const CustomSwiper = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
+  const {banners} = useBannerService()
+  const [images, setImages] = useState<BannerPositionOutputDto[]>([])
+  const [month, setMonth] = useState(new Date().getMonth() + 1)
 
   const handleNext = () => {
     setCurrentIndex((prevIndex) => (prevIndex + 1) % images.length);
@@ -35,9 +40,16 @@ const CustomSwiper = ({ images: list }) => {
   }
 
   const handleChange = (month: number) => {
-    // eslint-disable-next-line no-console
-    console.log(month);
+    setMonth(month)
   }
+
+  useEffect(() => {
+    let items = banners.filter(({applicableDate}) => new Date(applicableDate || '').getMonth() + 1 === month)
+    while(items.length && items.length < 5) {  // 补充数据)
+      items = items.concat(items)
+    }
+    setImages(items)
+  }, [banners, month]);
 
   return (
     <View className={styles.premium_container}>
@@ -69,16 +81,18 @@ const CustomSwiper = ({ images: list }) => {
                   isPrev ? styles.prev : '',
                   isPPrev ? styles.pprev : '')}
               >
-                <View className={styles.swiper_slide_view}>
-                  <View className={styles.swiper_slide_content}>
+                <View className={styles.swiper_slide_view}
+                  onClick={() => navByLink(Number(image.urlType) as any, image.url!)}
+                >
+                  {/* <View className={styles.swiper_slide_content}>
                     <View className={styles.swiper_slide_title}>2024夏季新款忍者神龟联名棒球帽</View>
                     <Text className={styles.swiper_slide_price}>¥429</Text>
-                  </View>
-                  <Image src={image.src} mode="aspectFill" className={styles.swiper_slide_image} />
-                  <View className={styles.swiper_slide_footer}>
+                  </View> */}
+                  <Image src={image.imgUrl || ''} mode="aspectFill" className={styles.swiper_slide_image} style={{ width: '100%', height: '100%' }} />
+                  {/* <View className={styles.swiper_slide_footer}>
                     <View className={styles.swiper_slide_footer__txt}>6月16日 10:00发售</View>
                     <Button className={classNames('banner_btn', styles.swiper_slide_btn)}>立即预约</Button> 
-                  </View>
+                  </View> */}
                 </View>
               </View>
             );
@@ -96,3 +110,27 @@ const CustomSwiper = ({ images: list }) => {
 };
 
 export default CustomSwiper;
+
+function useBannerService() {
+  const [loading, setLoading] = useState(false)
+  const [banners, setBanners] = useState<BannerPositionOutputDto[]>([])
+
+  useDidShow(() => {
+    getBanners()
+  });
+
+  /** 获取banners */
+  async function getBanners() {
+    setLoading(true)
+    let { data = [] } = await api['/wechat/mall/banner/queryList_GET']({position: 'GOODS'})
+
+    while(data.length < 5) {  // 补充数据
+      data = data.concat(data)
+    }
+
+    setBanners(data)
+    setLoading(false)
+  }
+
+  return {loading, banners}
+}

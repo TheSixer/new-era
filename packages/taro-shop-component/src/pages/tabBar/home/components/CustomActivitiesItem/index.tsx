@@ -7,13 +7,13 @@ import { BlackArrowDownFilled } from '../../../../../components/Icons';
 const Component: FC<IActivitiesItemProps> = ({ item }) => (
   <View
     className={styles.custom_swiper_item}
-    style={{ backgroundImage: `url(${item.src})` }}  
+    style={{ backgroundImage: `url(${item.imgUrl})` }}  
   >
     <View className={styles.custom_swiper_item_content}>
-      <View className={styles.custom_swiper_item_title}>6月1日—7月1日</View>
+      <View className={styles.custom_swiper_item_title}>{item.startTime}-{item.endTime}</View>
       
       <View className={styles.custom_swiper_item_desc}>
-        <View className={styles.custom_swiper_item_desc__txt}>代言人刘雨昕邀请你赴约打卡</View>
+        <View className={styles.custom_swiper_item_desc__txt}>{item.name}</View>
         
         <BlackArrowDownFilled className={styles.custom_swiper_item_desc__icon} />
       </View>

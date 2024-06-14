@@ -88,6 +88,1310 @@ export interface PublicKeyValueDto {
   value?: string;
 }
 
+/**
+ * MemberModifyInputDto
+ */
+export interface MemberModifyDto {
+  /**
+   * 详细地址
+   */
+  address?: string;
+  /**
+   * 区域
+   */
+  area?: string;
+  /**
+   * 用户头像
+   */
+  avatarUrl?: string;
+  /**
+   * 出生年月
+   */
+  birthday?: Date;
+  /**
+   * 用户所在市
+   */
+  city?: string;
+  /**
+   * 用户所在国家
+   */
+  country?: string;
+  /**
+   * 性别 1男 2女 0未知
+   */
+  gender?: string;
+  /**
+   * 手机号
+   */
+  mobile?: string;
+  /**
+   * 用户昵称
+   */
+  nickName?: string;
+  /**
+   * 用户所在省
+   */
+  province?: string;
+  /**
+   * 注册来源
+   */
+  registerSource?: string;
+  [property: string]: any;
+}
+
+export interface WechatBannerQueryListGetParams {
+  /** 位置 */
+  position?: string;
+}
+
+/**
+ * ActivityOrderCreateInputDto
+ */
+export interface ActivityOrderCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 证件号
+   */
+  cardNo?: string;
+  /**
+   * 证件类型 身份证：ID_CARD 港澳通行证：GANG_AO 护照：HU_ZHAO 台胞证：TAI_BAO
+   */
+  cardType?: string;
+  /**
+   * 场次id 0表示统一场次
+   */
+  unifyId?: number;
+  [property: string]: any;
+}
+
+export interface WechatMyEventListGetParams {
+  /**
+   * 纬度
+   */
+  latitude?: string;
+  /**
+   * 经度
+   */
+  longitude?: string;
+  /**
+   * 状态 0：未核销 2：已核销 3：已取消
+   */
+  status?: number;
+  [property: string]: any;
+}
+
+export interface WechatMyReservationListGetParams {
+  orderNo: string;
+  /**
+   * latitude
+   */
+  latitude?: string;
+  /**
+   * longitude
+   */
+  longitude?: string;
+  [property: string]: any;
+}
+/**
+ * JsonResult«ActivityOrderOutputDto»
+ */
+export interface JsonResultActivityOrderOutputDto {
+  code?: number;
+  data?: ActivityOrderOutputDto;
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«List«ActivityOrderOutputDto»»
+ */
+export interface JsonResultListActivityOrderOutputDto {
+  code?: number;
+  data?: ActivityOrderOutputDto[];
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* ActivityOrderOutputDto
+*/
+export interface ActivityOrderOutputDto {
+  activity?: ActivityOutputDto;
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 证件号
+   */
+  cardNo?: string;
+  /**
+   * 证件类型
+   */
+  cardType?: string;
+  createUser?: string;
+  gmtCreated?: Date;
+  gmtModified?: Date;
+  /**
+   * 编号
+   */
+  id?: number;
+  modifyUser?: string;
+  /**
+   * 核销二维码
+   */
+  qrCode?: string;
+  status?: number;
+  /**
+   * 场次id 0表示统一场次
+   */
+  unifyId?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatOutputDto
+*/
+export interface ActivitySeatOutputDto {
+  /**
+   * 区域编号
+   */
+  areaCode?: string;
+  createUser?: string;
+  gmtCreated?: Date;
+  gmtModified?: Date;
+  modifyUser?: string;
+  /**
+   * 排号
+   */
+  rowNumber?: string;
+  /**
+   * 座位数量
+   */
+  seat?: number;
+  status?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatRuleOutputDto
+*/
+export interface ActivitySeatRuleOutputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  createUser?: string;
+  gmtCreated?: Date;
+  gmtModified?: Date;
+  /**
+   * 编号
+   */
+  id?: number;
+  modifyUser?: string;
+  /**
+   * 适用座位id集合
+   */
+  seatIds?: string;
+  /**
+   * 排序值
+   */
+  sort?: number;
+  status?: number;
+  /**
+   * 标签id
+   */
+  tagId?: number;
+  [property: string]: any;
+}
+/**
+* ActivityUnifyOutputDto
+*/
+export interface ActivityUnifyOutputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  createUser?: string;
+  gmtCreated?: Date;
+  gmtModified?: Date;
+  /**
+   * 编号
+   */
+  id?: number;
+  modifyUser?: string;
+  /**
+   * 活动席位
+   */
+  seat?: number;
+  status?: number;
+  /**
+   * 场次日期
+   */
+  unifyDate?: Date;
+  /**
+   * 场次时间
+   */
+  unifyTime?: string;
+  [property: string]: any;
+}
+
+export interface WechatActivityAllGetParams {
+  /**
+   * 活动状态 0：未开始 1：进行中  2：已结束
+   */
+  activityStatus?: number;
+  /**
+   * 开始时间
+   */
+  beginTime?: string;
+  /**
+   * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
+   */
+  checkType?: number;
+  /**
+   * 活动类型id
+   */
+  classifyId?: number;
+  /**
+   * 结束时间
+   */
+  endTime?: string;
+  /**
+   * 主键
+   */
+  id?: number;
+  /**
+   * 纬度
+   */
+  latitude?: string | number;
+  /**
+   * 经度
+   */
+  longitude?: string | number;
+  /**
+   * 活动名称
+   */
+  name?: string;
+  /**
+   * nextToken
+   */
+  nextToken?: number;
+  /**
+   * 当前页码
+   */
+  pageNum?: number;
+  /**
+   * 每页数据量
+   */
+  pageSize?: number;
+  /**
+   * 省
+   */
+  province?: string;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«List«ActivityOutputDto»»
+ */
+export interface JsonResultListActivityOutputDto {
+  code?: number;
+  data?: ActivityOutputDto[];
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* ActivityOutputDto
+*/
+export interface ActivityOutputDto {
+  /**
+   * 活动限制人数
+   */
+  activityMaxNum?: number;
+  /**
+   * 活动状态 0：未开始 1：进行中 2：已结束
+   */
+  activityStatus?: number;
+  /**
+   * 详细地址
+   */
+  address?: string;
+  /**
+   * 区
+   */
+  area?: string;
+  /**
+   * 区Id
+   */
+  areaId?: string;
+  /**
+   * 报名时间-结束时间
+   */
+  bookEndTime?: Date;
+  /**
+   * 报名费用
+   */
+  bookFree?: number;
+  /**
+   * 已预约人数
+   */
+  bookNum?: number;
+  /**
+   * 报名时间-开始时间
+   */
+  bookStartTime?: Date;
+  /**
+   * 签到距离
+   */
+  checkDistance?: number;
+  /**
+   * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
+   */
+  checkType?: number;
+  /**
+   * 市
+   */
+  city?: string;
+  /**
+   * 市Id
+   */
+  cityId?: string;
+  /**
+   * 活动类型id
+   */
+  classifyId?: number;
+  /**
+   * 活动封面
+   */
+  cover?: string;
+  createUser?: string;
+  /**
+   * 活动详情
+   */
+  details?: string;
+  /**
+   * 距离
+   */
+  distance?: number;
+  /**
+   * 活动时间-结束时间
+   */
+  endTime?: string;
+  gmtCreated?: string;
+  gmtModified?: string;
+  /**
+   * 编号
+   */
+  id?: number;
+  /**
+   * 活动图片
+   */
+  imgs?: string;
+  /**
+   * 首页展示封面
+   */
+  indexCover?: string;
+  /**
+   * 首页展示 1是
+   */
+  indexView?: boolean;
+  /**
+   * 活动简介
+   */
+  intro?: string;
+  /**
+   * 纬度
+   */
+  latitude?: string;
+  /**
+   * 级别限制 0不限
+   */
+  level?: number;
+  /**
+   * 经度
+   */
+  longitude?: string;
+  modifyUser?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  /**
+   * 参与用户 0：全部用户 1：白名单
+   */
+  participate?: number;
+  /**
+   * 省
+   */
+  province?: string;
+  /**
+   * 省Id
+   */
+  provinceId?: string;
+  /**
+   * 统一场次席位
+   */
+  seat?: number;
+  /**
+   * 活动座位
+   */
+  seatCreateInputListDtos?: ActivitySeatCreateInputListDto[];
+  /**
+   * 活动座位分配规则
+   */
+  seatRuleCreateInputDtos?: ActivitySeatRuleCreateInputDto[];
+  /**
+   * 活动时间-开始时间
+   */
+  startTime?: string;
+  status?: number;
+  /**
+   * 是否统一场次 1是
+   */
+  unify?: boolean;
+  /**
+   * 活动场次
+   */
+  unifyCreateInputDtos?: ActivityUnifyCreateInputDto[];
+  /**
+   * 显示座位号
+   */
+  viewSeatNo?: boolean;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«List«ActivityClassifyOutputDto»»
+ */
+export interface JsonResultListActivityClassifyOutputDto {
+  code?: number;
+  data?: ActivityClassifyOutputDto[];
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«PagedResult«ActivityOutputDto»»
+ */
+export interface JsonResultDetailResultActivityOutputDto {
+  code?: number;
+  data?: ActivityOutputDto;
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* ActivityOutputDto
+*/
+export interface ActivityOutputDto {
+  /**
+   * 活动限制人数
+   */
+  activityMaxNum?: number;
+  /**
+   * 活动状态 0：未开始 1：进行中 2：已结束
+   */
+  activityStatus?: number;
+  /**
+   * 详细地址
+   */
+  address?: string;
+  /**
+   * 区
+   */
+  area?: string;
+  /**
+   * 区Id
+   */
+  areaId?: string;
+  /**
+   * 报名时间-结束时间
+   */
+  bookEndTime?: Date;
+  /**
+   * 报名费用
+   */
+  bookFree?: number;
+  /**
+   * 已预约人数
+   */
+  bookNum?: number;
+  /**
+   * 报名时间-开始时间
+   */
+  bookStartTime?: Date;
+  /**
+   * 签到距离
+   */
+  checkDistance?: number;
+  /**
+   * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
+   */
+  checkType?: number;
+  /**
+   * 市
+   */
+  city?: string;
+  /**
+   * 市Id
+   */
+  cityId?: string;
+  /**
+   * 活动类型id
+   */
+  classifyId?: number;
+  /**
+   * 活动封面
+   */
+  cover?: string;
+  createUser?: string;
+  /**
+   * 活动详情
+   */
+  details?: string;
+  /**
+   * 距离
+   */
+  distance?: number;
+  /**
+   * 活动时间-结束时间
+   */
+  endTime?: string;
+  gmtCreated?: string;
+  gmtModified?: string;
+  /**
+   * 编号
+   */
+  id?: number;
+  /**
+   * 活动图片
+   */
+  imgs?: string;
+  /**
+   * 首页展示封面
+   */
+  indexCover?: string;
+  /**
+   * 首页展示 1是
+   */
+  indexView?: boolean;
+  /**
+   * 活动简介
+   */
+  intro?: string;
+  /**
+   * 纬度
+   */
+  latitude?: string;
+  /**
+   * 级别限制 0不限
+   */
+  level?: number;
+  /**
+   * 经度
+   */
+  longitude?: string;
+  modifyUser?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  /**
+   * 参与用户 0：全部用户 1：白名单
+   */
+  participate?: number;
+  /**
+   * 省
+   */
+  province?: string;
+  /**
+   * 省Id
+   */
+  provinceId?: string;
+  /**
+   * 统一场次席位
+   */
+  seat?: number;
+  /**
+   * 活动座位
+   */
+  seatCreateInputListDtos?: ActivitySeatCreateInputListDto[];
+  /**
+   * 活动座位分配规则
+   */
+  seatRuleCreateInputDtos?: ActivitySeatRuleCreateInputDto[];
+  /**
+   * 活动时间-开始时间
+   */
+  startTime?: string;
+  status?: number;
+  /**
+   * 是否统一场次 1是
+   */
+  unify?: boolean;
+  /**
+   * 活动场次
+   */
+  unifyCreateInputDtos?: ActivityUnifyCreateInputDto[];
+  /**
+   * 显示座位号
+   */
+  viewSeatNo?: boolean;
+}
+
+/**
+* ActivitySeatCreateInputListDto
+*/
+export interface ActivitySeatCreateInputListDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 区域名称
+   */
+  areaName?: string;
+  /**
+   * 区域对应排号
+   */
+  seatCreateInputDtos?: ActivitySeatCreateInputDto[];
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatCreateInputDto
+*/
+export interface ActivitySeatCreateInputDto {
+  /**
+   * 区域编号
+   */
+  areaCode?: string;
+  /**
+   * 排号
+   */
+  rowNumber?: string;
+  /**
+   * 座位数量
+   */
+  seat?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivityUnifyCreateInputDto
+*/
+export interface ActivityUnifyCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 活动席位
+   */
+  seat?: number;
+  /**
+   * 场次日期
+   */
+  unifyDate?: Date;
+  /**
+   * 场次时间
+   */
+  unifyTime?: string;
+  [property: string]: any;
+}
+/**
+ * JsonResult«Map«string,string»»
+ */
+export interface JsonResultMapString {
+  code?: number;
+  data?: { [key: string]: string };
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* ActivityClassifyOutputDto
+*/
+export interface ActivityClassifyOutputDto {
+  createUser?: string;
+  gmtCreated?: Date;
+  gmtModified?: Date;
+  /**
+   * 编号
+   */
+  id?: number;
+  modifyUser?: string;
+  /**
+   * 类型
+   */
+  name?: string;
+  status?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatCreateInputListDto
+*/
+export interface ActivitySeatCreateInputListDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 区域名称
+   */
+  areaName?: string;
+  /**
+   * 区域对应排号
+   */
+  seatCreateInputDtos?: ActivitySeatCreateInputDto[];
+}
+
+/**
+* ActivitySeatCreateInputDto
+*/
+export interface ActivitySeatCreateInputDto {
+  /**
+   * 区域编号
+   */
+  areaCode?: string;
+  /**
+   * 排号
+   */
+  rowNumber?: string;
+  /**
+   * 座位数量
+   */
+  seat?: number;
+}
+
+/**
+* ActivitySeatRuleCreateInputDto
+*/
+export interface ActivitySeatRuleCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 适用座位id集合
+   */
+  seatIds?: string;
+  /**
+   * 排序值
+   */
+  sort?: number;
+  /**
+   * 标签id
+   */
+  tagId?: number;
+}
+
+/**
+* ActivityUnifyCreateInputDto
+*/
+export interface ActivityUnifyCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 活动席位
+   */
+  seat?: number;
+  /**
+   * 场次日期
+   */
+  unifyDate?: Date;
+  /**
+   * 场次时间
+   */
+  unifyTime?: string;
+}
+
+/**
+ * JsonResult«PagedResult«ActivityOutputDto»»
+ */
+export interface JsonResultPagedResultActivityOutputDto {
+  code?: number;
+  data?: PagedResultActivityOutputDto;
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* PagedResult«ActivityOutputDto»
+*/
+export interface PagedResultActivityOutputDto {
+  list?: ActivityOutputDto[];
+  total?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivityOutputDto
+*/
+export interface ActivityOutputDto {
+  /**
+   * 活动限制人数
+   */
+  activityMaxNum?: number;
+  /**
+   * 活动状态 0：未开始 1：进行中 2：已结束
+   */
+  activityStatus?: number;
+  /**
+   * 详细地址
+   */
+  address?: string;
+  /**
+   * 区
+   */
+  area?: string;
+  /**
+   * 区Id
+   */
+  areaId?: string;
+  /**
+   * 报名时间-结束时间
+   */
+  bookEndTime?: Date;
+  /**
+   * 报名费用
+   */
+  bookFree?: number;
+  /**
+   * 已预约人数
+   */
+  bookNum?: number;
+  /**
+   * 报名时间-开始时间
+   */
+  bookStartTime?: Date;
+  /**
+   * 签到距离
+   */
+  checkDistance?: number;
+  /**
+   * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
+   */
+  checkType?: number;
+  /**
+   * 市
+   */
+  city?: string;
+  /**
+   * 市Id
+   */
+  cityId?: string;
+  /**
+   * 活动类型id
+   */
+  classifyId?: number;
+  /**
+   * 活动封面
+   */
+  cover?: string;
+  createUser?: string;
+  /**
+   * 活动详情
+   */
+  details?: string;
+  /**
+   * 距离
+   */
+  distance?: number;
+  /**
+   * 活动时间-结束时间
+   */
+  endTime?: string;
+  gmtCreated?: string;
+  gmtModified?: string;
+  /**
+   * 编号
+   */
+  id?: number;
+  /**
+   * 活动图片
+   */
+  imgs?: string;
+  /**
+   * 首页展示封面
+   */
+  indexCover?: string;
+  /**
+   * 首页展示 1是
+   */
+  indexView?: boolean;
+  /**
+   * 活动简介
+   */
+  intro?: string;
+  /**
+   * 纬度
+   */
+  latitude?: string;
+  /**
+   * 级别限制 0不限
+   */
+  level?: number;
+  /**
+   * 经度
+   */
+  longitude?: string;
+  modifyUser?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  /**
+   * 参与用户 0：全部用户 1：白名单
+   */
+  participate?: number;
+  /**
+   * 省
+   */
+  province?: string;
+  /**
+   * 省Id
+   */
+  provinceId?: string;
+  /**
+   * 统一场次席位
+   */
+  seat?: number;
+  /**
+   * 活动座位
+   */
+  seatCreateInputListDtos?: ActivitySeatCreateInputListDto[];
+  /**
+   * 活动座位分配规则
+   */
+  seatRuleCreateInputDtos?: ActivitySeatRuleCreateInputDto[];
+  /**
+   * 活动时间-开始时间
+   */
+  startTime?: string;
+  status?: number;
+  /**
+   * 是否统一场次 1是
+   */
+  unify?: boolean;
+  /**
+   * 活动场次
+   */
+  unifyCreateInputDtos?: ActivityUnifyCreateInputDto[];
+  /**
+   * 显示座位号
+   */
+  viewSeatNo?: boolean;
+}
+
+/**
+* ActivitySeatCreateInputListDto
+*/
+export interface ActivitySeatCreateInputListDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 区域名称
+   */
+  areaName?: string;
+  /**
+   * 区域对应排号
+   */
+  seatCreateInputDtos?: ActivitySeatCreateInputDto[];
+}
+
+/**
+* ActivitySeatCreateInputDto
+*/
+export interface ActivitySeatCreateInputDto {
+  /**
+   * 区域编号
+   */
+  areaCode?: string;
+  /**
+   * 排号
+   */
+  rowNumber?: string;
+  /**
+   * 座位数量
+   */
+  seat?: number;
+}
+
+/**
+* ActivityUnifyCreateInputDto
+*/
+export interface ActivityUnifyCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 活动席位
+   */
+  seat?: number;
+  /**
+   * 场次日期
+   */
+  unifyDate?: Date;
+  /**
+   * 场次时间
+   */
+  unifyTime?: string;
+}
+
+/**
+ * JsonResult«List«ActivityCityOutputDto»»
+ */
+export interface JsonResultListActivityCityOutputDto {
+  code?: number;
+  data?: ActivityCityOutputDto[];
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* ActivityCityOutputDto
+*/
+export interface ActivityCityOutputDto {
+  /**
+   * 对应活动
+   */
+  list?: ActivityOutputDto[];
+  /**
+   * 省
+   */
+  province?: string;
+  [property: string]: any;
+}
+
+/**
+* ActivityOutputDto
+*/
+export interface ActivityOutputDto {
+  /**
+   * 活动限制人数
+   */
+  activityMaxNum?: number;
+  /**
+   * 活动状态 0：未开始 1：进行中 2：已结束
+   */
+  activityStatus?: number;
+  /**
+   * 详细地址
+   */
+  address?: string;
+  /**
+   * 区
+   */
+  area?: string;
+  /**
+   * 区Id
+   */
+  areaId?: string;
+  /**
+   * 报名时间-结束时间
+   */
+  bookEndTime?: Date;
+  /**
+   * 报名费用
+   */
+  bookFree?: number;
+  /**
+   * 已预约人数
+   */
+  bookNum?: number;
+  /**
+   * 报名时间-开始时间
+   */
+  bookStartTime?: Date;
+  /**
+   * 签到距离
+   */
+  checkDistance?: number;
+  /**
+   * 核销方式 0：用户扫码 1：员工扫码 2：用户手动确认
+   */
+  checkType?: number;
+  /**
+   * 市
+   */
+  city?: string;
+  /**
+   * 市Id
+   */
+  cityId?: string;
+  /**
+   * 活动类型id
+   */
+  classifyId?: number;
+  /**
+   * 活动封面
+   */
+  cover?: string;
+  createUser?: string;
+  /**
+   * 活动详情
+   */
+  details?: string;
+  /**
+   * 距离
+   */
+  distance?: number;
+  /**
+   * 活动时间-结束时间
+   */
+  endTime?: string;
+  gmtCreated?: string;
+  gmtModified?: string;
+  /**
+   * 编号
+   */
+  id?: number;
+  /**
+   * 活动图片
+   */
+  imgs?: string;
+  /**
+   * 首页展示封面
+   */
+  indexCover?: string;
+  /**
+   * 首页展示 1是
+   */
+  indexView?: boolean;
+  /**
+   * 活动简介
+   */
+  intro?: string;
+  /**
+   * 纬度
+   */
+  latitude?: string;
+  /**
+   * 级别限制 0不限
+   */
+  level?: number;
+  /**
+   * 经度
+   */
+  longitude?: string;
+  modifyUser?: string;
+  /**
+   * 姓名
+   */
+  name?: string;
+  /**
+   * 参与用户 0：全部用户 1：白名单
+   */
+  participate?: number;
+  /**
+   * 省
+   */
+  province?: string;
+  /**
+   * 省Id
+   */
+  provinceId?: string;
+  /**
+   * 统一场次席位
+   */
+  seat?: number;
+  /**
+   * 活动座位
+   */
+  seatCreateInputListDtos?: ActivitySeatCreateInputListDto[];
+  /**
+   * 活动座位分配规则
+   */
+  seatRuleCreateInputDtos?: ActivitySeatRuleCreateInputDto[];
+  /**
+   * 活动时间-开始时间
+   */
+  startTime?: string;
+  status?: number;
+  /**
+   * 是否统一场次 1是
+   */
+  unify?: boolean;
+  /**
+   * 活动场次
+   */
+  unifyCreateInputDtos?: ActivityUnifyCreateInputDto[];
+  /**
+   * 显示座位号
+   */
+  viewSeatNo?: boolean;
+}
+
+/**
+* ActivitySeatCreateInputListDto
+*/
+export interface ActivitySeatCreateInputListDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 区域名称
+   */
+  areaName?: string;
+  /**
+   * 区域对应排号
+   */
+  seatCreateInputDtos?: ActivitySeatCreateInputDto[];
+}
+
+/**
+* ActivitySeatCreateInputDto
+*/
+export interface ActivitySeatCreateInputDto {
+  /**
+   * 区域编号
+   */
+  areaCode?: string;
+  /**
+   * 排号
+   */
+  rowNumber?: string;
+  /**
+   * 座位数量
+   */
+  seat?: number;
+}
+
+/**
+* ActivityUnifyCreateInputDto
+*/
+export interface ActivityUnifyCreateInputDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 活动席位
+   */
+  seat?: number;
+  /**
+   * 场次日期
+   */
+  unifyDate?: Date;
+  /**
+   * 场次时间
+   */
+  unifyTime?: string;
+}
+
 export interface MemberModifyInputDto {
   /** 用户头像 */
   avatarUrl?: string;
@@ -12236,61 +13540,102 @@ export interface MenuTreeOutputDto {
 
 export interface MemberOutputDto {
   /**
+   * 详细地址
+   */
+  address?: string;
+  /**
+   * 区域
+   */
+  area?: string;
+  /**
    * 出生年月
-   * @format date-time
    */
-  birthday?: string;
-
+  birthday?: Date;
   /**
-   * 禁用状态（0：否，1：是）
-   * @format int32
+   * 是否审核人员
    */
-  disableStatus?: number;
-
-  /** 性别 1男 2女 0未知 */
+  checkUser?: boolean;
+  /**
+   * 用户所在市
+   */
+  city?: string;
+  /**
+   * 用户所在国家
+   */
+  country?: string;
+  /**
+   * 性别 1男 2女 0未知
+   */
   gender?: string;
-
   /**
-   * 注册时间
-   * @format date-time
+   * 头像
    */
-  gmtCreated?: string;
-
-  /** 头像 */
   headImg?: string;
-
   /**
    * 用户id
-   * @format int64
    */
   id?: number;
-
-  /** 用户全局唯一编号 */
-  memberNo?: string;
-
   /**
-   * 会员类型 1 普通用户 2 会员用户
-   * @format int32
+   * 等级id
    */
-  memberType?: number;
-
-  /** 用户手机号 */
+  levelId?: number;
+  /**
+   * 等级
+   */
+  levelName?: string;
+  /**
+   * 用户全局唯一编号
+   */
+  memberNo?: string;
+  /**
+   * 用户手机号
+   */
   mobile?: string;
-
-  /** 昵称 */
+  /**
+   * 昵称
+   */
   nickName?: string;
-
-  /** 用户当前应用唯一标识 */
+  /**
+   * 用户当前应用唯一标识
+   */
   openId?: string;
-
-  /** 真实姓名 */
+  /**
+   * 用户所在省
+   */
+  province?: string;
+  /**
+   * 真实姓名
+   */
   realName?: string;
-
+  /**
+   * 注册时间
+   */
+  registerDate?: Date;
+  /**
+   * 是否注册
+   */
+  registerIs?: boolean;
+  /**
+   * 注册来源
+   */
+  registerSource?: string;
   /**
    * 状态 1：正常 0：禁用
-   * @format int32
    */
   status?: number;
+  /**
+   * 标签
+   */
+  tagNames?: string;
+  /**
+   * 累计积分
+   */
+  totalIntegral?: number;
+  /**
+   * 可用积分
+   */
+  usableIntegral?: number;
+  [property: string]: any;
 }
 
 export interface MarketingActivitySkuParam {
@@ -13513,6 +14858,8 @@ export interface AddCommentsDTO {
 }
 
 export interface BannerPositionOutputDto {
+  applicableDate?: string;
+  bannerType: 0 | 1;
   /**
    * id
    * @format int64
@@ -13524,6 +14871,12 @@ export interface BannerPositionOutputDto {
 
   /** 名称 */
   name?: string;
+
+  /** 内容 */
+  content?: string;
+
+  showStatus?: number;
+  sort: number;
 
   /** 跳转地址 */
   url?: string;

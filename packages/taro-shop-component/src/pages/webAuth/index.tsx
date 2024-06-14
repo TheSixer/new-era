@@ -1,12 +1,9 @@
 import Taro, { useRouter } from '@tarojs/taro'
 import { useRef, FC, memo, useState } from 'react'
-import useGlobalStore from '../../globalStore'
 import styles from './index.module.less'
 import { PageContainer, useToast } from '@wmeimob/taro-design'
 import MMNavigation from '@wmeimob/taro-design/src/components/navigation'
 import { Text, Image, View } from '@tarojs/components'
-import MMCheckbox from '@wmeimob/taro-design/src/components/checkbox'
-import { routeNames } from '../../routes'
 import MMFeild from '@wmeimob/taro-design/src/components/feild'
 import MMForm from '@wmeimob/taro-design/src/components/form'
 import { IMMFormInstance } from '@wmeimob/taro-design/src/components/form/const'
@@ -16,49 +13,39 @@ import MMDatePicker from '@wmeimob/taro-picker/src/components/datePicker'
 import { api } from '@wmeimob/taro-api'
 import MMButton from '@wmeimob/taro-design/src/components/button'
 import { useSuperLock } from '@wmeimob/utils/src/hooks/useSuperLock'
-import useNewcomer from '../../hooks/user/useNewcomer'
-import getParamsUrl from '@wmeimob/taro-utils/src/getParamsUrl'
 import MyRadio from './components/Radio'
 import SignLogo from './images/sign_logo.png'
 import dayjs from 'dayjs'
+import { useGlobalStore } from '@wmeimob/taro-store'
 
 const Component: FC = () => {
-  const { appInfo, getUserAction } = useGlobalStore()
   const { params } = useRouter()
-  const [agree, setAgree] = useState(false)
-  const [phoneInfo, setPhoneInfo] = useState({
-    mobile: '',
-    nickname: '',
+  const { user, getUserAction } = useGlobalStore()
+  const [userInfo, setUser] = useState({
+    mobile: user.mobile || '',
+    nickName: user.nickName || '',
     gender: 1,
-    verificationCode: '',
-    addArr: []
+    province: []
   })
   const [showBirth, setShowBirth] = useState(false)
   const [birthday, setBirthday] = useState('')
 
-  const { receiveNewcomerCoupon } = useNewcomer()
   const formRef = useRef<IMMFormInstance>(null)
 
   const [toast] = useToast()
-  const handleClickLogin = () => {
-    if (!agree) {
-      toast?.message('请勾选同意用户协议和隐私协议')
-      return false
-    }
-    return true
-  }
-  const updateInputValue = (data) => setPhoneInfo((pre) => ({ ...pre, ...data }))
+
+  const updateInputValue = (data) => setUser((pre) => ({ ...pre, ...data }))
 
   const [feildProps] = useState<Partial<IFeildProps>>({
-    type: 'number',
     valueAlign: 'right',
     placeholder: '请输入',
-    style: { padding: 0, width: '100%', borderBottom: '1px solid #A7A9AC' },
-    labelStyle: { width: 60, color: '#A7A9AC' },
-    fieldProps: { maxlength: 6, placeholder: '请输入验证码'}
+    style: { padding: 0, color: '#fff', width: '100%', borderBottom: '1px solid #A7A9AC' },
+    labelStyle: { width: 60, color: '#A7A9AC' }
   })
 
   const mobileFeildProps = {
+    type:'mobile',
+    disabled: !!user.mobile,
     rules: [
       {
         required: true,
@@ -74,6 +61,7 @@ const Component: FC = () => {
   }
 
   const nicknameFeildProps = {
+    type: 'custom',
     rules: [
       {
         required: true,
@@ -88,16 +76,22 @@ const Component: FC = () => {
     ]
   }
 
-  const [cityFeildProps] = useState<Partial<IFeildProps>>({
+  const cityFeildProps = {
     rules: [
       {
         required: true,
-        message: '请选择城市'
+        validate(_r, value) {
+          if (!value?.length) {
+            toast?.message('请选择常住地')
+            return Promise.reject(new Error('请选择常住地'))
+          }
+          return Promise.resolve(true)
+        }
       }
     ]
-  })
+  }
 
-  const handleBirthChange = () => {
+  const handleBirthChange = (birthday) => {
     setBirthday(dayjs(birthday).format('YYYY-MM-DD'))
   }
 
@@ -106,26 +100,20 @@ const Component: FC = () => {
    *
    */
   const [handleSave, loading] = useSuperLock(async () => {
-    if (!handleClickLogin()) {
+    if (!birthday) {
+      toast?.message('请选择出生日期')
       return
     }
-
     const values = await formRef.current!.validateFields()
-    const { data } = await api['/wechat/auth/token_GET']({ ...values, type: 1 })
-    Taro.setStorageSync('token', data)
-
-    // 同意用户协议
-    const { data: agreementTypeList = [] } = await api['/wechat/userAgreement/notAgreeAgreementTypeList_GET']()
-    if (agreementTypeList.length) {
-      await api['/wechat/userAgreement/userAgreeRecord/agree_PUT']({ agreementTypeList })
-    }
+    const [province, city, area] = values.province
+    await api['/wechat/web/member/register_PUT']({
+      ...values,
+      province: province.text,
+      city: city.text,
+      area: area.text,
+      birthday
+    })
     await getUserAction()
-
-    try {
-      // 领取失败则直接跳过，不阻断授权流程
-      await receiveNewcomerCoupon()
-    } catch (error) {
-    }
 
     if (params.redirectUrl) {
       Taro.redirectTo({ url: decodeURIComponent(params.redirectUrl) })
@@ -134,17 +122,9 @@ const Component: FC = () => {
     }
   })
 
-  function handleBeforeNavBack() {
-    Taro.redirectTo({
-      url: routeNames.tabBarHome
-    })
-
-    return false
-  }
-
   return (
     <PageContainer className={styles.authStyle} noPlace>
-      <MMNavigation title='注册' beforeNavBack={handleBeforeNavBack} />
+      <MMNavigation title='注册' type="Transparent" />
 
       <View className={styles.sign_header}>
         <Image src={SignLogo} className={styles.avatar_img} />
@@ -159,7 +139,7 @@ const Component: FC = () => {
             className={styles.phone}
             type='mobile'
             label='手机号'
-            value={phoneInfo.mobile}
+            value={userInfo.mobile}
             name='mobile'
             onChange={(mobile) => updateInputValue({ mobile })}
           />
@@ -169,29 +149,29 @@ const Component: FC = () => {
             className={styles.phone}
             type='custom'
             label='昵称'
-            value={phoneInfo.nickname}
-            name='nickname'
-            onChange={(mobile) => updateInputValue({ mobile })}
+            value={userInfo.nickName}
+            name='nickName'
+            onChange={(nickName) => updateInputValue({ nickName })}
           />
           <View className={styles.field_container} onClick={() => setShowBirth(true)}>
             <Text className={styles.field_label}>生日</Text>
-            <Text className={styles.field__text}>请选择</Text>
+            <Text className={styles.field__text}>{birthday || '请选择'}</Text>
           </View>
           <MMFeild.CityPicker
             {...feildProps}
             {...cityFeildProps}
             label='常住地'
             className={styles.phone}
-            value={phoneInfo.addArr}
+            value={userInfo.province}
             placeholder="请选择"
-            name='verificationCode'
+            name='province'
             labelStyle={{ color: '#A7A9AC' }}
-            onChange={(verificationCode) => updateInputValue({ verificationCode })}
+            onChange={(province) => updateInputValue({ province })}
           />
           <View className={styles.field_container}>
             <Text className={styles.field_label}>性别</Text>
             
-            <MyRadio options={[{ label: '男', value: 1 }, { label: '女', value: 2 }]} value={phoneInfo.gender} onChange={(value) => updateInputValue({ gender: value })} />
+            <MyRadio options={[{ label: '男', value: 1 }, { label: '女', value: 2 }]} value={userInfo.gender} onChange={(value) => updateInputValue({ gender: value })} />
           </View>
           <View style={{ height: 10 }} />
         </MMForm>
@@ -205,7 +185,7 @@ const Component: FC = () => {
       <MMDatePicker
         visible={showBirth}
         onVisibleChange={setShowBirth}
-        value={dayjs(birthday).toDate()}
+        value={dayjs(birthday || new Date()).toDate()}
         maxDate={new Date()}
         onChange={handleBirthChange}
       />

@@ -4,6 +4,7 @@
 
 import { ITaroRequestConfig } from "@wmeimob/request/src/types/taro-type";
 import {
+  ActivityOrderCreateInputDto,
   AddCommentsDTO,
   AuthMobileInputDto,
   BalanceRechargeInputDto,
@@ -14,15 +15,21 @@ import {
   CouponCodeBindInputDto,
   GoodsQuery,
   GoodsQueryByNo,
+  JsonResultActivityOrderOutputDto,
   JsonResultAuthMobileOutputDto,
   JsonResultBalanceGetOutputDto,
   JsonResultBigdecimal,
   JsonResultBoolean,
   JsonResultCouponAvailableGoodsOutputDto,
+  JsonResultDetailResultActivityOutputDto,
   JsonResultExpressTrackRespDto,
   JsonResultGoodsSkuStockAndPriceVo,
   JsonResultGoodsVO,
   JsonResultInt,
+  JsonResultListActivityCityOutputDto,
+  JsonResultListActivityClassifyOutputDto,
+  JsonResultListActivityOrderOutputDto,
+  JsonResultListActivityOutputDto,
   JsonResultListBannerPositionOutputDto,
   JsonResultListConfConfigOutputDto,
   JsonResultListCouponTemplateVo,
@@ -41,6 +48,7 @@ import {
   JsonResultLivePage,
   JsonResultLong,
   JsonResultMallConfPageSimpleOutputDto,
+  JsonResultMapString,
   JsonResultMapStringListPublicKeyValueDto,
   JsonResultMapStringObject,
   JsonResultMapStringString,
@@ -54,6 +62,7 @@ import {
   JsonResultOrderCountVO,
   JsonResultOrderPayDTO,
   JsonResultOrderVO,
+  JsonResultPagedResultActivityOutputDto,
   JsonResultPagedScrollResultBalanceFlowOutputDto,
   JsonResultPagedScrollResultCollectionVo,
   JsonResultPagedScrollResultCommentsVO,
@@ -83,6 +92,7 @@ import {
   JsonResultVoid,
   MallConfUserTaskBatchPerformDTO,
   MallConfUserTaskPerformDTO,
+  MemberModifyDto,
   MemberModifyInputDto,
   MemCardPurchaseDto,
   MemCouponReceiveInputDto,
@@ -98,6 +108,7 @@ import {
   UserAddressModifyInputDto,
   UserAgreementAgreeDto,
   UserFollowDTO,
+  WechatActivityAllGetParams,
   WechatActivityFlashSaleGetParams,
   WechatActivityGetParams,
   WechatActivityGoodsGetParams,
@@ -105,6 +116,7 @@ import {
   WechatApiQrCodeGenerateUrlLinkPostParams,
   WechatApiSmsSendCodeGetParams,
   WechatAuthTokenGetParams,
+  WechatBannerQueryListGetParams,
   WechatCollectionGetParams,
   WechatGoodsClassifyGetParams,
   WechatGoodsCommentsNoGetParams,
@@ -120,6 +132,8 @@ import {
   WechatMallSigninPutParams,
   WechatMallSigninSwitchGetParams,
   WechatMallUserTaskConfigGetParams,
+  WechatMyEventListGetParams,
+  WechatMyReservationListGetParams,
   WechatOrdersCommentListGetParams,
   WechatOrdersExpressGetParams,
   WechatOrdersGetParams,
@@ -146,6 +160,172 @@ import requestInstance from "./instance";
 type RequestConfig = Omit<ITaroRequestConfig, "url" | "method">;
 
 export const API = {
+  /**
+   * No description
+   * @name POST /wechat/web/member/register
+   * @summary 注册
+   * @tags web/注册
+   * @response `200` `JsonResultLong` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/web/member/register_PUT": (body: MemberModifyDto, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/web/member/register`,
+      method: "PUT",
+      data: body,
+      ...options
+    }) as unknown as Promise<JsonResultLong>,
+  /**
+   * No description
+   * @name GET /wechat/mall/banner/queryList
+   * @summary 根据显示位置查询 banner 列表
+   * @tags web/Banner相关接口
+   * @response `200` `JsonResultListBannerPositionOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/mall/banner/queryList_GET": (params: WechatBannerQueryListGetParams, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/mall/banner/queryList`,
+      method: "GET",
+      params,
+      ...options
+    }) as unknown as Promise<JsonResultListBannerPositionOutputDto>,
+  /**
+   * No description
+   * @name GET /wechat/activity/activityAll
+   * @summary 查询所有活动接口
+   * @tags web/Banner相关接口
+   * @response `200` `JsonResultListBannerPositionOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/activityAll_GET": (params: WechatActivityAllGetParams, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/activityAll`,
+      method: "GET",
+      params,
+      ...options
+    }) as unknown as Promise<JsonResultListActivityOutputDto>,
+  /**
+   * No description
+   * @name GET /wechat/activity/activityList
+   * @summary 查询活动分页接口
+   * @tags web/Banner相关接口
+   * @response `200` `JsonResultListBannerPositionOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/activityList_GET": (params: WechatActivityAllGetParams, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/activityList`,
+      method: "GET",
+      params,
+      ...options
+    }) as unknown as Promise<JsonResultPagedResultActivityOutputDto>,
+  /**
+   * No description
+   * @name GET /wechat/activity/myBookRecord
+   * @summary 查询我的预约活动接口
+   * @tags web/Banner相关接口
+   * @response `200` `JsonResultListBannerPositionOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/myBookRecord_GET": (params: WechatMyEventListGetParams, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/myBookRecord`,
+      method: "GET",
+      params,
+      ...options
+    }) as unknown as Promise<JsonResultListActivityOrderOutputDto>,
+  /**
+   * No description
+   * @name GET /wechat/activity/bookRecordDetail/{orderNo}
+   * @summary 查询我的预约活动详情接口
+   * @tags web/Banner相关接口
+   * @response `200` `JsonResultListBannerPositionOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/bookRecordDetail/{orderNo}_GET": (params: WechatMyReservationListGetParams, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/bookRecordDetail/${params.orderNo}`,
+      method: "GET",
+      params,
+      ...options
+    }) as unknown as Promise<JsonResultActivityOrderOutputDto>,
+  /**
+   * No description
+   * @name GET /wechat/activity/cityList
+   * @summary 查询城市列表接口
+   * @tags web/Banner相关接口
+   * @response `200` `JsonResultListBannerPositionOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/cityList_GET": (params: {}, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/cityList`,
+      method: "GET",
+      params,
+      ...options
+    }) as unknown as Promise<JsonResultListActivityCityOutputDto>,
+  /**
+   * No description
+   * @name GET /wechat/activity/classList
+   * @summary 查询所有活动分类
+   * @tags web/Banner相关接口
+   * @response `200` `JsonResultListBannerPositionOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/classList_GET": (params: {}, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/classList`,
+      method: "GET",
+      params,
+      ...options
+    }) as unknown as Promise<JsonResultListActivityClassifyOutputDto>,
+  /**
+   * No description
+   * @name GET /wechat/activity/detail/{id}
+   * @summary 查询活动详情
+   * @tags web/Banner相关接口
+   * @response `200` `JsonResultListBannerPositionOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/detail/{id}_GET": (id: string | number, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/detail/${id}`,
+      method: "GET",
+      ...options
+    }) as unknown as Promise<JsonResultDetailResultActivityOutputDto>,
+  /**
+   * No description
+   * @name POST /wechat/activity/book
+   * @summary 报名
+   * @tags web/报名活动
+   * @response `200` `JsonResultLong` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/book_POST": (body: ActivityOrderCreateInputDto, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/book`,
+      method: "POST",
+      data: body,
+      ...options
+    }) as unknown as Promise<JsonResultLong>,
+  /**
+   * No description
+   * @name POST /wechat/activity/cancelBook/{orderNo}
+   * @summary 报名
+   * @tags web/报名活动
+   * @response `200` `JsonResultLong` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/cancelBook/{orderNo}_POST": (orderNo: string, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/cancelBook/${orderNo}`,
+      method: "POST",
+      ...options
+    }) as unknown as Promise<JsonResultLong>,
+  /**
+   * No description
+   * @name GET /wechat/activity/getAddress
+   * @summary 云存储信息
+   * @tags web/云存储
+   * @response `200` `JsonResultMapStringObject` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/getAddress_GET": (params: Record<string, any> = {}, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/getAddress`,
+      method: "GET",
+      params,
+      ...options
+    }) as unknown as Promise<JsonResultMapString>,
   /**
    * No description
    * @name GET /wechat/api/oss/info

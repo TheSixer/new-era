@@ -4,15 +4,8 @@ import { View, Swiper, SwiperItem, Image } from '@tarojs/components';
 import styles from './index.module.less';
 import classNames from 'classnames';
 
-const Component: FC<IBannerProps> = () => {
+const Component: FC<IBannerProps> = ({ data }) => {
   const [current, setCurrent] = useState(0);
-
-  const images = [
-    { src: 'https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/938a92ae-df38-700a-bf0b-1c425d370d88.jpg', alt: 'Image 1' },
-    { src: 'https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/7d30fdf3-72d5-20a4-2e45-c2740baf08e7.jpg', alt: 'Image 2' },
-    { src: 'https://ocj-uat.oss-cn-shanghai.aliyuncs.com/uat/a4462a2c-7241-8ba5-fb1e-c5a7265d34ba.jpg', alt: 'Image 3' }
-    // 其他图片
-  ];
 
   const onChange = (event) => {
     setCurrent(event.detail.current);
@@ -27,15 +20,15 @@ const Component: FC<IBannerProps> = () => {
         circular
         autoplay
       >
-        {images.map((image, index) => (
+        {data.map((image, index) => (
           <SwiperItem key={index}>
-            <Image src={image.src} mode="aspectFill" className={styles.banner_image} />
+            <Image src={image} mode="aspectFill" className={styles.banner_image} />
           </SwiperItem>
         ))}
       </Swiper>
 
       <View className={styles['dot_container']}>
-        {images.map((_, index) => (
+        {data.map((_, index) => (
           <View
             key={index}
             className={classNames(styles['dot'], current === index? styles['dot_active'] : styles['dot_inactive'])}

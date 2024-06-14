@@ -1,4 +1,4 @@
-import { FC, memo, useRef, useState } from "react";
+import { FC, memo, useEffect, useRef, useState } from "react";
 import styles from "./index.module.less";
 import MMNavigation from "@wmeimob/taro-design/src/components/navigation";
 import { ISignUpProps } from "./const";
@@ -13,25 +13,34 @@ import { SelectArrowFilled } from "../../../components/Icons";
 import MMCheckbox from "@wmeimob/taro-design/src/components/checkbox";
 import { routeNames } from "../../../routes";
 import getParamsUrl from "@wmeimob/taro-utils/src/getParamsUrl";
-import Taro from "@tarojs/taro";
+import Taro, { useRouter } from "@tarojs/taro";
 import { EAgreementType } from "@wmeimob/shop-data/src/enums/EAgreementType";
 import CheckIcon from './images/check.png';
 import CheckedIcon from './images/checked.png';
 import MMButton from "@wmeimob/taro-design/src/components/button";
 import { useSuperLock } from "@wmeimob/utils/src/hooks/useSuperLock";
-import { api } from "@wmeimob/taro-api";
+import { ActivityOutputDto, api } from "@wmeimob/taro-api";
+import LoadingView from "../../tabBar/home/components/loadingView";
+import { useGlobalStore } from "@wmeimob/taro-store";
 
 const Components:FC<ISignUpProps> = () => {
+  const { params } = useRouter()
+  const { user } = useGlobalStore()
+  const { activityId, unifyId } = params
+  const { loading: basicLoading, info, handleConfirm } = useBasicService(activityId)
   const [toast] = useToast()
+  const [auth, setAuth] = useState(false)
   const [agree, setAgree] = useState(false)
-  const [phoneInfo, setPhoneInfo] = useState({
-    realName: '',
-    mobile: ''
+  const [signInfo, setSignInfo] = useState({
+    activityId,
+    unifyId,
+    cardType: '',
+    cardNo: ''
   })
 
   const formRef = useRef<IMMFormInstance>(null)
 
-  const updateInputValue = (data) => setPhoneInfo((pre) => ({ ...pre, ...data }))
+  const updateInputValue = (data) => setSignInfo((pre) => ({ ...pre, ...data }))
 
   const [feildProps] = useState<Partial<IFeildProps>>({
     type: 'number',
@@ -40,6 +49,7 @@ const Components:FC<ISignUpProps> = () => {
     style: {
       paddingLeft: '30rpx',
       width: '100%',
+      color: '#fff',
       border: '1px solid #767575',
       borderRadius: '20rpx',
       background: 'rgba(255,255,255,0.1)'
@@ -52,13 +62,24 @@ const Components:FC<ISignUpProps> = () => {
     style: {
       paddingLeft: '30rpx',
       width: '100%',
+      color: '#fff',
       border: '1px solid #767575',
       borderRadius: '20rpx',
       background: 'rgba(255,255,255,0.1)'
     }
   })
 
+  const nameFeildProps = {
+    rules: [
+      {
+        required: true,
+        message: '请输入真实姓名'
+      }
+    ]
+  }
+
   const mobileFeildProps = {
+    disabled: true,
     rules: [
       {
         required: true,
@@ -75,14 +96,36 @@ const Components:FC<ISignUpProps> = () => {
 
   const identityFeildProps = {
     options: [
-      { label: '身份证', value: '身份证' },
-      { label: '护照', value: '护照' },
-      { label: '其他', value: '其他' }
+      { label: '身份证', value: 'ID_CARD' },
+      { label: '港澳通行证', value: 'GANG_AO' },
+      { label: '护照', value: 'HU_ZHAO' },
+      { label: '台胞证', value: 'TAI_BAO' }
     ],
     rules: [
       {
         required: true,
-        message: '请选择您的证件类型'
+        validate(_r, value) {
+          if (!value) {
+            toast?.message('请选择您的证件类型')
+            return Promise.reject(new Error('请选择您的证件类型'))
+          }
+          return Promise.resolve(true)
+        }
+      }
+    ]
+  }
+
+  const cardNoFeildProps = {
+    rules: [
+      {
+        required: true,
+        validate(_r, value) {
+          if (!value) {
+            toast?.message('请输入您的证件号码')
+            return Promise.reject(new Error('请输入您的证件号码'))
+          }
+          return Promise.resolve(true)
+        }
       }
     ]
   }
@@ -93,27 +136,27 @@ const Components:FC<ISignUpProps> = () => {
    */
   const [handleSubmit, loading] = useSuperLock(async () => {
     const values = await formRef.current!.validateFields()
-    const { data } = await api['/wechat/auth/token_GET']({ ...values, type: 1 })
-    Taro.setStorageSync('token', data)
-
-    // 同意用户协议
-    const { data: agreementTypeList = [] } = await api['/wechat/userAgreement/notAgreeAgreementTypeList_GET']()
-    if (agreementTypeList.length) {
-      await api['/wechat/userAgreement/userAgreeRecord/agree_PUT']({ agreementTypeList })
+    if (!agree) {
+      toast?.message('请同意用户协议')
+      return
     }
-
-    try {
-      // 领取失败则直接跳过，不阻断授权流程
-      // await receiveNewcomerCoupon()
-    } catch (error) {
+    if (!auth) {
+      toast?.message('请同意授权')
+      return
     }
+    await api['/wechat/activity/book_POST']({ ...values, activityId, unifyId})
 
-    // if (params.redirectUrl) {
-    //   Taro.redirectTo({ url: decodeURIComponent(params.redirectUrl) })
-    // } else {
-    //   Taro.navigateBack()
+    // // 同意用户协议
+    // const { data: agreementTypeList = [] } = await api['/wechat/userAgreement/notAgreeAgreementTypeList_GET']()
+    // if (agreementTypeList.length) {
+    //   await api['/wechat/userAgreement/userAgreeRecord/agree_PUT']({ agreementTypeList })
     // }
+    Taro.navigateBack()
   })
+
+  if (basicLoading) {
+    return <LoadingView />
+  }
 
   return (
     <PageContainer className={styles.prefectureStyle} noPlace>
@@ -121,17 +164,17 @@ const Components:FC<ISignUpProps> = () => {
         <MMNavigation title='填写个人信息' type="Transparent" />
 
         <View className={styles.container}>
-          <EventItem single />
+          {info && <EventItem data={info} single />}
 
           <MMForm ref={formRef}>
             <View className={styles.form_item}>
               <View className={styles.label}>*真实姓名</View>
               <MMFeild
                 {...feildProps}
-                {...mobileFeildProps}
+                {...nameFeildProps}
                 className={styles.phone}
                 type='custom'
-                value={phoneInfo.mobile}
+                value={user.realName || user.nickName || ''}
                 name='realName'
                 onChange={(mobile) => updateInputValue({ mobile })}
               />
@@ -143,7 +186,7 @@ const Components:FC<ISignUpProps> = () => {
                 {...mobileFeildProps}
                 className={styles.phone}
                 type='mobile'
-                value={phoneInfo.mobile}
+                value={user.mobile || ''}
                 name='mobile'
                 onChange={(mobile) => updateInputValue({ mobile })}
               />
@@ -154,24 +197,24 @@ const Components:FC<ISignUpProps> = () => {
                 {...selectProps}
                 {...identityFeildProps}
                 className={styles.phone}
-                value={phoneInfo.mobile}
-                name='mobile'
-                onChange={(mobile) => updateInputValue({ mobile })}
+                value={signInfo.cardType}
+                name='cardType'
+                onChange={(cardType) => updateInputValue({ cardType })}
               />
+
+              <SelectArrowFilled className={styles.select_arrow} />
             </View>
             <View className={styles.form_item}>
               <View className={styles.label}>*证件号码<Text>(用于购买保险)</Text></View>
               <MMFeild
                 {...feildProps}
-                {...mobileFeildProps}
+                {...cardNoFeildProps}
                 className={styles.phone}
-                type='custom'
-                value={phoneInfo.mobile}
-                name='mobile'
-                onChange={(mobile) => updateInputValue({ mobile })}
+                type='number'
+                value={signInfo.cardNo}
+                name='cardNo'
+                onChange={(cardNo) => updateInputValue({ cardNo })}
               />
-
-              <SelectArrowFilled className={styles.select_arrow} />
             </View>
             <View style={{ height: 10 }} />
             
@@ -208,8 +251,8 @@ const Components:FC<ISignUpProps> = () => {
             </MMCheckbox>
 
             <MMCheckbox
-              value={agree}
-              onChange={setAgree}
+              value={auth}
+              onChange={setAuth}
               className={styles.checkbox}
               renderCheck={<Image style={{ width: '26rpx', height: '26rpx' }} src={CheckedIcon} />}
               renderUnCheck={<Image style={{ width: '26rpx', height: '26rpx' }} src={CheckIcon} />}
@@ -233,3 +276,35 @@ const Components:FC<ISignUpProps> = () => {
 
 const SignUpPage = memo(Components);
 export default SignUpPage;
+
+function useBasicService(activityId) {
+  const [loading, setLoading] = useState(false)
+  const [info, setInfo] = useState<ActivityOutputDto | null>(null)
+
+  async function getEventInfo(id: string) {
+    setLoading(true);
+    const { data = {} } = await api['/wechat/activity/detail/{id}_GET'](id)
+    setLoading(false);
+    setInfo(data)
+  }
+
+  useEffect(() => {
+    activityId && getEventInfo(activityId)
+  }, [activityId])
+
+  function handleConfirm(unifyId: number) {
+    Taro.navigateTo({
+      url: getParamsUrl(routeNames.eventsSignUp,
+        {
+          activityId: info?.id,
+          unifyId
+        })
+    })
+  }
+
+  return {
+    loading,
+    info,
+    handleConfirm
+  }
+}

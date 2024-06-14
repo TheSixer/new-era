@@ -31,6 +31,12 @@ export default [
         component: './eventsManagement/activityOrders'
       },
       {
+        name: '作为设置',
+        path: '/eventsManagement/seatSettings',
+        component: './eventsManagement/seatSettings',
+        hideInMenu: true
+      },
+      {
         name: '白名单',
         path: '/eventsManagement/whiteList',
         component: './eventsManagement/whiteList'

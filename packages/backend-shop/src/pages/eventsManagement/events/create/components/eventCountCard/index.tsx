@@ -1,12 +1,11 @@
-import { FC, memo, useState } from 'react'
+import { FC, memo } from 'react'
 import styles from './index.module.less'
 import { IActivitySettingCardProps } from './const'
 import { Button, Card, Form } from 'antd'
-import { ProFormDatePicker, ProFormDateTimePicker, ProFormDependency, ProFormDigit, ProFormRadio, ProFormTimePicker } from '@ant-design/pro-form'
+import { ProFormDatePicker, ProFormDependency, ProFormDigit, ProFormRadio, ProFormTimePicker } from '@ant-design/pro-form'
 import { PlusOutlined } from '@ant-design/icons'
 import mmFormRule from '@wmeimob/form-rules'
 import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormLimitInput'
-import moment from 'moment'
 import useDisableActivityTime from '~/hooks/activity/useDisableActivityTime'
 
 const Component: FC<IActivitySettingCardProps> = (props) => {

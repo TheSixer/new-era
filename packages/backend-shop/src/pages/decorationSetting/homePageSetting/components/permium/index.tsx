@@ -2,28 +2,24 @@ import { FC, memo, useState } from 'react'
 import { Button, message } from 'antd'
 import { BannerCreateInputDto, api } from '~/request'
 import { EJumpType, MJumpType } from '~/components/jumpType/enums/EJumpType'
-import JumpTypeValue from '~/components/jumpType/jumpTypeValue'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
 import OperationsColumns from '@wmeimob/backend-pro/src/components/table/operationsColumns'
 import useProTableRequest from '@wmeimob/backend-pro/src/hooks/useProTableRequest'
 import { BannerOutputDto } from '@wmeimob/backend-api'
 import StatusSwitchColumn from '@wmeimob/backend-pro/src/components/table/statusSwitchColumn'
-import { routeNames } from '~/routes'
-import { ModalForm, ProFormDigit, ProFormRadio, ProFormTextArea } from '@ant-design/pro-form'
+import { ModalForm, ProFormDatePicker, ProFormDigit, ProFormRadio } from '@ant-design/pro-form'
 import useProTableForm from '@wmeimob/backend-pro/src/hooks/useProTableForm'
 import mmFormRule from '@wmeimob/form-rules'
-import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormLimitInput'
 import ProFormMaterial from '@wmeimob/backend-pages/src/components/form/proFormMaterial'
 import ProFormJumpType from '@wmeimob/backend-pro/src/components/form/proFormJumpType'
 import { advertiseConfig } from '@wmeimob/shop-data/src/config'
-import JumpType from '~/components/jumpType'
+import dayjs from 'dayjs'
+import JumpTypeValue from '@wmeimob/backend-pro/src/components/jumpType/jumpTypeValue'
 
 const Component: FC<any> = ({ history }) => {
   const editModal = useProTableForm<BannerCreateInputDto>()
   const [columns] = useState<ProColumns<BannerOutputDto>[]>([
     { title: '图片', dataIndex: 'imgUrl', valueType: 'image', hideInSearch: true, width: 100 },
-    { title: '标题', dataIndex: 'name' },
-    { title: '文字', dataIndex: 'content', hideInSearch: true },
     // {
     //   title: '显示位置',
     //   dataIndex: 'position',
@@ -48,12 +44,13 @@ const Component: FC<any> = ({ history }) => {
         return <span>{MJumpType[value]}</span>
       }
     },
-    // {
-    //   title: '跳转内容',
-    //   dataIndex: 'url',
-    //   hideInSearch: true,
-    //   render: (value, record) => <JumpTypeValue jumpValue={{ type: record.urlType as unknown as EJumpType, content: record.url as any }} />
-    // },
+    {
+      title: '跳转内容',
+      dataIndex: 'url',
+      hideInSearch: true,
+      render: (value, record) => <JumpTypeValue jumpValue={{ type: record.urlType as unknown as EJumpType, content: record.url as any }} />
+    },
+    { title: '适用日期', dataIndex: 'applicableDate', hideInSearch: true, renderText: (text) => dayjs(text).format('YYYY-MM') },
     { title: '排序值', dataIndex: 'sort', width: 80, hideInSearch: true },
     {
       title: '显示状态',
@@ -117,13 +114,14 @@ const Component: FC<any> = ({ history }) => {
 
   async function handleEditFormFinish(values: BannerCreateInputDto) {
     const isAdd = !editModal.editData?.id
-    const { content, type } = values?.jumpType
+    const { content, type, applicableDate } = values?.jumpType
 
     const params = {
       ...values,
       id: editModal.editData?.id,
       url: content && JSON.stringify?.(content),
       urlType: type,
+      applicableDate: applicableDate ? applicableDate + '-01' : dayjs(Date.now()).format('YYYY-MM-01'),
       position: 'GOODS'
     }
 
@@ -148,21 +146,16 @@ const Component: FC<any> = ({ history }) => {
       layout="horizontal"
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 16 }}
-      initialValues={{ url: { type: EJumpType.None, content: {} } }}
+      initialValues={{ url: { type: EJumpType.None, content: {} }, bannerType: 0, showStatus: 1 }}
       onFinish={handleEditFormFinish}
-    >
+    >      
       <ProFormMaterial label="图片" name="imgUrl" rules={mmFormRule.required} fieldProps={{ measure: advertiseConfig.measure }} />
 
       <ProFormJumpType label="跳转类型" name="jumpType" />
 
+      <ProFormDatePicker label="适用日期" name="applicableDate" rules={mmFormRule.required} fieldProps={{ picker: 'month', format: 'YYYY-MM' }} />
+
       <ProFormDigit label="排序" name="sort" rules={mmFormRule.required} fieldProps={{ precision: 0, min: 0, max: 9999 }} />
-
-      <ProFormLimitInput label="标题" name="name" rules={mmFormRule.required} maxLength={20} />
-
-      {/* <ProFormLimitInput label="内容" name="content" rules={mmFormRule.required} maxLength={20} /> */}
-      <ProFormTextArea label="内容" name="content" rules={mmFormRule.required} />
-
-      {/* <ProFormCheckbox.Group label="显示位置" name="position" rules={mmFormRule.required} options={OAdvertisingPosition} /> */}
 
       <ProFormRadio.Group
         label="显示状态"

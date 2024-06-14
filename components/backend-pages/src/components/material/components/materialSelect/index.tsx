@@ -137,7 +137,8 @@ const MaterialSelect: FC<MaterialSelectProps> = (props) => {
       <div className={styles.list}>
         {list.map((url, index) => (
           <div className={styles.item} style={imageStyle} key={index + url}>
-            <img className={styles.image} src={getOssUrl(url, type)} alt="" />
+            {type === MaterialType.Video ? <video className={styles.image} src={getOssUrl(url, type)} autoPlay={false} muted={true} /> :
+            <img className={styles.image} src={getOssUrl(url, type)} alt="" />}
             <div className={styles.hover}>
               {!disabled && <DeleteOutlined onClick={() => onDelete(index)} />}
               <EyeOutlined onClick={() => onPreview(index)} />

@@ -6,41 +6,34 @@ import { IPrefectureProps } from './const'
 import styles from './index.module.less'
 import MMNavigation from '@wmeimob/taro-design/src/components/navigation'
 import MMPullToRefresh from '@wmeimob/taro-design/src/components/pull-to-refresh'
-import { MarketingActivityDto, api } from '@wmeimob/taro-api'
+import { ActivityOutputDto, MarketingActivityDto, api } from '@wmeimob/taro-api'
 import useMMPullToRefresh from '@wmeimob/taro-design/src/components/pull-to-refresh/useMMPullToRefresh'
 import MMEmpty from '@wmeimob/taro-design/src/components/empty'
 import emptyActivityImg from './images/empty_activity.png'
 import { routeNames } from '../../../routes'
 import { PageContainer } from '@wmeimob/taro-design'
-import { EActivityType } from '@wmeimob/shop-data/src/enums/activity/EActivityType'
 import getParamsUrl from '@wmeimob/taro-utils/src/getParamsUrl'
 import EventItem from './components/eventItem'
 import { PositionFilled } from '../../../components/Icons'
 import Tabs from './components/Tabs'
+import useGetLocation from '../../../hooks/useGetLocation'
+import { useGlobalStore } from '@wmeimob/taro-store'
+import { useAtom } from 'jotai'
+import { addressAtom } from './store'
 
-const tabs = [{
-  label: '全部',
-  value: '0'
-}, {
-  label: '活动类型',
-  value: '1'
-}, {
-  label: '活动类型',
-  value: '2'
-}, {
-  label: '活动类型',
-  value: '3'
-}, {
-  label: '活动类型',
-  value: '4'
-}, {
-  label: '活动类型',
-  value: '5'
-}]
+export interface TabItem {
+  label?: string
+  value?: number
+}
 
-const Component: FC<IPrefectureProps> = (props) => {
+const Component: FC<IPrefectureProps> = () => {
   const [activeTab, setActiveTab] = useState(0)
-  const { toActivityDetail, pullInfo, pullToRefreshProps } = useBasicService()
+  const { location } = useGetLocation()
+  const { activityTypes, address: position } = useTypesService(location)
+  const { user } = useGlobalStore()
+  const [address, setAddress] = useAtom(addressAtom)
+
+  const { toActivityDetail, pullInfo, pullToRefreshProps } = useBasicService(activeTab, address)
 
   const handleTableChange = (tab) => {
     setActiveTab(tab)
@@ -48,9 +41,16 @@ const Component: FC<IPrefectureProps> = (props) => {
 
   const navigate = () => {
     Taro.navigateTo({
-      url: routeNames.eventsCities
+      url: getParamsUrl(routeNames.eventsCities,
+        {
+          city: '上海'
+        })
     })
   }
+
+  useEffect(() => {
+    setAddress(position)
+  }, [position])
 
   return (
     <PageContainer className={styles.prefectureStyle} noPlace>
@@ -63,21 +63,21 @@ const Component: FC<IPrefectureProps> = (props) => {
       >
         <View className={styles.event_container}>
           <View className={styles.event_header}>
-            <Text className={styles.timePeriod}>{getTimePeriod()}好，aaa</Text>
+            <Text className={styles.timePeriod}>{getTimePeriod()}好，{user.nickName}</Text>
             <View className={styles.event_position} onClick={navigate}>
               <PositionFilled width="24rpx" height="24rpx" />
-              <Text className={styles.event_position_text}>position</Text>
+              <Text className={styles.event_position_text}>{address?.province}</Text>
             </View>
           </View>
           <Text className={styles.event_header__text}>探索专属体验融入社群</Text>
         </View>
 
-        <Tabs tabs={tabs} activeTab={activeTab} onChange={handleTableChange} />
+        <Tabs tabs={activityTypes} activeTab={activeTab} onChange={handleTableChange} />
 
         <View className={styles.list}>
-          <Text className={styles.list_title}>16个活动</Text>
-          {[1,2,3].map((item) => (
-            <EventItem key={item} />
+          <Text className={styles.list_title}>{pullInfo.total}个活动</Text>
+          {pullInfo.list.map((item) => (
+            <EventItem key={item.id} data={item} toDetail={toActivityDetail} />
           ))}
         </View>
       </MMPullToRefresh>
@@ -100,77 +100,60 @@ function getTimePeriod() {
   return "下午";
 }
 
-function useBasicService() {
-  const [info, pullToRefreshProps] = useMMPullToRefresh<MarketingActivityDto>({
+function useTypesService(location) {
+  const [position, setPosition] = useState<any>()
+  const [activityTypes, setActivityTypes] = useState<TabItem[]>([{ label: '全部', value: 0 }])
+
+  async function getActivityTypes() {
+    const { data = [] } = await api['/wechat/activity/classList_GET']({})
+    setActivityTypes((prev) => prev.concat(data?.map((item) => ({ label: item.name, value: item.id }))))
+  }
+
+  async function getPosition(locat) {
+    const { data: address } = await api['/wechat/activity/getAddress_GET'](locat)
+    setPosition(address)
+  }
+
+  useEffect(() => {
+    getActivityTypes()
+  }, [])
+
+  useEffect(() => {
+    if (location.latitude && location.longitude) {
+      getPosition({
+        latitude: 120.52,
+        longitude: -122.12
+      })
+    }
+  }, [location])
+
+  return { activityTypes, address: position }
+}
+
+function useBasicService(activeTab, location) {
+  const [info, pullToRefreshProps] = useMMPullToRefresh<ActivityOutputDto>({
     initRequest: false,
     getData: async (queryParams) =>
-      api['/wechat/activity_GET']({
+      api['/wechat/activity/activityList_GET']({
         ...queryParams,
+        classifyId: activeTab || '',
+        ...location
+        // latitude: 120.52,
+        // longitude: -122.12
         // 常规活动
-        activityTypeList: [EActivityType.Deduction, EActivityType.Discount, EActivityType.Presented].map(String)
+        // activityTypeList: [EActivityType.Deduction, EActivityType.Discount, EActivityType.Presented].map(String)
       })
   })
 
   useEffect(() => {
-    // pullToRefreshProps.onRefresh()
-
-    Taro.authorize({
-      scope: 'scope.userLocation',
-      success() {
-        // 用户已经同意授权
-        getLocation()
-      },
-      fail() {
-        // 用户拒绝授权，引导用户到设置页开启授权
-        Taro.showModal({
-          title: '授权提示',
-          content: '请前往设置开启位置信息授权',
-          success(res) {
-            if (res.confirm) {
-              Taro.openSetting({
-                success(settingRes) {
-                  if (settingRes.authSetting['scope.userLocation']) {
-                    // 用户已同意授权，重新获取位置
-                    getLocation();
-                  }
-                }
-              });
-            }
-          }
-        });
-      }
-    });
-
-    Taro.getLocation({
-      type: 'wgs84',
-      success: (res) => {
-        console.log('getLocation', res)
-      },
-      fail: (err) => {
-        console.log('getLocation fail', err)
-      }
-    })
-  }, [])
-  // useDidShow(() => {
-  // })
-
-  function getLocation() {
-    Taro.getLocation({
-      type: 'wgs84',
-      success: (res) => {
-        console.log('getLocation', res)
-      },
-      fail: (err) => {
-        console.log('getLocation fail', err)
-      }
-    })
-  }
+    pullToRefreshProps.onRefresh()
+  }, [activeTab, location])
 
   function toActivityDetail(activity: MarketingActivityDto) {
     Taro.navigateTo({
-      url: getParamsUrl(routeNames.activityGoodsList,
+      url: getParamsUrl(routeNames.eventsDetail,
         {
-          activityNo: activity.activityNo
+          id: activity.id
         })
     })
   }

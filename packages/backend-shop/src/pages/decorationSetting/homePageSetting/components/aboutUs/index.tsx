@@ -2,21 +2,17 @@ import { FC, memo, useState } from 'react'
 import { Button, message } from 'antd'
 import { BannerCreateInputDto, api } from '~/request'
 import { EJumpType, MJumpType } from '~/components/jumpType/enums/EJumpType'
-import JumpTypeValue from '~/components/jumpType/jumpTypeValue'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
 import OperationsColumns from '@wmeimob/backend-pro/src/components/table/operationsColumns'
 import useProTableRequest from '@wmeimob/backend-pro/src/hooks/useProTableRequest'
 import { BannerOutputDto } from '@wmeimob/backend-api'
 import StatusSwitchColumn from '@wmeimob/backend-pro/src/components/table/statusSwitchColumn'
-import { routeNames } from '~/routes'
-import { ModalForm, ProFormDigit, ProFormRadio, ProFormTextArea } from '@ant-design/pro-form'
+import { ModalForm, ProFormDependency, ProFormRadio, ProFormTextArea } from '@ant-design/pro-form'
 import useProTableForm from '@wmeimob/backend-pro/src/hooks/useProTableForm'
 import mmFormRule from '@wmeimob/form-rules'
-import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormLimitInput'
 import ProFormMaterial from '@wmeimob/backend-pages/src/components/form/proFormMaterial'
 import ProFormJumpType from '@wmeimob/backend-pro/src/components/form/proFormJumpType'
 import { advertiseConfig } from '@wmeimob/shop-data/src/config'
-import JumpType from '~/components/jumpType'
 
 const Component: FC<any> = ({ history }) => {
   const editModal = useProTableForm<BannerCreateInputDto>()
@@ -148,19 +144,30 @@ const Component: FC<any> = ({ history }) => {
       layout="horizontal"
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 16 }}
-      initialValues={{ url: { type: EJumpType.None, content: {} } }}
+      initialValues={{ url: { type: EJumpType.None, content: {} }, bannerType: 0, showStatus: 1 }}
       onFinish={handleEditFormFinish}
     >
-      <ProFormMaterial label="图片" name="imgUrl" rules={mmFormRule.required} fieldProps={{ measure: advertiseConfig.measure }} />
+      <ProFormRadio.Group
+        label="显示类型"
+        name="bannerType"
+        rules={mmFormRule.required}
+        options={[
+          { label: '图片', value: 0 },
+          { label: '视频', value: 1 }
+        ]}
+      />
 
-      <ProFormJumpType label="跳转类型" name="jumpType" />
+      <ProFormDependency name={['bannerType']}>
+        {({ bannerType }, form) => (
+          <ProFormMaterial label={bannerType ? "视频" : "图片"} name="imgUrl" rules={mmFormRule.required} fieldProps={{ measure: bannerType ? [720, 1280] : advertiseConfig.measure, type: bannerType }} />
+        )}
+      </ProFormDependency>
 
-      <ProFormDigit label="排序" name="sort" rules={mmFormRule.required} fieldProps={{ precision: 0, min: 0, max: 9999 }} />
-
-      <ProFormLimitInput label="标题" name="name" rules={mmFormRule.required} maxLength={20} />
 
       {/* <ProFormLimitInput label="内容" name="content" rules={mmFormRule.required} maxLength={20} /> */}
       <ProFormTextArea label="内容" name="content" rules={mmFormRule.required} />
+
+      <ProFormJumpType label="跳转类型" name="jumpType" />
 
       {/* <ProFormCheckbox.Group label="显示位置" name="position" rules={mmFormRule.required} options={OAdvertisingPosition} /> */}
 

@@ -30,6 +30,8 @@ export const routeNames = {
   eventsManagementEventsCreate: '/eventsManagement/events/create',
   /** 报名列表 */
   eventsManagementActivityOrders: '/eventsManagement/activityOrders',
+  /** 作为设置 */
+  eventsManagementSeatSettings: '/eventsManagement/seatSettings',
   /** 白名单 */
   eventsManagementWhiteList: '/eventsManagement/whiteList',
   /** 商城基础设置 */

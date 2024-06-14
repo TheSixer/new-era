@@ -62,20 +62,22 @@ const Component: FC = () => {
     const res: any = await api['/wechat/auth/token_GET']({ mobile: data?.phoneNumber, code, type: 0 }, { skipInterceptor: true })
     Taro.setStorageSync('token', res.data.data)
 
-    try {
-      // 领取失败则直接跳过，不阻断授权流程
-      await receiveNewcomerCoupon()
-    } catch (error) {}
+    // try {
+    //   // 领取失败则直接跳过，不阻断授权流程
+    //   await receiveNewcomerCoupon()
+    // } catch (error) {}
 
     // 同意用户协议
-    const { data: agreementTypeList = [] } = await api['/wechat/userAgreement/notAgreeAgreementTypeList_GET']()
-    if (agreementTypeList.length) {
-      await api['/wechat/userAgreement/userAgreeRecord/agree_PUT']({ agreementTypeList })
-    }
+    // const { data: agreementTypeList = [] } = await api['/wechat/userAgreement/notAgreeAgreementTypeList_GET']()
+    // if (agreementTypeList.length) {
+    //   await api['/wechat/userAgreement/userAgreeRecord/agree_PUT']({ agreementTypeList })
+    // }
     // 直接获取用户信息
-    await getUserAction()
+    const userData = await getUserAction()
 
-    if (params.redirectUrl && params.isTabber === 'true') {
+    if (!userData.registerIs) {
+      Taro.redirectTo({ url: decodeURIComponent(routeNames.auth) })
+    } else if (params.redirectUrl && params.isTabber === 'true') {
       Taro.switchTab({ url: decodeURIComponent(params.redirectUrl) })
     } else if (params.redirectUrl) {
       Taro.redirectTo({ url: decodeURIComponent(params.redirectUrl) })

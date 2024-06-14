@@ -4,6 +4,7 @@ export enum EGlobalDataKey {
   ActiveColor = 'activeColor',
   Logo = 'logo',
   Name = 'name',
+  Province = 'province'
 }
 
 interface IGlobalData {
@@ -12,11 +13,13 @@ interface IGlobalData {
   [EGlobalDataKey.ActiveColor]: string;
   [EGlobalDataKey.Logo]: string;
   [EGlobalDataKey.Name]: string;
+  [EGlobalDataKey.Province]: string;
 }
 
 let globalData: IGlobalData = {
   logo: '',
   name: '',
+  province: '',
   activeColor: '#1890ff',
   defaultColor: '#999999',
   tabs: []

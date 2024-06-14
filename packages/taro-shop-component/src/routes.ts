@@ -5,12 +5,12 @@
  * 运行 npm run route 或者 yarn route 自动生成
  */
 export const routeNames = {
+  tabBarMine: '/pages/tabBar/mine/index',
   tabBarHome: '/pages/tabBar/home/index',
+  eventsPrefecture: '/pages/events/prefecture/index',
   eventsSignUp: '/pages/events/signUp/index',
   eventsDetail: '/pages/events/detail/index',
   eventsCities: '/pages/events/cities/index',
-  eventsPrefecture: '/pages/events/prefecture/index',
-  initScreen: '/pages/initScreen/index',
   live: '/pages/live/index',
   webPage: '/pages/webPage/index',
   liveList: '/pages/liveList/index',
@@ -20,7 +20,6 @@ export const routeNames = {
   system: '/pages/system/index',
   tabBarCategorys: '/pages/tabBar/categorys/index',
   tabBarShopCart: '/pages/tabBar/shopCart/index',
-  tabBarMine: '/pages/tabBar/mine/index',
   auth: '/pages/auth/index',
   webAuth: '/pages/webAuth/index',
   decoration: '/pages/decoration/index',
@@ -29,6 +28,8 @@ export const routeNames = {
   committedStateAfterSaleSuccess: '/pages/committedState/afterSaleSuccess/index',
   mineUserAgreement: '/pages/mine/userAgreement/index',
   mineAddressAddressManagement: '/pages/mine/address/addressManagement/index',
+  mineEventsList: '/pages/mine/events/list/index',
+  mineEventsDetail: '/pages/mine/events/detail/index',
   mineAddressAddressList: '/pages/mine/address/addressList/index',
   minePersonal: '/pages/mine/personal/index',
   mineAlter: '/pages/mine/alter/index',

@@ -48,12 +48,12 @@ const Component: FC<any> = ({ history }) => {
         return <span>{MJumpType[value]}</span>
       }
     },
-    // {
-    //   title: '跳转内容',
-    //   dataIndex: 'url',
-    //   hideInSearch: true,
-    //   render: (value, record) => <JumpTypeValue jumpValue={{ type: record.urlType as unknown as EJumpType, content: record.url as any }} />
-    // },
+    {
+      title: '跳转内容',
+      dataIndex: 'url',
+      hideInSearch: true,
+      render: (value, record) => <JumpTypeValue jumpValue={{ type: record.urlType as unknown as EJumpType, content: record.url as any }} />
+    },
     {
       title: '显示状态',
       dataIndex: 'showStatus',

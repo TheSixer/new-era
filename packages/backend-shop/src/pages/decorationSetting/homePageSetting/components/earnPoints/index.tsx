@@ -2,13 +2,11 @@ import { FC, memo, useState } from 'react'
 import { Button, message } from 'antd'
 import { BannerCreateInputDto, api } from '~/request'
 import { EJumpType, MJumpType } from '~/components/jumpType/enums/EJumpType'
-import JumpTypeValue from '~/components/jumpType/jumpTypeValue'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
 import OperationsColumns from '@wmeimob/backend-pro/src/components/table/operationsColumns'
 import useProTableRequest from '@wmeimob/backend-pro/src/hooks/useProTableRequest'
 import { BannerOutputDto } from '@wmeimob/backend-api'
 import StatusSwitchColumn from '@wmeimob/backend-pro/src/components/table/statusSwitchColumn'
-import { routeNames } from '~/routes'
 import { ModalForm, ProFormDigit, ProFormRadio, ProFormTextArea } from '@ant-design/pro-form'
 import useProTableForm from '@wmeimob/backend-pro/src/hooks/useProTableForm'
 import mmFormRule from '@wmeimob/form-rules'
@@ -16,7 +14,6 @@ import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormL
 import ProFormMaterial from '@wmeimob/backend-pages/src/components/form/proFormMaterial'
 import ProFormJumpType from '@wmeimob/backend-pro/src/components/form/proFormJumpType'
 import { advertiseConfig } from '@wmeimob/shop-data/src/config'
-import JumpType from '~/components/jumpType'
 
 const Component: FC<any> = ({ history }) => {
   const editModal = useProTableForm<BannerCreateInputDto>()
@@ -148,7 +145,7 @@ const Component: FC<any> = ({ history }) => {
       layout="horizontal"
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 16 }}
-      initialValues={{ url: { type: EJumpType.None, content: {} } }}
+      initialValues={{ url: { type: EJumpType.None, content: {} }, bannerType: 0, showStatus: 1 }}
       onFinish={handleEditFormFinish}
     >
       <ProFormMaterial label="图片" name="imgUrl" rules={mmFormRule.required} fieldProps={{ measure: advertiseConfig.measure }} />

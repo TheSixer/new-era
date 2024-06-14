@@ -29,6 +29,10 @@ const Material: FC<IMaterialProps> = (props) => {
     dispatch({ type: 'MaxCount', max })
   }, [max])
 
+  useEffect(() => {
+    dispatch({ type: 'ChangeType', selected: type })
+  }, [type])
+
   return (
     <Provider value={{ state, dispatch }}>
       <Modal

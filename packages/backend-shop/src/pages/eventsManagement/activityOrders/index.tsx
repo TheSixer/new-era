@@ -1,20 +1,24 @@
-import { FC, memo, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import styles from './index.module.less'
 import { ICustomerListProps } from './const'
 import { PageContainer } from '@ant-design/pro-layout'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
 import { Button, Input, Upload, message } from 'antd'
-import OperationsColumns from '@wmeimob/backend-pro/src/components/table/operationsColumns'
 import useProTableRequest from '@wmeimob/backend-pro/src/hooks/useProTableRequest'
 import { ActivityOrderOutputDto, api } from '~/request'
-import { routeNames } from '~/routes'
-import { history } from 'umi'
 import { apiUrl } from '~/config'
-import { OActivityStatus } from '~/enums/event/EActivity'
+import { MActivityStatus, OActivityStatus } from '~/enums/event/EActivity'
 import { UploadOutlined } from '@ant-design/icons'
+import { history } from 'umi'
 import type { UploadProps } from 'antd';
+import { MCardType } from '~/enums/event/EReservationStatus'
+import { routeNames } from '~/routes'
+import useQuery from '~/hooks/useQuery'
 
 const Component: FC<ICustomerListProps> = (props) => {
+  const query = useQuery()
+  const activityId = query.get('activityId') || ''
+  const { unifies } = useBasicService(activityId)
   const [columns] = useState<ProColumns<ActivityOrderOutputDto>[]>([
     {
       dataIndex: 'searchString',
@@ -25,60 +29,37 @@ const Component: FC<ICustomerListProps> = (props) => {
       }
     },
     { title: '用户id', dataIndex: 'id', width: 60,hideInSearch: true },
-    { title: '用户昵称', dataIndex: 'nickName', width: 80, hideInSearch: true },
+    { title: '用户昵称', dataIndex: 'nickname', width: 80, hideInSearch: true },
     { title: '用户手机号', dataIndex: 'mobile', width: 100, hideInSearch: true },
     { title: '会员等级', dataIndex: 'openId', width: 80, hideInSearch: true },
     { title: '报名编号', dataIndex: 'id', width: 80, hideInSearch: true },
-    { title: '姓名', dataIndex: 'modifyUser', width: 80, hideInSearch: true },
-    { title: '证件类型', dataIndex: 'cardType', width: 80, hideInSearch: true },
+    { title: '姓名', dataIndex: 'createUser', width: 80, hideInSearch: true },
+    { title: '证件类型', dataIndex: 'cardType', width: 80, hideInSearch: true, renderText: (value: number) => MCardType[value] },
     { title: '证件号', dataIndex: 'cardNo', width: 150, hideInSearch: true },
-    { title: '报名场次', dataIndex: 'unifyId', valueType: 'select', renderText: (value?: number) => value || '统一场次' },
-    { title: '报名费用', dataIndex: 'activity.bookFree', width: 80, hideInSearch: true },
-    { title: '报名时间', dataIndex: 'bookStartTime', width: 120, hideInSearch: true, renderText: (value?: number, record?: any) => `${value}-${record.bookEndTime}` },
+    { title: '报名场次', dataIndex: 'unifyName', width: 80, hideInSearch: true },
+    {
+      title: '报名场次',
+      dataIndex: 'unifyId',
+      valueType: 'select',
+      fieldProps: () => ({ options: unifies }),
+      hideInTable: true
+    },
+    { title: '报名费用', dataIndex: 'bookFee', width: 80, hideInSearch: true },
+    { title: '报名时间', dataIndex: 'bookTime', width: 120, hideInSearch: true },
     {
       title: '状态',
-      dataIndex: 'status',
+      dataIndex: 'orderStatus',
       valueType: 'select',
       fieldProps: () => ({ options: OActivityStatus }),
       width: 80,
-      renderText: (value: number) => OActivityStatus[value]
+      renderText: (value: number) => MActivityStatus[value]
     },
-    { title: '座位区域', dataIndex: 'cardNo', width: 80, hideInSearch: true },
-    { title: '排号', dataIndex: 'cardNo', width: 80, hideInSearch: true },
-    { title: '座位号', dataIndex: 'cardNo', width: 80, hideInSearch: true },
-    { title: '核销码', dataIndex: 'qrCode', width: 80, hideInSearch: true },
-    { title: '核销人', dataIndex: 'modifyUser', width: 80, hideInSearch: true },
-    { title: '核销时间', dataIndex: 'gmtCreated', valueType: 'date', width: 120, hideInSearch: true },
-    {
-      title: '操作',
-      dataIndex: 'option',
-      valueType: 'option',
-      width: 150,
-      fixed: 'right',
-      render: (_, record) => {
-        return (
-          <OperationsColumns
-            operations={[
-              {
-                id: 'detail',
-                text: (
-                  <a
-                    onClick={() =>
-                      history.push({
-                        pathname: routeNames.mallManagementCustomerDetail,
-                        query: { id: `${record.id}` }
-                      })
-                    }
-                  >
-                    会员详情
-                  </a>
-                )
-              }
-            ]}
-          />
-        )
-      }
-    }
+    { title: '座位区域', dataIndex: 'areaName', width: 80, hideInSearch: true },
+    { title: '排号', dataIndex: 'rowNumber', width: 80, hideInSearch: true },
+    { title: '座位号', dataIndex: 'seatNo', width: 80, hideInSearch: true },
+    { title: '核销码', dataIndex: 'qrCode', valueType: 'image', width: 80, hideInSearch: true },
+    { title: '核销人', dataIndex: 'checkUserName', width: 80, hideInSearch: true },
+    { title: '核销时间', dataIndex: 'checkTime', valueType: 'date', width: 120, hideInSearch: true }
   ])
   const Authorization = window.localStorage.getItem('Authorization') || ''
 
@@ -114,6 +95,7 @@ const Component: FC<ICustomerListProps> = (props) => {
         rowKey="id"
         columns={columns}
         request={request}
+        params={{ activityId }}
         scroll={{ x: 1000 }}
         search={{
           defaultCollapsed: false,
@@ -128,9 +110,7 @@ const Component: FC<ICustomerListProps> = (props) => {
             </Upload>,
             <Button type="primary" key="link"
               onClick={() => {
-                // history.push({
-                //   pathname: routeNames.mallManagementCustomerList
-                // })
+                history.push({ pathname: routeNames.eventsManagementSeatSettings, search: `?activityId=${activityId}` })
               }}
             >
               座位设置
@@ -162,3 +142,18 @@ Component.displayName = 'CustomerList'
 
 const CustomerList = memo(Component)
 export default CustomerList
+
+function useBasicService(activityId) {
+  const [unifies, setUnifies] = useState<any[]>([])
+
+  useEffect(() => {
+    activityId && fetchUnifies()
+  }, [activityId])
+
+  async function fetchUnifies() {
+    const { data = [] } = await api['/admin/mall/activity/queryUnifyList_GET']({ activityId })
+    setUnifies(data.map(({ unifyDate, unifyTime, id }) => ({ label: `${unifyDate} ${unifyTime}`, value: id })))
+  }
+
+  return { unifies, fetchUnifies }
+}

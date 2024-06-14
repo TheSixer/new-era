@@ -1,9 +1,9 @@
+import { ActivityOutputDto } from '@wmeimob/backend-api'
 import { RouteComponentProps } from 'react-router-dom'
-import { MarketingActivityVo } from '@wmeimob/backend-api'
 
 export interface IActivitysProps extends RouteComponentProps {}
 
-export interface IMarketingActivity extends MarketingActivityVo {
+export interface IMarketingEvent extends ActivityOutputDto {
   /** 活动是否已结束 */
-  _isFinish: boolean
+  _isFinish?: boolean
 }

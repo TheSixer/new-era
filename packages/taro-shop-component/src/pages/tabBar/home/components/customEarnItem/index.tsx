@@ -9,12 +9,12 @@ const Component: FC<IEarnItemProps> = ({ item, index }) => (
     className={classNames(styles.custom_swiper_item, {
       [styles.custom_swiper_item_odd]: index % 2 === 0
     })}>
-    <Image className={styles.custom_swiper_item_image} src={item.src} mode='aspectFill'/>
+    <Image className={styles.custom_swiper_item_image} src={item.imgUrl} mode='aspectFill'/>
 
     <View className={styles.custom_swiper_item_content}>
       <View className={classNames(styles.custom_swiper_item_title, {
         [styles.custom_swiper_item_title_odd]: index % 2 === 0
-      })}>{item.alt}</View>
+      })}>{item.name}</View>
       
       <Button className={classNames(styles.custom_swiper_item_button, {
         [styles.custom_swiper_item_button_odd]: index % 2 === 0
