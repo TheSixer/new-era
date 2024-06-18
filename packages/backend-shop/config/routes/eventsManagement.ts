@@ -28,10 +28,11 @@ export default [
       {
         name: '报名列表',
         path: '/eventsManagement/activityOrders',
-        component: './eventsManagement/activityOrders'
+        component: './eventsManagement/activityOrders',
+        hideInMenu: true
       },
       {
-        name: '作为设置',
+        name: '座位设置',
         path: '/eventsManagement/seatSettings',
         component: './eventsManagement/seatSettings',
         hideInMenu: true
@@ -39,7 +40,8 @@ export default [
       {
         name: '白名单',
         path: '/eventsManagement/whiteList',
-        component: './eventsManagement/whiteList'
+        component: './eventsManagement/whiteList',
+        hideInMenu: true
       },
 
       { redirect: '/eventsManagement/events' }

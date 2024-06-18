@@ -65,7 +65,8 @@ const Component: FC<ITabBarProps> = (props) => {
                   style={{
                     backgroundImage: `url(${value.image})`,
                     visibility: currentIndex === index ? 'hidden' : 'initial',
-                    position: currentIndex === index ? 'absolute' : 'relative'
+                    position: currentIndex === index ? 'absolute' : 'relative',
+                    ...(index === 1 ? {width: '102rpx', height: '102rpx', top: '-40rpx'} : {})
                   }}
                 />
                 <View
@@ -73,7 +74,8 @@ const Component: FC<ITabBarProps> = (props) => {
                   style={{
                     backgroundImage: `url(${value.imageSelected})`,
                     visibility: currentIndex === index ? 'initial' : 'hidden',
-                    position: currentIndex === index ? 'relative' : 'absolute'
+                    position: currentIndex === index ? 'relative' : 'absolute',
+                    ...(index === 1 ? {width: '102rpx', height: '102rpx', top: '-40rpx'} : {})
                   }}
                 />
                 {!!data[index].redHot && <MMBadgeTabbar absolute dot />}

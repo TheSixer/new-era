@@ -2,34 +2,45 @@ import { FC, memo, useEffect, useState } from 'react'
 import styles from './index.module.less'
 import { ICustomerListProps } from './const'
 import { PageContainer } from '@ant-design/pro-layout'
-import { Button, Card, Form, Input, Modal, Select, Space, message } from 'antd'
-import { ActivityOrderOutputDto, api } from '@wmeimob/backend-api'
+import { Button, Card, Col, Form, Input, Modal, Row, Select, Space, Spin, message } from 'antd'
+import { ActivityOrderOutputDto, ActivitySeatInfoDto, api } from '@wmeimob/backend-api'
 import useQuery from '~/hooks/useQuery'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
 import useProTableRequest from '@wmeimob/backend-pro/src/hooks/useProTableRequest'
 import { MActivityStatus, OActivityStatus } from '~/enums/event/EActivity'
 import { useSuperLock } from '@wmeimob/utils/src/hooks/useSuperLock'
+import dayjs from 'dayjs'
+import classNames from 'classnames'
 
 const Component: FC<ICustomerListProps> = (props) => {
   const [form] = Form.useForm()
   const query = useQuery()
   const activityId = query.get('activityId') || ''
-  const { unifies, seats } = useBasicService(activityId)
+  const { unifies } = useBasicService(activityId)
+  const { spinning, seats, fetchSeats } = useSeatService()
+  const [unifyId, setUnifyId] = useState('')
+  
   const [visible, setVisible] = useState(false)
 
   const [currentSeat, setCurrentSeat] = useState<any>()
-  const [currentIndex, setCurrentIndex] = useState<number>(0)
 
   const [value, setValue] = useState<ActivityOrderOutputDto>()
   const onChange = (row: ActivityOrderOutputDto) => {
     setValue(row)
   }
 
-  const handleClick = (seat, index) => {
+  const handleClick = (seat) => {
     setCurrentSeat(seat)
-    setCurrentIndex(index)
     setVisible(true)
   }
+
+  useEffect(() => {
+    unifies.length && setUnifyId(unifies[0].value)
+  }, [unifies])
+
+  useEffect(() => {
+    unifyId && fetchSeats(activityId, unifyId)
+  }, [unifyId])
 
   
   const [handleConfirm, loading] = useSuperLock(async () => {
@@ -38,10 +49,11 @@ const Component: FC<ICustomerListProps> = (props) => {
       await api['/admin/mall/activityOrder/distribution_POST']({
         activityId,
         orderId: value?.id,
-        seatId: currentSeat.areaCode,
-        seatNo: currentIndex + 1,
+        seatId: currentSeat.seatId,
+        seatNo: currentSeat.seatNo,
         unifyId: value?.unifyId
       })
+      actionRef.current?.reload()
       message.success('座位安排成功')
     } catch (error) {
       message.success('座位安排失败')
@@ -79,8 +91,8 @@ const Component: FC<ICustomerListProps> = (props) => {
 
   const { request, actionRef } = useProTableRequest((params) => api['/admin/mall/activityOrder/queryList_GET'](params))
 
-  const handleChange = (changedValues, allValues) => {
-    console.log(changedValues, allValues)
+  const handleChange = (changedValues) => {
+    setUnifyId(changedValues)
   }
 
   /** 弹窗 */
@@ -97,10 +109,12 @@ const Component: FC<ICustomerListProps> = (props) => {
         actionRef={actionRef}
         rowKey="id"
         columns={columns}
+        params={{ activityId, unifyId }}
         request={request}
         rowSelection={{
           selectedRowKeys: value ? [value.id!] : [],
           type: 'radio',
+          getCheckboxProps: (record) => ({ disabled: !!record.orderStatus }),
           onChange(_ks, [row]) {
             onChange?.(row)
           }
@@ -121,24 +135,25 @@ const Component: FC<ICustomerListProps> = (props) => {
       <Card>
         <Form layout="inline" form={form} initialValues={{ layout: 'inline' }}>
           <Form.Item label="活动场次">
-            <Select defaultValue="lucy" style={{ width: 200 }} options={unifies} onChange={handleChange} />
+            <Select value={unifyId} style={{ width: 200 }} options={unifies} onChange={handleChange} />
           </Form.Item>
         </Form>
       </Card>
       <Card>
-        {seats?.map((area) => (
-          <Card key={area.areaCode}>
-            <Space size={[8, 16]} wrap>
-              {new Array(area.seat).fill(null).map((_, index) => (
-                <Button
-                  style={{ width: 150 }}
-                  onClick={() => handleClick(area, index)} key={index}>
-                    {`${area.areaName}-${area.rowNumber}-${index + 1}`}
-                  </Button>
-              ))}
-            </Space>
-          </Card>
-        ))}
+      <Spin tip="Loading..." spinning={spinning}>
+        <Card style={{ minHeight: 300 }}>
+          <Row gutter={[16, 16]}>
+            {seats.map((area, index) => (
+              <Col className="gutter-row" span={3}  key={index}>
+                <div className={classNames(styles.seat, { [styles.disabled]: !!area.userName })} onClick={() => !area.userName && handleClick(area)}>
+                  <p className={styles.seatName}>{`${area.areaName}-${area.rowNumber}-${area.seatNo}`}</p>
+                  {area.userName && <p className={styles.seatName}>{area.userName}</p>}
+                </div>
+              </Col>
+            ))}
+          </Row>
+        </Card>
+      </Spin>
       </Card>
 
       {modal}
@@ -153,7 +168,6 @@ export default CustomerList
 
 function useBasicService(activityId) {
   const [unifies, setUnifies] = useState<any[]>([])
-  const [seats, setSeats] = useState<any[]>([])
 
   useEffect(() => {
     activityId && fetchUnifies()
@@ -161,11 +175,22 @@ function useBasicService(activityId) {
 
   async function fetchUnifies() {
     const { data = [] } = await api['/admin/mall/activity/queryUnifyList_GET']({ activityId })
-    setUnifies(data.map(({ unifyDate, unifyTime, id }) => ({ label: `${unifyDate} ${unifyTime}`, value: id })))
-
-    const { data: seatData = [] } = await api['/admin/mall/activity/querySeatList_GET']({ activityId })
-    setSeats(seatData)
+    setUnifies(data.map(({ unifyDate, unifyTime, id }) => ({ label: `${dayjs(unifyDate).format('YYYY-MM-DD')} ${unifyTime}`, value: id })))
   }
 
-  return { unifies, seats, fetchUnifies }
+  return { unifies, fetchUnifies }
+}
+
+function useSeatService() {
+  const [spinning, setSpinning] = useState(true)
+  const [seats, setSeats] = useState<ActivitySeatInfoDto[]>([])
+
+  async function fetchSeats(activityId, unifyId) {
+    setSpinning(true)
+    const { data: { list = [] } } = await api['/admin/mall/activityOrder/distributionInfo_GET']({ activityId, unifyId })
+    setSeats(list)
+    setSpinning(false)
+  }
+
+  return { seats, spinning, fetchSeats }
 }

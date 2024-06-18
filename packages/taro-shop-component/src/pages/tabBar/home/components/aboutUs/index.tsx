@@ -10,8 +10,6 @@ import { navByLink } from '../../../../../components/pageModules/utils';
 
 const Component: FC<IAboutUsProps> = () => {
   const { banners } = useBannerService()
-  // eslint-disable-next-line no-console
-  console.log(banners);
 
   return (
     <View>

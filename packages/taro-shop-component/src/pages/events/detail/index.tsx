@@ -1,26 +1,33 @@
 import { FC, memo, useEffect, useState } from 'react'
-import { View, Text } from '@tarojs/components'
+import { View, Text, Button, Image } from '@tarojs/components'
 import { IDetailProps } from './const'
 import styles from './index.module.less'
 import MMNavigation from '@wmeimob/taro-design/src/components/navigation'
-import { PageContainer } from '@wmeimob/taro-design'
+import { MMRichText, PageContainer } from '@wmeimob/taro-design'
 import { PositionFilled } from '../../../components/Icons'
 import Banner from './components/banner'
 import Taro, { useRouter } from '@tarojs/taro'
 import { ActivityOutputDto, api } from '@wmeimob/taro-api'
-import LoadingView from '../../tabBar/home/components/loadingView'
 import dayjs from 'dayjs'
 import FooterBar from './components/footerBar'
 import EventSkuPopup from '../../../components/event/eventSkuPopup'
 import getParamsUrl from '@wmeimob/taro-utils/src/getParamsUrl'
 import { routeNames } from '../../../routes'
+import LoadingView from '../../../components/loadingView'
+import ShareIcon from './images/icon_share.png'
 
-const Component: FC<IDetailProps> = (props) => {
+const Component: FC<IDetailProps> = () => {
   const { params } = useRouter()
   const { loading, info, handleConfirm } = useBasicService(params.id)
   const [visible, setVisible] = useState(false)
   const { province = '', city = '', area = '', address = '' } = info || {}
   const addressDetail = `${province}${city}${area}${address}`
+
+  const handleShare = () => {
+    Taro.showShareMenu({
+      withShareTicket: true
+    })
+  }
 
   if (loading) {
     return <LoadingView />
@@ -34,6 +41,10 @@ const Component: FC<IDetailProps> = (props) => {
       
       <View className={styles.banner}>
         <Banner data={info?.imgs?.split?.(',') || []} />
+
+        <Button className={styles.share_btn} onClick={handleShare}>
+          <Image src={ShareIcon} className={styles.share_icon} mode='aspectFit' />
+        </Button>
       </View>
 
       <View className={styles.container}>
@@ -57,6 +68,14 @@ const Component: FC<IDetailProps> = (props) => {
 
         <View className={styles.event_member}>
           活动人数： {info?.activityMaxNum}
+        </View>
+        <View className={styles.event_desc}>
+          <MMRichText html={info?.details} />
+        </View>
+
+        <View className={styles.event_desc_footer}>
+          <View>如有问题，请联系我们：021-1234567</View>
+          <View>最终解释权归NEW ERA所有</View>
         </View>
 
       </View>

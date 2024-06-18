@@ -19,7 +19,7 @@ export enum EReservationStatus {
 
 export const MReservationStatus = {
   [EReservationStatus.NoUse]: '待分配座位',
-  [EReservationStatus.Arranged]: '已分配座位',
+  [EReservationStatus.Arranged]: '座位号已生成',
   [EReservationStatus.Used]: '已核销',
   [EReservationStatus.Canceled]: '已取消'
 }

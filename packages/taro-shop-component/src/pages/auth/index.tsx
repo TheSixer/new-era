@@ -76,7 +76,7 @@ const Component: FC = () => {
     const userData = await getUserAction()
 
     if (!userData.registerIs) {
-      Taro.redirectTo({ url: decodeURIComponent(routeNames.auth) })
+      Taro.redirectTo({ url: decodeURIComponent(routeNames.webAuth) })
     } else if (params.redirectUrl && params.isTabber === 'true') {
       Taro.switchTab({ url: decodeURIComponent(params.redirectUrl) })
     } else if (params.redirectUrl) {

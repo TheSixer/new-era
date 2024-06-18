@@ -1,0 +1,79 @@
+.prefectureStyle {
+  position: relative;
+  padding: 40rpx;
+  height: 100vh;
+  background-image: url(../../../tabBar/mine/images/bg.png);
+  background-repeat: no-repeat;
+  background-position: top center;
+  background-size: contain;
+  background-color: #010101;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-top: 360rpx;
+}
+
+.logo {
+  margin: 0 auto 72rpx;
+  width: 214rpx;
+  height: 103rpx;
+}
+
+.check_link {
+  text-align: center;
+  margin-top: 80rpx;
+  font-size: 24rpx;
+  color: #fff;
+  font-weight: bold;
+}
+
+.check_link_text {
+  text-decoration: underline;
+}
+
+.form_item {
+  position: relative;
+}
+
+.scan_btn {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  top: 50%;
+  right: 0;
+  height: 60rpx;
+  transform: translateY(-50%);
+  background: none;
+
+  &::before {
+    display: inline-block;
+    content: '';
+    width: 1rpx;
+    height: 42rpx;
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    background-color: #A7A9AC;
+  }
+}
+
+.code_img {
+  width: 38rpx;
+  height: 38rpx;
+}
+
+.footer {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  padding: 40rpx 40rpx 150rpx;
+  width: 100%;
+}
+
+.form_submit {
+
+}

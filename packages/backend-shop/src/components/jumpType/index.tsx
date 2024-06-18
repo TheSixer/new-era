@@ -59,9 +59,9 @@ const Component: FC<JumpTypeProps> = (props) => {
         [EJumpType.SystemPage]: () => setSysPageValue(content.path || ''),
         [EJumpType.CustomLink]: () => setCustomValue(content),
         [EJumpType.DecorationPage]: () => setDecorationValue(content),
-        [EJumpType.GoodCate]: () => setCateValue(content),
-        [EJumpType.GoodDetail]: () => setGoodDetail(content),
-        [EJumpType.LivePage]: () => setLivePage(content),
+        // [EJumpType.GoodCate]: () => setCateValue(content),
+        // [EJumpType.GoodDetail]: () => setGoodDetail(content),
+        // [EJumpType.LivePage]: () => setLivePage(content),
         [EJumpType.H5Link]: () => setH5Value(content)
       }[type] || (() => setSysPageValue(''))
 
@@ -158,9 +158,9 @@ const Component: FC<JumpTypeProps> = (props) => {
                 [EJumpType.SystemPage]: <SystemPage value={sysPageValue} onChange={setSysPageValue} />,
                 [EJumpType.CustomLink]: <CustomLink value={customValue} onChange={setCustomValue} />,
                 [EJumpType.DecorationPage]: <Decorations value={decorationValue} onChange={setDecorationValue} />,
-                [EJumpType.GoodCate]: <GoodCates value={cateValue} onChange={setCateValue} />,
-                [EJumpType.GoodDetail]: <GoodsList value={goodDetail} onChange={setGoodDetail} />,
-                [EJumpType.LivePage]: <LiveList value={livePage} onChange={setLivePage} />,
+                // [EJumpType.GoodCate]: <GoodCates value={cateValue} onChange={setCateValue} />,
+                // [EJumpType.GoodDetail]: <GoodsList value={goodDetail} onChange={setGoodDetail} />,
+                // [EJumpType.LivePage]: <LiveList value={livePage} onChange={setLivePage} />,
                 [EJumpType.H5Link]: <H5Link value={h5Value} onChange={setH5Value} />
               }[item.value] || MJumpType[item.value]}
             </TabPane>

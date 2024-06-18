@@ -1,4 +1,4 @@
-@import '@wmeimob/taro-design/src/components/styles/themes/default.less';
+// @import '@wmeimob/taro-design/src/components/styles/themes/default.less';
 
 .indexStyle {
   display: flex;
@@ -7,6 +7,7 @@
   // background-image : url('https://xishadaoxian.oss-cn-beijing.aliyuncs.com/test/bc719583-a867-7b56-35c2-8cb16fe60f74.png');
   // background-repeat: no-repeat;
   // background-size  : 100% calc(100vw / 375 * 227);
+  background-color: #0b0404;
 }
 
 .headerArea {
@@ -23,14 +24,10 @@
 .content {
   flex: 1;
   min-height: 100vh;
-  background-image: url(./images/vip_bg.png), url('./images/bg.png');
+  background-image: url(https://newera-1324768017.cos.ap-nanjing.myqcloud.com/newera_temp/b4583b82-8054-566d-59e0-62eac648947a.png), url(https://newera-1324768017.cos.ap-nanjing.myqcloud.com/newera_temp/b60c4f6e-7d94-82b1-18fd-4e281f822c40.png);
   background-repeat: no-repeat;
   background-size: 100% auto;
   background-position: center 309rpx, center top;
-}
-
-.content_h5{
-  background-size: @bgH5Size;
 }
 
 .orderCard {
@@ -118,13 +115,16 @@
 .row {
   display: flex;
   align-items: center;
+  flex-wrap: wrap;
+  padding: 0 40rpx;
 }
 
 .cell {
-  flex: 1;
-  color: #333333;
+  margin-bottom: 32rpx;
+  width: 25%;
+  color: #261C02;
   font-weight: 400;
-  font-size: 11px;
+  font-size: 24rpx;
   text-align: center;
 
   .cell_img {
@@ -139,7 +139,7 @@
 }
 
 .activity_card {
-  margin: 32rpx 40rpx;
+  margin: 12rpx 40rpx 32rpx;
   padding: 20rpx 30rpx 20rpx;
   height: 180rpx;
   background-image: url(./images/act_reservation.png);
@@ -156,6 +156,7 @@
   line-height: 52rpx;
   font-weight: bold;
   color: #BC9B6A;
+  font-family: 'TradeGothicLTStd-BoldObl'; // TradeGothicLTStd BoldObl
 }
 
 .activity_card_content {

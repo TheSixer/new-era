@@ -21,6 +21,7 @@ const Component: FC<IActivitysProps> = () => {
       title: '活动时间',
       dataIndex: 'startTime',
       valueType: 'dateRange',
+      hideInSearch: true,
       render: (_d, record) => (
         <Space direction="vertical">
           <span>{record.startTime}</span>
@@ -31,12 +32,14 @@ const Component: FC<IActivitysProps> = () => {
     {
       title: '活动地址',
       dataIndex: 'address',
+      hideInSearch: true,
       render: (_v, { provinceName = '', cityName = '', areaName = '', address = '' }) => [provinceName, cityName, areaName, address].join(' ')
     },
     {
       title: '报名时间',
       dataIndex: 'bookStartTime',
       valueType: 'dateRange',
+      hideInSearch: true,
       render: (_d, record) => (
         <Space direction="vertical">
           <span>{record.bookStartTime}</span>
@@ -62,6 +65,7 @@ const Component: FC<IActivitysProps> = () => {
     {
       title: '显示状态',
       dataIndex: 'status',
+      hideInSearch: true,
       valueEnum: {
         [EActivityStatus.NoUse]: '已下架',
         [EActivityStatus.Use]: '上架中',

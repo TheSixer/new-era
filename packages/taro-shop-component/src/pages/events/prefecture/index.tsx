@@ -9,7 +9,7 @@ import MMPullToRefresh from '@wmeimob/taro-design/src/components/pull-to-refresh
 import { ActivityOutputDto, MarketingActivityDto, api } from '@wmeimob/taro-api'
 import useMMPullToRefresh from '@wmeimob/taro-design/src/components/pull-to-refresh/useMMPullToRefresh'
 import MMEmpty from '@wmeimob/taro-design/src/components/empty'
-import emptyActivityImg from './images/empty_activity.png'
+import emptyImg from '../../../assets/images/icon_empty.png'
 import { routeNames } from '../../../routes'
 import { PageContainer } from '@wmeimob/taro-design'
 import getParamsUrl from '@wmeimob/taro-utils/src/getParamsUrl'
@@ -28,7 +28,7 @@ export interface TabItem {
 
 const Component: FC<IPrefectureProps> = () => {
   const [activeTab, setActiveTab] = useState(0)
-  const { location } = useGetLocation()
+  const { location = { latitude: 121.52, longitude: 30.86} } = useGetLocation()
   const { activityTypes, address: position } = useTypesService(location)
   const { user } = useGlobalStore()
   const [address, setAddress] = useAtom(addressAtom)
@@ -59,7 +59,7 @@ const Component: FC<IPrefectureProps> = () => {
       <MMPullToRefresh
         {...pullToRefreshProps}
         empty={pullInfo.isEmpty &&
-        <MMEmpty fixed text='暂时没有活动' src={emptyActivityImg} imgStyle={{ width: 160, height: 160 }} />}
+        <MMEmpty fixed text='暂无数据' src={emptyImg} imgStyle={{ width: '64rpx', height: '64rpx' }} />}
       >
         <View className={styles.event_container}>
           <View className={styles.event_header}>
@@ -105,13 +105,19 @@ function useTypesService(location) {
   const [activityTypes, setActivityTypes] = useState<TabItem[]>([{ label: '全部', value: 0 }])
 
   async function getActivityTypes() {
-    const { data = [] } = await api['/wechat/activity/classList_GET']({})
-    setActivityTypes((prev) => prev.concat(data?.map((item) => ({ label: item.name, value: item.id }))))
+    try {
+      const { data = [] } = await api['/wechat/activity/classList_GET']({})
+      setActivityTypes((prev) => prev.concat(data?.map((item) => ({ label: item.name, value: item.id }))))
+    } catch (error) {
+    }
   }
 
   async function getPosition(locat) {
-    const { data: address } = await api['/wechat/activity/getAddress_GET'](locat)
-    setPosition(address)
+    try {
+      const { data: address } = await api['/wechat/activity/getAddress_GET'](locat)
+      setPosition(address)
+    } catch (error) {
+    }
   }
 
   useEffect(() => {
@@ -120,10 +126,7 @@ function useTypesService(location) {
 
   useEffect(() => {
     if (location.latitude && location.longitude) {
-      getPosition({
-        latitude: 120.52,
-        longitude: -122.12
-      })
+      getPosition(location)
     }
   }, [location])
 

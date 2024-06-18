@@ -28,7 +28,7 @@ const Component: FC<IBasicModuleTitleProps> = (props) => {
   return (
     <View className={styles.basicModuleTitleStyle} style={style}>
       <View className={styles.content} style={{ backgroundColor }}>
-        {left && left.show && (
+        {left?.show && (
           <View className={styles.left}>
             {left.image ? (
               <Image src={left.image + getResizeUrl({ width: size, height: size })} style={{ width: sizePx, height: sizePx }} />
@@ -39,11 +39,11 @@ const Component: FC<IBasicModuleTitleProps> = (props) => {
         )}
 
         <View className={styles.text} style={{ ...restStyle, fontSize: `${fontSize}px` }}>
-          {name}
+          <Text className={styles.text__name}>{name}</Text>
+          {!!rightContent && <Text className={styles.text__subname}>{rightContent}</Text>}
         </View>
 
         <View className={styles.right} onClick={handleClick}>
-          {!!rightContent && <Text className={styles.rightContent}>{rightContent}</Text>}
           {showArrow && <MMIconFont value={IconFontName.Next} size={12} color="#cccccc" />}
         </View>
       </View>

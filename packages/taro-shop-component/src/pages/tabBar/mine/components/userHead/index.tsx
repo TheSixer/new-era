@@ -15,8 +15,9 @@ import { systemConfig } from '../../../../../config'
 import SignButton from '@wmeimob-modules/task-taro/src/components/signButton'
 import { navByLink } from '../../../../../components/pageModules/utils'
 import { EJumpType } from '@wmeimob-modules/decoration-data/src/enums/EJumpType'
+import { ArrowFilled } from '../../../../../components/Icons'
 
-const { enableSignTask } = systemConfig.config
+// const { enableSignTask } = systemConfig.config
 
 const Component: FC<IUserHeadProps> = () => {
   const { user, isLogin } = useGlobalStore()
@@ -49,7 +50,7 @@ const Component: FC<IUserHeadProps> = () => {
           <View className={styles.userInfo} onClick={handleClick}>
             <View className={styles.nickName}>{user.nickName}</View>
 
-            {enableSignTask && (
+            {/* {enableSignTask && (
               <View
                 className={styles.signButton}
                 onClick={(ev) => {
@@ -59,26 +60,25 @@ const Component: FC<IUserHeadProps> = () => {
               >
                 <SignButton />
               </View>
-            )}
+            )} */}
 
-            <View className={styles.info}>
-              {/* 手机号 */}
+            {/* 手机号 */}
+            {/* <View className={styles.info}>
               <View className={classNames(styles.info_item, styles.mobil)}>
                 <Image src={iconMobile} className={styles.info_item_icon} />
                 {desensitizationMobile}
               </View>
+            </View> */}
 
-              {/* 生日 */}
-              {user.birthday && (
-                <View className={classNames(styles.info_item, styles.birthday)}>
-                  <Image src={iconBirthday} className={styles.info_item_icon} />
-                  {user.birthday}
-                </View>
-              )}
+            <View className={styles.info}>
+              <View className={styles.info_item} style={{textDecoration: 'underline'}}>
+                完善个人信息
+                <ArrowFilled />
+              </View>
             </View>
           </View>
 
-          {!enableSignTask && <MMIconFont value={MMIconFontName.Next} size={14} color="#ffffff" />}
+          {/* {!enableSignTask && <MMIconFont value={MMIconFontName.Next} size={14} color="#ffffff" />} */}
         </>
       )}
     </View>

@@ -1,17 +1,16 @@
 // src/components/CustomSwiper/CustomSwiper.jsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { View, Text, Button, Image } from '@tarojs/components';
 import styles from './index.module.less';
 import './index.less';
 import Title from '../title';
 import Decorate from '../../../../../assets/images/home/decorate.png';
-import { useDidShow } from '@tarojs/taro';
 import { BannerPositionOutputDto, api } from '@wmeimob/taro-api';
 import { navByLink } from '../../../../../components/pageModules/utils';
 import { MMRichText } from '@wmeimob/taro-design';
 
 const CustomSwiper = ({ style = {} }) => {
-  const { loading, banners } =useBannerService();
+  const { banners } =useBannerService();
 
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -90,9 +89,9 @@ function useBannerService() {
   const [loading, setLoading] = useState(false)
   const [banners, setBanners] = useState<BannerPositionOutputDto[]>([])
 
-  useDidShow(() => {
+  useEffect(() => {
     getBanners()
-  });
+  }, []);
 
   /** 获取banners */
   async function getBanners() {

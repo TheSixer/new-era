@@ -21,7 +21,7 @@ const Component: FC<IEventInfoProps> = (props) => {
             
           </View>
 
-          <ETag classname={styles.event_tag} type='before' text='wating' />
+          <ETag classname={styles.event_tag} type={data.status} text={data.status === 1 ? '进行中' : data.status === 2 ? '已结束' : '未开始'} />
         </View>
         <View className={styles.event_content}>
           <View className={styles.event_info_content}>

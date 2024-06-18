@@ -142,6 +142,106 @@ export interface ActivityOrderSeatArrangeParam {
   [property: string]: any;
 }
 
+export interface ActiveOrderUnifySetasParam {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 活动场次id
+   */
+  unifyId?: number;
+  [property: string]: any;
+}
+
+/**
+ * JsonResult«ActivitySeatInfoListDto»
+ */
+export interface JsonResultActivitySeatInfoListDto {
+  code?: number;
+  data: ActivitySeatInfoListDto;
+  msg?: string;
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatInfoListDto
+*/
+export interface ActivitySeatInfoListDto {
+  /**
+   * 活动id
+   */
+  activityId?: number;
+  /**
+   * 座位信息
+   */
+  list: ActivitySeatInfoDto[];
+  /**
+   * 座位信息-分组
+   */
+  resultMap?: { [key: string]: { [key: string]: ActivitySeatInfoDto[] } };
+  /**
+   * 活动场次id
+   */
+  unifyId?: number;
+  [property: string]: any;
+}
+
+/**
+* ActivitySeatInfoDto
+*/
+export interface ActivitySeatInfoDto {
+  /**
+   * 区域
+   */
+  areaCode?: string;
+  /**
+   * 开始时间
+   */
+  beginTime?: Date;
+  /**
+   * 结束时间
+   */
+  endTime?: Date;
+  /**
+   * 主键
+   */
+  id?: number;
+  /**
+   * nextToken
+   */
+  nextToken?: number;
+  /**
+   * 当前页码
+   */
+  pageNum?: number;
+  /**
+   * 每页数据量
+   */
+  pageSize?: number;
+  /**
+   * 排号
+   */
+  rowNumber?: string;
+  /**
+   * 活动座位id
+   */
+  seatId?: number;
+  /**
+   * 座位号
+   */
+  seatNo?: number;
+  /**
+   * 活动场次id
+   */
+  unifyId?: number;
+  /**
+   * 用户名
+   */
+  userName?: string;
+  [property: string]: any;
+}
+
 export interface ActiveOrderUnifyParam {
   /**
    * 活动id
@@ -6960,6 +7060,25 @@ export interface StatisticsCountOutputDto {
   userCount?: number;
 }
 
+/**
+ * TagsBind4usersDTO
+ */
+export interface TagsBind4usersDTO {
+  /**
+   * 标签集合
+   */
+  tagIds?: number[];
+  /**
+   * 是否删除之前的 1是
+   */
+  type?: number;
+  /**
+   * 用户ID集合
+   */
+  userIds?: number[];
+  [property: string]: any;
+}
+
 export interface ScoreChangeInputDto {
   /**
    * 用户id
@@ -9399,6 +9518,8 @@ export interface MemberInfoPageVo {
    * @format int32
    */
   status?: number;
+  tagNames?: string;
+  tagId?: string;
 
   /**
    * 累计积分

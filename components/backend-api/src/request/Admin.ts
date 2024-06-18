@@ -6,6 +6,7 @@ import { ITaroRequestConfig } from "@wmeimob/request/src/types/taro-type";
 import {
   ActiveOrderListParam,
   ActiveOrderUnifyParam,
+  ActiveOrderUnifySetasParam,
   ActivityCreateInputDto,
   ActivityOpenDto,
   ActivityOrderSeatArrangeParam,
@@ -126,6 +127,7 @@ import {
   HotKeywordSaveDto,
   HotKeywordUpdateDto,
   JsonResultActivityOrderOutputDto,
+  JsonResultActivitySeatInfoListDto,
   JsonResultActivityUnifyOutputDto,
   JsonResultAddressOutputDto,
   JsonResultBalanceGetOutputDto,
@@ -268,6 +270,7 @@ import {
   SysRoleModifyInputDto,
   SysUserCreateInputDto,
   SysUserModifyInputDto,
+  TagsBind4usersDTO,
   UnlimitedInputDto,
   UserChangeStatusInputDto,
   UserRolesDto
@@ -358,6 +361,20 @@ export const API = {
       params: query,
       ...options
     }) as unknown as Promise<JsonResultActivityUnifyOutputDto>,
+  /**
+   * No description
+   * @name GET /admin/mall/activityOrder/distributionInfo
+   * @summary 活动座位列表
+   * @tags admin/Banner
+   * @response `200` `JsonResultPagedResultBannerOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/mall/activityOrder/distributionInfo_GET": (query: ActiveOrderUnifySetasParam, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/mall/activityOrder/distributionInfo`,
+      method: "GET",
+      params: query,
+      ...options
+    }) as unknown as Promise<JsonResultActivitySeatInfoListDto>,
   /**
    * No description
    * @name GET /admin/mall/activity/querySeatList
@@ -836,9 +853,23 @@ export const API = {
    * @tags admin/会员管理
    * @response `200` `JsonResultVoid` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
    */
-  "/admin/api/member/changeScore_POST": (body: ScoreChangeInputDto, options: RequestConfig = {}) =>
+  "/admin/api/member/changeScore_POST": (body: TagsBind4usersDTO, options: RequestConfig = {}) =>
     requestInstance({
       url: `/admin/api/member/changeScore`,
+      method: "POST",
+      data: body,
+      ...options
+    }) as unknown as Promise<JsonResultVoid>,
+  /**
+   * No description
+   * @name POST /admin/api/member/tag
+   * @summary 修改会员积分
+   * @tags admin/会员管理
+   * @response `200` `JsonResultVoid` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/admin/api/member/tag_POST": (body: ScoreChangeInputDto, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/admin/api/member/tag`,
       method: "POST",
       data: body,
       ...options

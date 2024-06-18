@@ -16,7 +16,7 @@ export let apiUrl =
   {
     dev: `${baseUrl}/dev`,
     uat: `${baseUrl}/test`,
-    prd: `${baseUrl}/prod`
+    prd: `${baseUrl}`
   }[REACT_APP_ENV || 'prd']
 
 export const publicPath = PUBLIC_PATH

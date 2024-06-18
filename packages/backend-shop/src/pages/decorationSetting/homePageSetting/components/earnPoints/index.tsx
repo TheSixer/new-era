@@ -14,6 +14,7 @@ import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormL
 import ProFormMaterial from '@wmeimob/backend-pages/src/components/form/proFormMaterial'
 import ProFormJumpType from '@wmeimob/backend-pro/src/components/form/proFormJumpType'
 import { advertiseConfig } from '@wmeimob/shop-data/src/config'
+import JumpTypeValue from '@wmeimob/backend-pro/src/components/jumpType/jumpTypeValue'
 
 const Component: FC<any> = ({ history }) => {
   const editModal = useProTableForm<BannerCreateInputDto>()
@@ -45,12 +46,12 @@ const Component: FC<any> = ({ history }) => {
         return <span>{MJumpType[value]}</span>
       }
     },
-    // {
-    //   title: '跳转内容',
-    //   dataIndex: 'url',
-    //   hideInSearch: true,
-    //   render: (value, record) => <JumpTypeValue jumpValue={{ type: record.urlType as unknown as EJumpType, content: record.url as any }} />
-    // },
+    {
+      title: '跳转内容',
+      dataIndex: 'url',
+      hideInSearch: true,
+      render: (value, record) => <JumpTypeValue jumpValue={{ type: record.urlType as unknown as EJumpType, content: record.url as any }} />
+    },
     { title: '排序值', dataIndex: 'sort', width: 80, hideInSearch: true },
     {
       title: '显示状态',

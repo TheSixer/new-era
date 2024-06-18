@@ -48,9 +48,6 @@ const Component: FC<ICreateProps> = () => {
         // 获取id
         const { data } = await api['/admin/mall/activity/get/{activityId}_GET'](activityId)
 
-        // 处理活动设置
-        // const { promotionParam = {}, activityType } = data
-
         form.setFieldsValue({
           ...data,
           activityTime: [data?.startTime, data?.endTime],
@@ -63,6 +60,7 @@ const Component: FC<ICreateProps> = () => {
              unifyDate: moment(item.unifyDate).format('YYYY-MM-DD'),
              unifyTime: item.unifyTime?.split?.('-')?.map?.((it) => moment(it, 'HH:mm').format('HH:mm'))
            })),
+           unify: data?.unify ? 1 : 0,
            viewSeatNo: data?.viewSeatNo ? 1 : 0,
            indexView: data?.viewSeatNo ? 1 : 0
           // seatCreateInputListDtos: data?.seatCreateInputListDtos?.map?.((item) => ({...item, seatCreateInputDtos: item.seatCreateInputDtos?.map?.((it) => ({...it, areaCode: it.areaId}))}))
@@ -310,11 +308,11 @@ const Component: FC<ICreateProps> = () => {
             /> */}
           </Card>
 
-          <EventCountCard disabled={disabled || !!activityId} />
+          <EventCountCard disabled={disabled} />
 
-          <SeatSettingCard disabled={disabled || !!activityId} />
+          <SeatSettingCard disabled={disabled} />
 
-          <EventSettingCard disabled={disabled || !!activityId} />
+          <EventSettingCard disabled={disabled} />
 
         </Space>
       </Form>

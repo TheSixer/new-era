@@ -20,18 +20,20 @@ import CheckedIcon from './images/checked.png';
 import MMButton from "@wmeimob/taro-design/src/components/button";
 import { useSuperLock } from "@wmeimob/utils/src/hooks/useSuperLock";
 import { ActivityOutputDto, api } from "@wmeimob/taro-api";
-import LoadingView from "../../tabBar/home/components/loadingView";
 import { useGlobalStore } from "@wmeimob/taro-store";
+import LoadingView from "../../../components/loadingView";
 
 const Components:FC<ISignUpProps> = () => {
   const { params } = useRouter()
   const { user } = useGlobalStore()
   const { activityId, unifyId } = params
-  const { loading: basicLoading, info, handleConfirm } = useBasicService(activityId)
+  const { loading: basicLoading, info } = useBasicService(activityId)
   const [toast] = useToast()
   const [auth, setAuth] = useState(false)
   const [agree, setAgree] = useState(false)
   const [signInfo, setSignInfo] = useState({
+    name: user?.name || '',
+    mobile: user.mobile || '',
     activityId,
     unifyId,
     cardType: '',
@@ -79,7 +81,6 @@ const Components:FC<ISignUpProps> = () => {
   }
 
   const mobileFeildProps = {
-    disabled: true,
     rules: [
       {
         required: true,
@@ -144,14 +145,23 @@ const Components:FC<ISignUpProps> = () => {
       toast?.message('请同意授权')
       return
     }
-    await api['/wechat/activity/book_POST']({ ...values, activityId, unifyId})
-
+    try {
+      await api['/wechat/activity/book_POST']({ ...values, activityId, unifyId: Number(unifyId)})
+      Taro.showToast({
+        title: '提交成功',
+        icon:'success',
+        duration: 1000,
+        mask: true,
+        success() {
+          Taro.navigateBack()
+        } 
+      })
+    } catch (error) {}
     // // 同意用户协议
     // const { data: agreementTypeList = [] } = await api['/wechat/userAgreement/notAgreeAgreementTypeList_GET']()
     // if (agreementTypeList.length) {
     //   await api['/wechat/userAgreement/userAgreeRecord/agree_PUT']({ agreementTypeList })
     // }
-    Taro.navigateBack()
   })
 
   if (basicLoading) {
@@ -174,9 +184,9 @@ const Components:FC<ISignUpProps> = () => {
                 {...nameFeildProps}
                 className={styles.phone}
                 type='custom'
-                value={user.realName || user.nickName || ''}
-                name='realName'
-                onChange={(mobile) => updateInputValue({ mobile })}
+                value={signInfo?.name || ''}
+                name='name'
+                onChange={(name) => updateInputValue({ name })}
               />
             </View>
             <View className={styles.form_item}>
@@ -186,7 +196,7 @@ const Components:FC<ISignUpProps> = () => {
                 {...mobileFeildProps}
                 className={styles.phone}
                 type='mobile'
-                value={user.mobile || ''}
+                value={signInfo.mobile || ''}
                 name='mobile'
                 onChange={(mobile) => updateInputValue({ mobile })}
               />
@@ -292,19 +302,8 @@ function useBasicService(activityId) {
     activityId && getEventInfo(activityId)
   }, [activityId])
 
-  function handleConfirm(unifyId: number) {
-    Taro.navigateTo({
-      url: getParamsUrl(routeNames.eventsSignUp,
-        {
-          activityId: info?.id,
-          unifyId
-        })
-    })
-  }
-
   return {
     loading,
-    info,
-    handleConfirm
+    info
   }
 }

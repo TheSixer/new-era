@@ -31,14 +31,14 @@ export const defaultTabbarData = [
   {
     image: homeIcon,
     imageSelected: homeAcitveIcon,
-    url: routeNames.tabBarHome,
-    text: '首页'
+    url: 'hide',
+    text: '积分'
   },
   {
     image: categoryIcon,
     imageSelected: categoryActiveIcon,
-    url: routeNames.tabBarCategorys,
-    text: '分类'
+    url: routeNames.tabBarHome,
+    text: ''
   },
   {
     image: myIcon,

@@ -1,30 +1,33 @@
-import Taro, { useDidShow } from '@tarojs/taro'
-import { FC, memo, ReactNode, useMemo, useState } from 'react'
-import { Button, View } from '@tarojs/components'
+import Taro, { useRouter } from '@tarojs/taro'
+import { useRef, FC, memo, useState, useMemo, ReactNode, useEffect } from 'react'
 import styles from './index.module.less'
-import { IPersonalProps } from './const'
-import MMNavigation from '@wmeimob/taro-design/src/components/navigation'
-import { routeNames } from '../../../routes'
-import useGlobalStore from '../../../globalStore'
-import MMCell from '@wmeimob/taro-design/src/components/cell'
-import MMActionSheet from '@wmeimob/taro-design/src/components/action-sheet'
-import { IMMAction } from '@wmeimob/taro-design/src/components/action-sheet/const'
-import { upload } from '../../../components/tencent-cloud'
-import { api, UserAddressOutPutDto } from '@wmeimob/taro-api'
-import { EGender, MGender } from '@wmeimob/shop-data/src/enums/customer/EGender'
 import { PageContainer, useToast } from '@wmeimob/taro-design'
+import MMNavigation from '@wmeimob/taro-design/src/components/navigation'
+import { Text, View, Button } from '@tarojs/components'
+import MMFeild from '@wmeimob/taro-design/src/components/feild'
+import MMForm from '@wmeimob/taro-design/src/components/form'
+import { IMMFormInstance } from '@wmeimob/taro-design/src/components/form/const'
+import { isMobilePhone } from '@wmeimob/utils/src/validate'
+import { IFeildProps } from '@wmeimob/taro-design/src/components/feild/const'
 import MMDatePicker from '@wmeimob/taro-picker/src/components/datePicker'
+import { api } from '@wmeimob/taro-api'
+import MMButton from '@wmeimob/taro-design/src/components/button'
+import { useSuperLock } from '@wmeimob/utils/src/hooks/useSuperLock'
 import dayjs from 'dayjs'
-import MMAvatar from '@wmeimob/taro-design/src/components/avatar'
-import { assembleResizeUrl } from '@wmeimob/tencent-cloud'
-import { EAlterType } from '../alter/const'
+import { useGlobalStore } from '@wmeimob/taro-store'
+import { IMMAction } from '@wmeimob/taro-design/src/components/action-sheet/const'
 import { isH5 } from '../../../config'
-import getParamsUrl from '@wmeimob/taro-utils/src/getParamsUrl'
+import MMActionSheet from '@wmeimob/taro-design/src/components/action-sheet'
+import { upload } from '../../../components/tencent-cloud'
+import { assembleResizeUrl } from '@wmeimob/tencent-cloud'
+import MMAvatar from '@wmeimob/taro-design/src/components/avatar'
+import MyRadio from './components/Radio'
+import { EditFilled } from '../../../components/Icons'
 
-const Component: FC<IPersonalProps> = () => {
+const Component: FC = () => {
   const { user, getUserAction } = useGlobalStore()
-
   const {
+    avatarUrl,
     canIUseChooseAvatar,
     showActionSheet,
     actions,
@@ -33,114 +36,231 @@ const Component: FC<IPersonalProps> = () => {
     handleChooseAvatar
   } = useChangeAvatar()
 
-  const {
-    hasGender,
-    showGender,
-    setShowGender,
-    actions: genderActions,
-    handleGenderCellClick,
-    handleGenderSelect
-  } = useChangeGender()
+  const [userInfo, setUser] = useState({
+    avatarUrl: user.headImg,
+    mobile: user.mobile || '',
+    nickName: user.nickName || '',
+    gender: Number(user.gender) || 0,
+    province: [{
+      id: user.provinceId || '',
+      text: user.province || ''
+    },
+    {
+      id: user.cityId || '',
+      text: user.city || ''
+    },
+    {
+      id: user.areaId || '',
+      text: user.area || '' 
+    }]
+  })
 
-  const { showBirth, setShowBirth, handleBirthChange } = useBirthday()
+  const [changed, setChanged] = useState(false)
+  const [showBirth, setShowBirth] = useState(false)
+  const [birthday, setBirthday] = useState(user.birthday || '')
 
-  // const [addressInfo] = useUserDefaultAddress()
+  const formRef = useRef<IMMFormInstance>(null)
 
-  useDidShow(() => {
-    getUserAction()
+  const [toast] = useToast()
+
+  const updateInputValue = (data) => {
+    setUser((pre) => ({ ...pre, ...data }))
+    setChanged(true)
+  }
+
+  useEffect(() => {
+    avatarUrl && updateInputValue({ avatarUrl })
+  }, [avatarUrl])
+
+  const [feildProps] = useState<Partial<IFeildProps>>({
+    valueAlign: 'right',
+    placeholder: '请输入',
+    style: { padding: 0, color: '#fff', width: '100%', borderBottom: '1px solid #A7A9AC' },
+    labelStyle: { width: 60, color: '#A7A9AC' }
+  })
+
+  const mobileFeildProps = {
+    type:'mobile',
+    disabled: !!user.mobile,
+    rules: [
+      {
+        required: true,
+        validate(_r, value) {
+          if (!isMobilePhone(value)) {
+            toast?.message('请输入正确的手机号')
+            return Promise.reject(new Error('请输入正确的手机号'))
+          }
+          return Promise.resolve(true)
+        }
+      }
+    ]
+  }
+
+  const nicknameFeildProps = {
+    type: 'custom',
+    rules: [
+      {
+        required: true,
+        validate(_r, value) {
+          if (!value) {
+            toast?.message('请输入正确的昵称')
+            return Promise.reject(new Error('请输入正确的昵称'))
+          }
+          return Promise.resolve(true)
+        }
+      }
+    ]
+  }
+
+  const cityFeildProps = {
+    rules: [
+      {
+        required: true,
+        validate(_r, value) {
+          if (!value?.length) {
+            toast?.message('请选择常住地')
+            return Promise.reject(new Error('请选择常住地'))
+          }
+          return Promise.resolve(true)
+        }
+      }
+    ]
+  }
+
+  const handleBirthChange = (birthday) => {
+    setBirthday(dayjs(birthday).format('YYYY-MM-DD'))
+  }
+
+  /**
+   * 点击修改
+   *
+   */
+  const [handleSave, loading] = useSuperLock(async () => {
+    if (!birthday) {
+      toast?.message('请选择出生日期')
+      return
+    }
+    const values = await formRef.current!.validateFields()
+    const [province, city, area] = values.province
+    Taro.showLoading({ title: '', mask: true })
+    try {
+      await api['/wechat/web/member/saveUserInfo_PUT']({
+        ...values,
+        ...userInfo,
+        province: province.text,
+        provinceId: province.id,
+        city: city.text,
+        cityId: city.id,
+        area: area.text,
+        areaId: area.id,
+        birthday
+      })
+      await getUserAction()
+      toast?.success('修改成功')
+      setChanged(false)
+    } catch (error) {
+    }
+    Taro.hideLoading()
   })
 
   const renderChooseAvatar = (avatar: ReactNode) => {
     return canIUseChooseAvatar ? (
       <Button className={styles.chooseAvatar} open-type='chooseAvatar' onChooseAvatar={handleChooseAvatar}>
-        <MMCell title='头像' arrow border>
-          {avatar}
-        </MMCell>
-      </Button>
-    ) : (
-      <MMCell title='头像' arrow border onClick={() => setShowActionSheet(true)}>
         {avatar}
-      </MMCell>
-    )
+      </Button>
+    ) : avatar
   }
 
   return (
-    <PageContainer className={styles.personalStyle}>
-      <MMNavigation title='个人信息' />
+    <PageContainer className={styles.authStyle} noPlace>
+      <MMNavigation title='个人信息' type="Transparent" />
 
-      <View className={styles.box}>
-        {renderChooseAvatar(<MMAvatar src={assembleResizeUrl(user.headImg, { width: 36 })} size={36} shape='circle' />)}
+      <View className={styles.form_container}>
+        {renderChooseAvatar(
+          <View className={styles.avatar_container}>
+            <MMAvatar src={assembleResizeUrl(userInfo.avatarUrl || user.avatarUrl, { width: 50 })} size={50} shape='circle' />
+            <View className={styles.avatar_edit}>
+              <Text className={styles.avatar_name}>修改头像</Text>
+              <EditFilled />
+            </View>
+          </View>
+        )}
 
-        <MMCell title='昵称' size='large' arrow border onClick={() => Taro.navigateTo({
-          url: getParamsUrl(routeNames.mineAlter,
-            { type: EAlterType.Name })
-        })}>
-          <View className={styles.rightTxt}> {user.nickName || ''}</View>
-        </MMCell>
-
-        <MMCell
-          title='手机号'
-          size='large'
-          border
-          // arrow
-          // onClick={() => Taro.navigateTo({ url: routeNames.mineAlter, params: { type: EAlterType.Phone } })}
-        >
-          <View className={styles.rightTxt}> {user.mobile || ''}</View>
-        </MMCell>
-
-        <MMCell
-          title='生日'
-          size='large'
-          border
-          arrow={!user.birthday}
-          onClick={() => {
-            if (!user.birthday) {
-              setShowBirth(true)
-            }
-          }}
-        >
-          <View className={styles.rightTxt}> {user.birthday || '生日仅可修改一次'}</View>
-        </MMCell>
-
-        {/* <MMCell title="性别" style={{ marginTop: '10px' }} valueAlign="right" size="large" arrow={!hasGender} onClick={handleGenderCellClick}>
-          <View className={styles.rightTxt}> {MGender[user.gender as any] || '请选择'}</View>
-        </MMCell> */}
-
-        <MMCell title='收货地址' style={{ marginTop: '10px' }} arrow size='large'
-                onClick={() => Taro.navigateTo({ url: routeNames.mineAddressAddressList })}>
-          {/* {addressInfo} */}
-        </MMCell>
+        <MMForm ref={formRef}>
+          <MMFeild
+            {...feildProps}
+            {...mobileFeildProps}
+            className={styles.phone}
+            type='mobile'
+            label='手机号'
+            value={userInfo.mobile}
+            name='mobile'
+            onChange={(mobile) => updateInputValue({ mobile })}
+          />
+          <MMFeild
+            {...feildProps}
+            {...nicknameFeildProps}
+            className={styles.phone}
+            type='custom'
+            label='昵称'
+            value={userInfo.nickName}
+            name='nickName'
+            onChange={(nickName) => updateInputValue({ nickName })}
+          />
+          <View className={styles.field_container} onClick={() => setShowBirth(true)}>
+            <Text className={styles.field_label}>生日（仅可修改一次）</Text>
+            <Text className={styles.field__text}>{birthday || '请选择'}</Text>
+          </View>
+          <MMFeild.CityPicker
+            {...feildProps}
+            {...cityFeildProps}
+            label='常住地'
+            className={styles.phone}
+            value={userInfo.province}
+            placeholder="请选择"
+            name='province'
+            labelStyle={{ color: '#A7A9AC' }}
+            onChange={(province) => updateInputValue({ province })}
+          />
+          <View className={styles.field_container}>
+            <Text className={styles.field_label}>性别</Text>
+            
+            <MyRadio options={[{ label: '男', value: 1 }, { label: '女', value: 2 }]} value={userInfo.gender} onChange={(value) => updateInputValue({ gender: value })} />
+          </View>
+          <View style={{ height: 10 }} />
+        </MMForm>
       </View>
+      <View style={{ flex: 1 }} />
+      {
+        changed ? (
+          <MMButton loading={loading} disabled={loading} block onClick={handleSave} className={styles.form_submit}>
+            修改
+          </MMButton>
+        ) : null
+      }
+      <View style={{ height: '30px' }} />
 
       <MMActionSheet visible={showActionSheet} onClosed={() => setShowActionSheet(false)} onSelect={handleSelect}
-                     actions={actions} />
-
-      {/* 性别弹窗 */}
-      <MMActionSheet
-        visible={showGender}
-        title={<View style={{ fontSize: 12, fontWeight: 400, color: '#999999' }}>*选择后不可更改</View>}
-        onClosed={() => setShowGender(false)}
-        onSelect={handleGenderSelect}
-        actions={genderActions}
-      />
+               actions={actions} />
 
       <MMDatePicker
         visible={showBirth}
         onVisibleChange={setShowBirth}
-        value={dayjs(user.birthday).toDate()}
+        value={dayjs(birthday || new Date()).toDate()}
         maxDate={new Date()}
         onChange={handleBirthChange}
       />
+      <View className='spacingIphone' />
     </PageContainer>
   )
 }
 
-const Personal = memo(Component)
-export default Personal
+const Auth = memo(Component)
+export default Auth
 
 /** 更新头像hook */
 function useChangeAvatar() {
-  const { getUserAction } = useGlobalStore()
+  const [avatarUrl, setAvatarUrl] = useState('');
   const [showActionSheet, setShowActionSheet] = useState(false)
   const [actions] = useState<IMMAction[]>([
     { id: 'camera', text: '拍照' },
@@ -169,14 +289,14 @@ function useChangeAvatar() {
     Taro.showLoading({ title: '', mask: true })
     try {
       const [avatarUrl] = await upload(imgUrls)
-      await api['/wechat/web/member/saveUserInfo_PUT']({ avatarUrl })
-      await getUserAction()
+      setAvatarUrl(avatarUrl);
     } catch (error) {
     }
     Taro.hideLoading()
   }
 
   return {
+    avatarUrl,
     canIUseChooseAvatar,
     showActionSheet,
     setShowActionSheet,
@@ -184,97 +304,4 @@ function useChangeAvatar() {
     handleSelect,
     handleChooseAvatar
   }
-}
-
-/** 更新性别hook */
-function useChangeGender() {
-  const { user, getUserAction } = useGlobalStore()
-  const [toast] = useToast()
-
-  const [showGender, setShowGender] = useState(false)
-  const [actions] = useState<IMMAction[]>([EGender.Male, EGender.Female].map((it) => ({
-    id: `${it}`,
-    text: MGender[it]
-  })))
-
-  const hasGender = !!user.gender // 是否设置了性别
-
-  // 点击性别cell
-  const handleGenderCellClick = () => {
-    if (!hasGender) {
-      setShowGender(true)
-    }
-  }
-
-  const handleGenderSelect = async (action: IMMAction) => {
-    toast?.loading({ mask: true })
-    setShowGender(false)
-    try {
-      await api['/wechat/web/member/saveUserInfo_PUT']({ gender: action.id })
-      await getUserAction()
-    } catch (error) {
-    }
-    toast?.hideLoading()
-  }
-
-  return {
-    hasGender,
-
-    showGender,
-    setShowGender,
-    actions,
-    handleGenderCellClick,
-    handleGenderSelect
-  }
-}
-
-function useBirthday() {
-  const [toast] = useToast()
-  const { getUserAction } = useGlobalStore()
-  const [showBirth, setShowBirth] = useState(false)
-
-  const handleBirthChange = async (ev: Date) => {
-    toast?.loading({ mask: true })
-    setShowBirth(false)
-
-    try {
-      await api['/wechat/web/member/saveUserInfo_PUT']({ birthday: dayjs(ev).format('YYYY-MM-DD') })
-      await getUserAction()
-    } catch (error) {
-    }
-    toast?.hideLoading()
-  }
-
-  return {
-    showBirth,
-    setShowBirth,
-    handleBirthChange
-  }
-}
-
-/**
- * 是否显示默认地址
- * @returns
- */
-function useUserDefaultAddress() {
-  const [address, setAddress] = useState<UserAddressOutPutDto>()
-
-  const addressInfo = useMemo(() => {
-    if (address) {
-      const { province = '', district = '', city = '', address: add = '' } = address
-      return province + city + district + add
-    }
-    return undefined
-  }, [address])
-
-  async function getDeaultAddress() {
-    const { data } = await api['/wechat/mall/address/getDefault_GET']()
-    setAddress(data)
-  }
-
-  useDidShow(() => {
-    getDeaultAddress()
-  })
-
-  return [addressInfo]
 }

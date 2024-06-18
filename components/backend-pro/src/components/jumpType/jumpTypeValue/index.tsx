@@ -24,10 +24,10 @@ const Component: FC<IJumpTypeValueProps> = (props) => {
       {prefix +
         ({
           [EJumpType.SystemPage]: paseSysPath(content.path),
-          [EJumpType.DecorationPage]: content.name,
-          [EJumpType.GoodCate]: content.categoryName,
-          [EJumpType.GoodDetail]: content.goodsName,
-          [EJumpType.LivePage]: content.goodsName
+          [EJumpType.DecorationPage]: content.name
+          // [EJumpType.GoodCate]: content.categoryName,
+          // [EJumpType.GoodDetail]: content.goodsName,
+          // [EJumpType.LivePage]: content.goodsName
           // [EJumpType.ShopDetail]: content.storeName
         }[jumpValue.type] || '')}
     </span>

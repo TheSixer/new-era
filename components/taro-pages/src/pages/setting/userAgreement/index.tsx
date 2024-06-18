@@ -16,7 +16,7 @@ const Component: FC<IUserAgreementProps> = (props) => {
 
   return (
     <PageContainer className={styles.userAgreementStyle}>
-      <MMNavigation title={service.title} shadow />
+      <MMNavigation title={service.title} type='Transparent' />
       <View>
         <MMRichText html={service.agreement} />
       </View>

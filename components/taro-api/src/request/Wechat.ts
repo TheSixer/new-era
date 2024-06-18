@@ -232,6 +232,20 @@ export const API = {
     }) as unknown as Promise<JsonResultListActivityOrderOutputDto>,
   /**
    * No description
+   * @name GET /wechat/activity/myCheckRecord
+   * @summary 查询我的核销记录接口
+   * @tags web/Banner相关接口
+   * @response `200` `JsonResultListBannerPositionOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/myCheckRecord_GET": (params: {}, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/myCheckRecord`,
+      method: "GET",
+      params,
+      ...options
+    }) as unknown as Promise<JsonResultListActivityOrderOutputDto>,
+  /**
+   * No description
    * @name GET /wechat/activity/bookRecordDetail/{orderNo}
    * @summary 查询我的预约活动详情接口
    * @tags web/Banner相关接口
@@ -244,6 +258,34 @@ export const API = {
       params,
       ...options
     }) as unknown as Promise<JsonResultActivityOrderOutputDto>,
+  /**
+   * No description
+   * @name GET /wechat/activity/bookRecordDetail/check/{verifyCode}
+   * @summary 查询我的预约活动详情接口
+   * @tags web/Banner相关接口
+   * @response `200` `JsonResultListBannerPositionOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/bookRecordDetail/check/{verifyCode}_GET": (params: WechatMyReservationListGetParams, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/bookRecordDetail/check/${params.verifyCode}`,
+      method: "GET",
+      params,
+      ...options
+    }) as unknown as Promise<JsonResultActivityOrderOutputDto>,
+  /**
+   * No description
+   * @name POST /wechat/activity/check/{verifyCode}
+   * @summary 核销码核销接口
+   * @tags web/核销码核销
+   * @response `200` `JsonResultLong` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/check/{verifyCode}_POST": (params: WechatMyReservationListGetParams, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/check/${params.verifyCode}`,
+      method: "POST",
+      data: params,
+      ...options
+    }) as unknown as Promise<JsonResultLong>,
   /**
    * No description
    * @name GET /wechat/activity/cityList

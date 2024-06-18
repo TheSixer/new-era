@@ -1,19 +1,20 @@
 // src/components/CustomSwiper/CustomSwiper.jsx
 import { useEffect, useState } from 'react';
-import { View, Image, Text, Button } from '@tarojs/components';
+import { View, Image } from '@tarojs/components';
 import styles from './index.module.less';
 import classNames from 'classnames';
 import Title from '../title';
 import Months from '../months';
 import { ArrowDownFilled } from '../../../../../components/Icons';
-import { useDidShow } from '@tarojs/taro';
 import { BannerPositionOutputDto, api } from '@wmeimob/taro-api';
 import { navByLink } from '../../../../../components/pageModules/utils';
+import { MMEmpty } from '@wmeimob/taro-design';
+import emptyImg from '../../../../../assets/images/icon_empty.png'
 
 const CustomSwiper = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
   const [touchStart, setTouchStart] = useState(0);
-  const {banners} = useBannerService()
+  const {banners, loading} = useBannerService()
   const [images, setImages] = useState<BannerPositionOutputDto[]>([])
   const [month, setMonth] = useState(new Date().getMonth() + 1)
 
@@ -97,12 +98,18 @@ const CustomSwiper = () => {
               </View>
             );
           })}
-          <View className={classNames(styles.swiper_button, styles.swiper_prev_btn)} onClick={handlePrev}>
-            <ArrowDownFilled />
-          </View>
-          <View className={classNames(styles.swiper_button, styles.swiper_next_btn)} onClick={handleNext}>
-            <ArrowDownFilled />
-          </View>
+          {images?.length > 0 ? (
+            <>
+              <View className={classNames(styles.swiper_button, styles.swiper_prev_btn)} onClick={handlePrev}>
+                <ArrowDownFilled />
+              </View>
+              <View className={classNames(styles.swiper_button, styles.swiper_next_btn)} onClick={handleNext}>
+                <ArrowDownFilled />
+              </View>
+            </>
+          ) : null}
+
+          {images?.length === 0 && !loading && <MMEmpty text='暂无数据' src={emptyImg} imgStyle={{ width: '64rpx', height: '64rpx' }} />}
         </View>
       </View>
     </View>
@@ -115,9 +122,9 @@ function useBannerService() {
   const [loading, setLoading] = useState(false)
   const [banners, setBanners] = useState<BannerPositionOutputDto[]>([])
 
-  useDidShow(() => {
+  useEffect(() => {
     getBanners()
-  });
+  }, []);
 
   /** 获取banners */
   async function getBanners() {

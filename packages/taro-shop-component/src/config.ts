@@ -31,20 +31,16 @@ export const rootUrl = ''
 // 不需要获取登录的页面
 export const noLoginRoutes = [
   routeNames.mineUserAgreement,
-  routeNames.goodsSearch,
-  routeNames.goodsGoodDetail,
-  routeNames.goodsGoodsList,
-  routeNames.integralGoodsList,
+  // routeNames.goodsSearch,
+  // routeNames.goodsGoodDetail,
+  // routeNames.goodsGoodsList,
+  // routeNames.integralGoodsList,
   routeNames.auth,
   routeNames.webAuth,
   routeNames.tabBarHome,
-  routeNames.tabBarCategorys,
-  routeNames.tabBarMine,
-  routeNames.minePersonal,
-  routeNames.eventsPrefecture,
-  routeNames.eventsCities,
-  routeNames.eventsDetail,
-  routeNames.eventsSignUp
+  // routeNames.tabBarCategorys,
+  routeNames.tabBarMine
+  // routeNames.minePersonal,
 ]
 
 export const apiUrl = (() => {

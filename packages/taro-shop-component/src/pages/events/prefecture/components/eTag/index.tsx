@@ -8,7 +8,7 @@ const Component: FC<IETagfoProps> = (props) => {
     const { type, text, classname } = props
 
   return (
-    <View className={classNames(styles.event_tag, classname, {[styles.event_tag_before]: type === 'before'}, {[styles.event_tag_after]: type === 'after'})}>
+    <View className={classNames(styles.event_tag, classname, {[styles.event_tag_before]: type === 0}, {[styles.event_tag_after]: type === 2})}>
         <Text>{text}</Text>
     </View>
   )

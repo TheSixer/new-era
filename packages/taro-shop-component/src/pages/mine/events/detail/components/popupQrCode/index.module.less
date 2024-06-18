@@ -3,22 +3,76 @@
 .popupAdsStyle {
 }
 
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+}
+
+
 .content {
+  position: relative;
   display: flex;
   flex-flow: column;
   justify-content: center;
   align-items: center;
-  width: 100%;
-  height: 100%;
+  width: 670rpx;
+  height: 780rpx;
+  background-color: #fff;
+  border-radius: 40rpx;
+}
+
+.title {
+  margin-bottom: 80rpx;
+  min-height: 96rpx;
+  font-size: 36rpx;
+  color: #1A1919;
+  font-weight: bold;
+}
+
+.qrcode_container {
+  padding: 35rpx 66rpx;
+  width: 410rpx;
+  height: 348rpx;
+  background-image: url(./code_bg.png);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.finished {
+ &::after {
+  display: block;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(255, 255, 255, .4);
+  z-index: 9;
+ }
+}
+
+.qrcode_txt {
+  margin-top: 28rpx;
+  color: #1A1919;
+  font-size: 24rpx;
+  font-weight: bold;
 }
 
 .img {
   flex: none;
   display: block;
-  width: 70vw;
+  width: 278rpx;
+  height: 278rpx;
 }
 
 .close {
+  position: absolute;
+  bottom: -100rpx;
   width: 36px;
   height: 36px;
   margin-top: @spacingLarge;

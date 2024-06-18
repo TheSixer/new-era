@@ -1,4 +1,4 @@
-import { FC, memo } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import styles from './index.module.less'
 import { IActivitySettingCardProps } from './const'
 import { Button, Card, Form } from 'antd'
@@ -7,6 +7,7 @@ import mmFormRule from '@wmeimob/form-rules'
 import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormLimitInput'
 import ProFormMaterial from '@wmeimob/backend-pages/src/components/form/proFormMaterial'
 import { PlusOutlined } from '@ant-design/icons'
+import { api } from '@wmeimob/backend-api'
 
 const checkTypes = [
   {
@@ -25,6 +26,7 @@ const checkTypes = [
 
 const Component: FC<IActivitySettingCardProps> = (props) => {
   const { disabled } = props
+  const { options: tagsOptions } = useTagsService()
 
   return (
     <Card title="活动设置" className={styles.activitySettingCardStyle}>
@@ -136,12 +138,8 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
                           <ProFormSelect
                             label="用户标签"
                             name={[name, 'tagId']}
-                            rules={[{ required: true, message: '请选择限制等级' }]}
-                            options={[
-                              { label: '无限制', value: 0 }
-                              // { label: '普通会员', value: 1 },
-                              // { label: '高级会员', value: 2 }
-                            ]}
+                            rules={[{ required: true, message: '请选择用户标签' }]}
+                            options={tagsOptions}
                           />
 
                           <ProFormSelect
@@ -174,3 +172,21 @@ Component.displayName = 'ActivitySettingCard'
 
 const ActivitySettingCard = memo(Component)
 export default ActivitySettingCard
+
+function useTagsService() {
+  const [options, setOptions] = useState<any[]>([])
+
+  useEffect(() => {
+    handleGetTags()
+  }, [])
+
+  async function handleGetTags() {
+    const { data: { list = [] } } = await api['/admin/mall/tag/queryList_GET']({})
+    setOptions(list?.map((item) => ({ label: item.name, value: item.id })))
+  }
+
+  return {
+    options
+  }
+}
+

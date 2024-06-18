@@ -38,7 +38,7 @@ const Component: FC<IPopupScreenProps> = (props) => {
       >
 
         <View className={styles.container_view}>
-          <CountdownCircle size={24} duration={15} strokeWidth={1} onComplete={onClose} />
+          <CountdownCircle size={24} duration={4} strokeWidth={1} onComplete={onClose} />
 
           <Button className={styles.button} onClick={handleClose}>跳过</Button>
         </View>

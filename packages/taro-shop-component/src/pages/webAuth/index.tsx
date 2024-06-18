@@ -24,7 +24,7 @@ const Component: FC = () => {
   const [userInfo, setUser] = useState({
     mobile: user.mobile || '',
     nickName: user.nickName || '',
-    gender: 1,
+    gender: 0,
     province: []
   })
   const [showBirth, setShowBirth] = useState(false)
@@ -108,9 +108,13 @@ const Component: FC = () => {
     const [province, city, area] = values.province
     await api['/wechat/web/member/register_PUT']({
       ...values,
+      ...userInfo,
       province: province.text,
+      provinceId: province.id,
       city: city.text,
+      cityId: city.id,
       area: area.text,
+      areaId: area.id,
       birthday
     })
     await getUserAction()

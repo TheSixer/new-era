@@ -184,7 +184,7 @@ export interface WechatMyEventListGetParams {
 }
 
 export interface WechatMyReservationListGetParams {
-  orderNo: string;
+  orderNo?: string;
   /**
    * latitude
    */
@@ -193,6 +193,8 @@ export interface WechatMyReservationListGetParams {
    * longitude
    */
   longitude?: string;
+
+  verifyCode?: string;
   [property: string]: any;
 }
 /**
@@ -13550,7 +13552,7 @@ export interface MemberOutputDto {
   /**
    * 出生年月
    */
-  birthday?: Date;
+  birthday?: string;
   /**
    * 是否审核人员
    */

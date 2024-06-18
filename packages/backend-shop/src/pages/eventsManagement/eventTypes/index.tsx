@@ -19,7 +19,7 @@ const Component: FC<IListProps> = (props) => {
   const [columns] = useState<ProColumns<EventTypeDto>[]>([
     { title: '类型id', dataIndex: 'id', hideInSearch: true },
     { title: '活动类型', dataIndex: 'name', fieldProps: () => ({ placeholder: '输入活动类型' }) },
-    { title: '创建时间', dataIndex: 'gmtModified', hideInSearch: true },
+    { title: '创建时间', dataIndex: 'gmtCreated', valueType: 'date', hideInSearch: true },
     {
       title: '操作',
       dataIndex: 'option',

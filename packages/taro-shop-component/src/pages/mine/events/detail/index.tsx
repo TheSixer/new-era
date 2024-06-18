@@ -1,12 +1,11 @@
 import { FC, memo, useEffect, useState } from 'react'
-import { View, Text, Button } from '@tarojs/components'
+import { View, Image, Button } from '@tarojs/components'
 import { IDetailProps } from './const'
 import styles from './index.module.less'
 import MMNavigation from '@wmeimob/taro-design/src/components/navigation'
 import { PageContainer, Popup, useToast } from '@wmeimob/taro-design'
 import Taro, { useRouter } from '@tarojs/taro'
 import { ActivityOrderOutputDto, ActivityOutputDto, api } from '@wmeimob/taro-api'
-import LoadingView from '../../../tabBar/home/components/loadingView'
 import { EReservationStatus, MReservationStatus } from '../../../../enums/event/EReservationStatus'
 import EventInfo from './components/EventInfo'
 import ReservarionInfo from './components/ReservarionInfo'
@@ -15,41 +14,95 @@ import TipsView from './components/tipsView'
 import classNames from 'classnames'
 import { useSuperLock } from '@wmeimob/utils/src/hooks/useSuperLock'
 import PopupQrCode from './components/popupQrCode'
+import noUseImg from './images/no-use.png';
+import usedImg from './images/used.png';
+import LoadingView from '../../../../components/loadingView'
 
-const Component: FC<IDetailProps> = (props) => {
+const Component: FC<IDetailProps> = () => {
   const { params } = useRouter()
   const [toast] = useToast()
   const { location } = useGetLocation()
   const [visible, setVisible] = useState(false)
   const { loading, info, getEventInfo } = useBasicService(params.orderNo, location)
 
+  const handleConfirm = () => {
+    Taro.showModal({
+      content: '是否确认核销？',
+      confirmColor: '#BC9B6A',
+      success: (res) => {
+        if (res.confirm) {
+          handleCheck()
+        }
+      }
+    })
+  }
+
   /**
    * 点击核销
    *
    */
-  const [handleCancel, confirmLoading] = useSuperLock(async () => {
+  const [handleCheck, checkLoading] = useSuperLock(async () => {
+    toast?.loading()
+    try {
+      await api['/wechat/activity/check/{verifyCode}_POST'](params)
+      toast?.success('核销成功')
+      Taro.navigateBack()
+    } catch (error) {
+    }
+    toast?.hideLoading()
+  })
+
+  const handleCancel = () => {
+    Taro.showModal({
+      content: '确认取消报名？',
+      confirmColor: '#BC9B6A',
+      success: (res) => {
+        if (res.confirm) {
+          conformCancel()
+        }
+      }
+    })
+  }
+
+  /**
+   * 确认取消
+   *
+   */
+  const [conformCancel, cancelLoading] = useSuperLock(async () => {
     await api['/wechat/activity/cancelBook/{orderNo}_POST'](params.orderNo || '')
 
     toast?.message('取消成功')
 
     getEventInfo({
       orderNo: params.orderNo,
-      latitude: 120.52,
-      longitude: -122.12
+      ...location
     })
   })
+
+  const handleClose = () => {
+    setVisible(false)
+    getEventInfo({
+      orderNo: params.orderNo,
+      ...location
+    })
+  }
 
   if (loading && !info) {
     return <LoadingView />
   }
 
   return (
-    <PageContainer className={styles.prefectureStyle} noPlace>
+    <PageContainer
+      className={classNames(styles.prefectureStyle, {
+        [styles.canceled]: info?.orderStatus === EReservationStatus.Used || info?.orderStatus === EReservationStatus.Canceled,
+        [styles.special]: info?.special
+      })}
+    noPlace>
       <MMNavigation title='预约详情' type="Transparent" />
 
-      <View className={styles.container}>
+      <View className={classNames(styles.container, {[styles.finished]: info?.orderStatus === EReservationStatus.NoUse})}>
         <View className={styles.reservation_status}>
-          {MReservationStatus[info?.status || 0]}
+          {MReservationStatus[info?.orderStatus || 0]}
         </View>
         <View className={styles.reservation__txt}>凭有效身份证件实名制入场</View>
         
@@ -63,21 +116,40 @@ const Component: FC<IDetailProps> = (props) => {
           <View className={styles.footer}>
             {
               info?.orderStatus === EReservationStatus.NoUse || info?.orderStatus === EReservationStatus.Arranged ? (
-                <Button className={classNames(styles.btn, styles.cancel)} disabled={confirmLoading} loading={confirmLoading} onClick={handleCancel}>取消报名</Button>
+                <Button className={classNames(styles.btn, styles.cancel)} disabled={cancelLoading} loading={cancelLoading} onClick={handleCancel}>取消报名</Button>
               ) : null
             }
             {
-              info?.orderStatus === EReservationStatus.Used || info?.orderStatus === EReservationStatus.Arranged ? (
-                <Button className={classNames(styles.btn, styles.confirm)} onClick={() => setVisible(true)}>核销码</Button>
-          ) : null
+              info?.checkType !== 2 && (info?.orderStatus === EReservationStatus.Used || info?.orderStatus === EReservationStatus.Arranged) ? (
+                <Button className={classNames(styles.btn, styles.confirm)} onClick={() => setVisible(true)}>
+                  核销码
+                </Button>
+              ) : null
+            }
+            {
+              info?.checkType === 2 && (info?.orderStatus === EReservationStatus.NoUse || info?.orderStatus === EReservationStatus.Arranged) ? (
+                <Button className={classNames(styles.btn, styles.confirm)} disabled={checkLoading} loading={checkLoading} onClick={handleConfirm}>
+                  确认核销
+                </Button>
+              ) : null
             }
           </View>
+
+          {info?.orderStatus === EReservationStatus.Arranged ? <Image className={styles.status_icon} src={noUseImg} mode="aspectFill" /> : null}
+          {info?.orderStatus === EReservationStatus.Used ? <Image className={styles.status_icon} src={usedImg} mode="aspectFill" /> : null}
         </View>
 
       </View>
 
       {/* 底部栏 */}
-      <PopupQrCode title={info?.activity?.name || ''} imgUrl={info?.qrCode || ''} visible={visible} onClose={() => setVisible(false)} />
+      <PopupQrCode
+        title={info?.activity?.name || ''}
+        imgUrl={info?.qrCode || ''}
+        verifyCode={info?.verifyCode}
+        visible={visible}
+        finished={info?.orderStatus === EReservationStatus.Used || info?.orderStatus === EReservationStatus.Canceled}
+        onClose={handleClose}
+      />
     
     </PageContainer>
   )

@@ -1,13 +1,13 @@
 import { FC, memo, useState } from 'react';
 import { IBannerProps } from './const';
-import { View, Swiper, SwiperItem, Button, Text, RichText } from '@tarojs/components';
+import { View, Swiper, SwiperItem, Button, Text } from '@tarojs/components';
 import styles from './index.module.less';
 import classNames from 'classnames';
 import { useDidShow } from '@tarojs/taro';
 import { BannerPositionOutputDto, api } from '@wmeimob/taro-api';
-import LoadingView from '../loadingView';
 import MMRichText from '../../../../../components/richText';
 import { navByLink } from '../../../../../components/pageModules/utils';
+import LoadingView from '../../../../../components/loadingView';
 
 const Component: FC<IBannerProps> = () => {
   const [current, setCurrent] = useState(0);

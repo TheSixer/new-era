@@ -25,7 +25,7 @@ const Component: FC<IDecorationProps> = () => {
 
   return (
     <PageContainer className={styles.decorationStyle}>
-      <MMNavigation title={title} renderLeft={homeButton} />
+      <MMNavigation title={title} renderLeft={homeButton} type="Transparent" />
       <PageModules data={modules} />
     </PageContainer>
   )

@@ -1,6 +1,6 @@
 import { api } from '@wmeimob/taro-api'
-import TencentCloudWeb from '@wmeimob/tencent-cloud/src/web'
+import TencentCloudTaro from '@wmeimob/tencent-cloud/src/taro'
 
-export const { upload } = new TencentCloudWeb({
-  getOssToken: api['/admin/api/oss/info_GET']
+export const { upload } = new TencentCloudTaro({
+  getOssToken: () => api['/wechat/api/oss/info_GET']()
 })

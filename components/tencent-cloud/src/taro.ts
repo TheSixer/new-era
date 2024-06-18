@@ -20,7 +20,7 @@ export default class AliYunTaro {
     }
 
     const {
-      data: { accessid, signature, policy, dir, host, cdnDomain }
+      data: { bucket, region, dir, host, cdnDomain, credentials }
     } = await this.getOssToken()
 
     return Promise.all(
@@ -32,6 +32,7 @@ export default class AliYunTaro {
               resolve(file)
               return
             }
+            const { tmpSecretId, tmpSecretKey, sessionToken } = credentials
 
             let formKey = ''
             if (process.env.TARO_ENV === 'h5') {
@@ -41,11 +42,13 @@ export default class AliYunTaro {
             }
 
             const formData = {
+              SecretId: tmpSecretId,
+              Bucket: bucket,
+              Region: region,
+              SecretKey: tmpSecretKey,
+              XCosSecurityToken: sessionToken,
               // key: "${filename}",
-              signature,
-              OSSAccessKeyId: accessid,
-              policy,
-              key: formKey,
+              Key: formKey,
               success_action_status: 200
             }
             Taro.uploadFile({
@@ -55,7 +58,7 @@ export default class AliYunTaro {
               withCredentials: false,
               formData,
               success() {
-                resolve(`${cdnDomain || host}/${formData.key}`)
+                resolve(`${cdnDomain || host}/${formData.Key}`)
               }
             })
           })

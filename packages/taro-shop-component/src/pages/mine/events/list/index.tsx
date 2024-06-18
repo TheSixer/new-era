@@ -1,13 +1,11 @@
 /* eslint-disable no-console */
 import Taro from '@tarojs/taro'
 import { FC, memo, useEffect, useState } from 'react'
-import { View, Text, ScrollView } from '@tarojs/components'
+import { View, ScrollView } from '@tarojs/components'
 import { IPrefectureProps } from './const'
 import styles from './index.module.less'
 import MMNavigation from '@wmeimob/taro-design/src/components/navigation'
-import MMPullToRefresh from '@wmeimob/taro-design/src/components/pull-to-refresh'
-import { ActivityOrderOutputDto, ActivityOutputDto, MarketingActivityDto, api } from '@wmeimob/taro-api'
-import useMMPullToRefresh from '@wmeimob/taro-design/src/components/pull-to-refresh/useMMPullToRefresh'
+import { ActivityOrderOutputDto, api } from '@wmeimob/taro-api'
 import MMEmpty from '@wmeimob/taro-design/src/components/empty'
 import emptyActivityImg from './images/empty_activity.png'
 import { routeNames } from '../../../../routes'
@@ -17,6 +15,7 @@ import EventItem from './components/eventItem'
 import Tabs from './components/Tabs'
 import { EEventStatus, OEventStatus } from '../../../../enums/event/EEventStatus'
 import useGetLocation from '../../../../hooks/useGetLocation'
+import LoadingView from '../../../../components/loadingView'
 
 export interface TabItem {
   label?: string
@@ -35,11 +34,13 @@ const Component: FC<IPrefectureProps> = () => {
 
   return (
     <PageContainer className={styles.prefectureStyle} noPlace>
-      <MMNavigation title='活动预约' type="Transparent" />
+      <ScrollView className={styles.scroll} scrollY showScrollbar={false} enhanced={true}>
 
-      <Tabs tabs={OEventStatus} activeTab={activeTab} onChange={handleTableChange} />
+        <MMNavigation title='我的预约' type="Transparent" />
+        
+        <Tabs tabs={OEventStatus} activeTab={activeTab} onChange={handleTableChange} />
 
-      <ScrollView scrollY className={styles.scrollView}>
+        {loading && <LoadingView style={{ marginTop: '40rpx', height: '100rpx', background: 'none' }} />}
 
         <View className={styles.book_list}>
           {orders.map((order) => (
@@ -58,23 +59,22 @@ const Prefecture = memo(Component)
 export default Prefecture
 
 function useBasicService(activeTab, location) {
-  const [loading, setLoading] = useState(false)
+  const [loading, setLoading] = useState(true)
   const [orders, setOrders] = useState<ActivityOrderOutputDto[]>([])
 
   useEffect(() => {
     if (location.latitude && location.longitude) {
-      fetchData(activeTab, {
-        latitude: 120.52,
-        longitude: -122.12
-      })
+      fetchData(activeTab, location)
     }
   }, [activeTab, location])
 
   async function fetchData(status, locat) {
     setLoading(true)
-    const { data = [] } = await api['/wechat/activity/myBookRecord_GET']({ status, ...locat })
-
-    setOrders(data)
+    try {
+      const { data = [] } = await api['/wechat/activity/myBookRecord_GET']({ status, ...locat })
+      setOrders(data)
+    } catch (error) {
+    }
     setLoading(false)
   }
 

@@ -30,6 +30,7 @@ const Component: FC<IEventSkuPopupProps> = (props) => {
       return
     }
     popProps?.onConfirm?.(unifyId)
+    popProps?.onClose?.()
   }
 
   return (

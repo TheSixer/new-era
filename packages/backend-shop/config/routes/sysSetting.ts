@@ -9,6 +9,23 @@ export default [
         component: './sysSetting/initScreen'
       },
       {
+        name: '协议设置',
+        path: '/sysSetting/setting',
+        component: './basicSetting/setting'
+      },
+      {
+        name: '用户协议记录',
+        path: '/sysSetting/setting/agreementLogs',
+        component: './basicSetting/agreementLogs',
+        hideInMenu: true
+      },
+      {
+        name: '隐私政策记录',
+        path: '/sysSetting/setting/privacyLogs',
+        component: './basicSetting/agreementLogs',
+        hideInMenu: true
+      },
+      {
         name: '人员管理',
         path: '/sysSetting/employeeManagement',
         component: './sysSetting/employeeManagement'

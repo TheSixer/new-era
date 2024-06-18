@@ -12,7 +12,6 @@ import './index.less';
 import CustomEarnItem from './components/customEarnItem'
 import CustomActivitiesItem from './components/CustomActivitiesItem'
 import AboutUs from './components/aboutUs'
-import { useDidShow } from '@tarojs/taro'
 import { ActivityOutputDto, BannerPositionOutputDto, api } from '@wmeimob/taro-api'
 import InitScreen from './components/initScreen'
 import usePopupScreen from './hooks/usePopupScreen'
@@ -27,10 +26,6 @@ interface IHomeProps {}
  * @return {*}
  */
 const Component: FC<IHomeProps> = () => {
-  // const { user } = useGlobalStore()
-
-  const [current, setCurrent] = useState(4);
-
   const {earnPointsBanners, activities } = useDidShowService()
 
   const initScreen = usePopupScreen()
@@ -39,59 +34,35 @@ const Component: FC<IHomeProps> = () => {
     initScreen.run()
   }, [])
 
-  // async function init() {
-  //   if (user.mobile) {
-  //     try {
-  //       await agreementRef.current!.showUpdateDialog()
-  //       if (systemConfig.config.enableSignTask) {
-  //         const result = await autoSignService.autoSign()
-  //         setVisible(result)
-  //       }
-
-  //       // systemConfig.config.enableSignTask && ()
-
-  //       toastReceiveNewcomerCouponSuccess(() => {
-  //         popupAds.run()
-  //       })
-  //     } catch (error) {}
-  //   }
-  // }
-
-  // useEffect(() => {
-  //   init()
-  // }, [user.mobile])
-
   return (
     <PageContainer isTab className={styles.homeStyle}>
       <ScrollView className={styles.scroll} scrollY showScrollbar={false} enhanced={true}>
         <View className={styles.main_content}>
-          <View className={styles.page_item}>
+          <View className={styles.page_item} style={{ position: 'relative' }}>
             <Banner />
-          </View>
 
-          <View className={styles.page_item}>
-            <RecommendStory style={{height: '670rpx'}} />
-          </View>
-
-          <View className={styles.page_item}>
-            <View className={styles.main_swiper_item}>
-              <EarnPoints
-                title='玩赚积分'
-                subTitle='Earn Points'
-                style={{height: '328rpx'}}
-                data={earnPointsBanners}
-                renderItem={(item, index) => <CustomEarnItem item={item} index={index} />}
-              />
-
-              <EarnPoints
-                title='品牌体验'
-                subTitle='Activities'
-                style={{height: '575rpx'}}
-                data={activities}
-                renderItem={(item, index) => <CustomActivitiesItem item={item} index={index} />}
-              />
+            <View className={styles.main_navigate}>
+              <ArrowDownFilled />
             </View>
           </View>
+
+          <RecommendStory style={{height: '670rpx'}} />
+
+          <EarnPoints
+            title='玩赚积分'
+            subTitle='Earn Points'
+            style={{height: '328rpx'}}
+            data={earnPointsBanners}
+            renderItem={(item, index) => <CustomEarnItem item={item} index={index} />}
+          />
+
+          <EarnPoints
+            title='品牌体验'
+            subTitle='Activities'
+            style={{height: '575rpx'}}
+            data={activities}
+            renderItem={(item, index) => <CustomActivitiesItem item={item} index={index} />}
+          />
 
           <View className={styles.page_item}>
             <Premium />
@@ -101,13 +72,6 @@ const Component: FC<IHomeProps> = () => {
             <AboutUs />
           </View>
 
-          {
-            current === 0 ? (
-              <View className={styles.main_navigate} onClick={() => setCurrent((crt) => crt + 1)}>
-                <ArrowDownFilled />
-              </View>
-            ) : null
-          }
         </View>
 
         {/* <View
@@ -160,9 +124,9 @@ function useDidShowService() {
   const [earnPointsBanners, setEarnPointsBanners] = useState<BannerPositionOutputDto[]>([])
   const [activities, setActivities] = useState<ActivityOutputDto[]>([])
 
-  useDidShow(() => {
+  useEffect(() => {
     getBanners()
-  });
+  }, []);
 
   /** 获取banners */
   async function getBanners() {

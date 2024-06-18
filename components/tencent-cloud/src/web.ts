@@ -26,7 +26,6 @@ export default class TencentCloudWeb {
       fileList.map(
         (file) =>
           new Promise<string>((resolve) => {
-            // 如果是oss地址 忽略上传 直接返回
             if (new RegExp(`^(${host}|${cdnDomain})`).test(file.name)) {
               resolve(file.name)
               return
