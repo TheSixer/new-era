@@ -14,36 +14,31 @@ import type { UploadProps } from 'antd';
 import { MCardType } from '~/enums/event/EReservationStatus'
 import { routeNames } from '~/routes'
 import useQuery from '~/hooks/useQuery'
+import dayjs from 'dayjs'
 
 const Component: FC<ICustomerListProps> = (props) => {
   const query = useQuery()
   const activityId = query.get('activityId') || ''
   const { unifies } = useBasicService(activityId)
-  const [columns] = useState<ProColumns<ActivityOrderOutputDto>[]>([
+
+  const [columns, setColumns] = useState<ProColumns<ActivityOrderOutputDto>[]>([
     {
-      dataIndex: 'searchString',
+      dataIndex: 'name',
       hideInTable: true,
       formItemProps: { labelCol: { span: 0 }, colon: false },
       renderFormItem: () => {
-        return <Input placeholder="用户名称/手机号/id" maxLength={20} allowClear />
+        return <Input placeholder="输入用户昵称/手机号/姓名/报名编号" maxLength={100} allowClear />
       }
     },
-    { title: '用户id', dataIndex: 'id', width: 60,hideInSearch: true },
+    { title: '用户id', dataIndex: 'userId', width: 60,hideInSearch: true },
     { title: '用户昵称', dataIndex: 'nickname', width: 80, hideInSearch: true },
     { title: '用户手机号', dataIndex: 'mobile', width: 100, hideInSearch: true },
     { title: '会员等级', dataIndex: 'openId', width: 80, hideInSearch: true },
-    { title: '报名编号', dataIndex: 'id', width: 80, hideInSearch: true },
-    { title: '姓名', dataIndex: 'createUser', width: 80, hideInSearch: true },
+    { title: '报名编号', dataIndex: 'orderNo', width: 80, hideInSearch: true },
+    { title: '姓名', dataIndex: 'name', width: 80, hideInSearch: true },
     { title: '证件类型', dataIndex: 'cardType', width: 80, hideInSearch: true, renderText: (value: number) => MCardType[value] },
     { title: '证件号', dataIndex: 'cardNo', width: 150, hideInSearch: true },
     { title: '报名场次', dataIndex: 'unifyName', width: 80, hideInSearch: true },
-    {
-      title: '报名场次',
-      dataIndex: 'unifyId',
-      valueType: 'select',
-      fieldProps: () => ({ options: unifies }),
-      hideInTable: true
-    },
     { title: '报名费用', dataIndex: 'bookFee', width: 80, hideInSearch: true },
     { title: '报名时间', dataIndex: 'bookTime', width: 120, hideInSearch: true },
     {
@@ -57,7 +52,7 @@ const Component: FC<ICustomerListProps> = (props) => {
     { title: '座位区域', dataIndex: 'areaName', width: 80, hideInSearch: true },
     { title: '排号', dataIndex: 'rowNumber', width: 80, hideInSearch: true },
     { title: '座位号', dataIndex: 'seatNo', width: 80, hideInSearch: true },
-    { title: '核销码', dataIndex: 'qrCode', valueType: 'image', width: 80, hideInSearch: true },
+    { title: '核销码', dataIndex: 'verifyCode', width: 80, hideInSearch: true },
     { title: '核销人', dataIndex: 'checkUserName', width: 80, hideInSearch: true },
     { title: '核销时间', dataIndex: 'checkTime', valueType: 'date', width: 120, hideInSearch: true }
   ])
@@ -65,28 +60,42 @@ const Component: FC<ICustomerListProps> = (props) => {
 
   const uploadProps: UploadProps = {
     name: 'file',
-    action: `${apiUrl}/admin/mall/activityOrder/orderImport/{activityId}`,
+    action: `${apiUrl}/admin/mall/activityOrder/orderImport/${activityId}`,
     headers: {
       Authorization
     },
-    accept: '.xml,.xlsx',
+    accept: '.xml,.xls,.xlsx',
     maxCount: 1,
     showUploadList: false,
     onChange(info) {
-      if (info.file.status !== 'uploading') {
-        console.log(info.file, info.fileList);
-      }
       if (info.file.status === 'done') {
-        message.success(`${info.file.name} file uploaded successfully`);
+        if (info.file.response?.data?.errorList?.length > 0) {
+          message.error(`${info.file.response?.data?.errorList?.length}条数据格式错误`);
+        } else {
+          message[!info.file.response.code ? 'success' : 'error'](!info.file.response.code ? '导入成功' : info.file.response.msg);
+        }
+        actionRef.current?.reload()
       } else if (info.file.status === 'error') {
-        message.error(`${info.file.name} file upload failed.`);
+        message.error(`${info.file.name} 导入失败.`);
       }
     }
   };
 
   const { request, exportLoading, exportTable, actionRef } = useProTableRequest((params) => api['/admin/mall/activityOrder/queryList_GET'](params), {
-    exportUrl: `${apiUrl}/admin/api/member/export`
+    exportUrl: `${apiUrl}/admin/mall/activityOrder/export`
   })
+
+  useEffect(() => {
+    unifies.length > 0 && setColumns((pre) => [...pre.slice(0, 12), 
+      {
+        title: '报名场次',
+        dataIndex: 'unifyId',
+        valueType: 'select',
+        fieldProps: () => ({ options: unifies }),
+        hideInTable: true
+      },
+      ...pre.slice(12)])
+  }, [unifies])
 
   return (
     <PageContainer className={styles.deptManagementStyle}>
@@ -105,8 +114,11 @@ const Component: FC<ICustomerListProps> = (props) => {
             <Button type="primary" key="export" loading={exportLoading} onClick={() => exportTable()}>
               导出
             </Button>,
+            <Button key="modal" href='https://newera-1324768017.cos.ap-nanjing.myqcloud.com/newera_temp/%E6%8A%A5%E5%90%8D%E8%AE%B0%E5%BD%95%E5%AF%BC%E5%85%A5%E6%A8%A1%E6%9D%BF.xlsx'>
+              下载导入模板
+            </Button>,
             <Upload {...uploadProps} key="upload">
-              <Button icon={<UploadOutlined />}>导入</Button>
+              <Button type='primary' icon={<UploadOutlined />}>导入</Button>
             </Upload>,
             <Button type="primary" key="link"
               onClick={() => {
@@ -152,7 +164,7 @@ function useBasicService(activityId) {
 
   async function fetchUnifies() {
     const { data = [] } = await api['/admin/mall/activity/queryUnifyList_GET']({ activityId })
-    setUnifies(data.map(({ unifyDate, unifyTime, id }) => ({ label: `${unifyDate} ${unifyTime}`, value: id })))
+    setUnifies(data.map(({ unifyDate, unifyTime, id }) => ({ label: id === 0 ? '统一场次' : `${dayjs(unifyDate).format('YYYY-MM-DD')} ${unifyTime}`, value: id })))
   }
 
   return { unifies, fetchUnifies }

@@ -31,7 +31,6 @@ export const authorizationLogin = mergeFunction((redirect = true) => {
     if (path === routeNames.auth) {
       return
     }
-
     if (redirect && !isTabber) {
       Taro.redirectTo({ url: getParamsUrl(routeNames.auth, { redirectUrl, isTabber }) })
     } else {

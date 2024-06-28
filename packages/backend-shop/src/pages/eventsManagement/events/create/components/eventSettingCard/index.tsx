@@ -2,18 +2,17 @@ import { FC, memo, useEffect, useState } from 'react'
 import styles from './index.module.less'
 import { IActivitySettingCardProps } from './const'
 import { Button, Card, Form } from 'antd'
-import { ProFormDependency, ProFormRadio, ProFormSelect } from '@ant-design/pro-form'
+import { ProFormDependency, ProFormDigit, ProFormRadio, ProFormSelect } from '@ant-design/pro-form'
 import mmFormRule from '@wmeimob/form-rules'
-import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormLimitInput'
 import ProFormMaterial from '@wmeimob/backend-pages/src/components/form/proFormMaterial'
 import { PlusOutlined } from '@ant-design/icons'
 import { api } from '@wmeimob/backend-api'
 
 const checkTypes = [
-  {
-    label: '用户扫码',
-    value: 0
-  },
+  // {
+  //   label: '用户扫码',
+  //   value: 0
+  // },
   {
     label: '员工扫码',
     value: 1
@@ -43,22 +42,15 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
         {({ checkType }, form) => {
           if (!checkType) {
             return (
-              <ProFormLimitInput
+              <ProFormDigit
                 label="签到距离"
                 name="checkDistance"
-                disabled={disabled}
                 placeholder={'请输入签到距离'}
+                disabled={disabled}
+                min={1}
+                max={99999}
                 addonAfter="米以内"
-                rules={[
-                  ...mmFormRule.required,
-                  {
-                    validator: (_, value: string) => {
-                      if (!value) return Promise.reject('')
-                      if (/^\d+$/.test(value)) return Promise.resolve()
-                      return Promise.reject('请输入数字')
-                    }
-                  }
-                ]}
+                rules={mmFormRule.required}
               />
             )
           }
@@ -69,7 +61,6 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
       <ProFormRadio.Group
         label="显示座位号"
         name="viewSeatNo"
-        disabled={disabled}
         options={[
           { label: '显示', value: 1 },
           { label: '不显示', value: 0 }
@@ -80,7 +71,6 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
       <ProFormRadio.Group
         label="参与用户"
         name="participate"
-        disabled={disabled}
         options={[
           { label: '全部用户', value: 0 },
           { label: '白名单用户', value: 1 }
@@ -91,7 +81,6 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
       <ProFormRadio.Group
         label="首页展示"
         name="indexView"
-        disabled={disabled}
         options={[
           { label: '显示', value: 1 },
           { label: '不显示', value: 0 }
@@ -102,7 +91,7 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
       <ProFormDependency name={['indexView']}>
         {({ indexView }, form) => {
           if (indexView) {
-            return <ProFormMaterial label="首页封面" name="indexCover" disabled={disabled} fieldProps={{ measure: [750, 360] }} rules={mmFormRule.required} />
+            return <ProFormMaterial label="首页封面" name="indexCover" fieldProps={{ measure: [750, 360] }} rules={mmFormRule.required} />
           }
           return null
         }}
@@ -127,7 +116,7 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
                           key={key}
                           title={`规则${index + 1}`}
                           extra={
-                            disabled ? null : (
+                            (
                               <Button type="link" size="small" onClick={() => remove(name)}>
                                 删除
                               </Button>
@@ -152,7 +141,7 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
                         </Card>
                       )
                     })}
-                    {!disabled && (
+                    {(
                       <Button type="dashed" onClick={() => add({})} block icon={<PlusOutlined />}>
                         添加规则
                       </Button>

@@ -1,9 +1,9 @@
-import { FC, memo, useState } from 'react'
+import { FC, memo, useEffect, useState } from 'react'
 import styles from './index.module.less'
 import { ICustomerListProps, IEditFormValues } from './const'
 import { PageContainer } from '@ant-design/pro-layout'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
-import { Button, Input, Modal, message } from 'antd'
+import { Button, Input, Modal, message, Form } from 'antd'
 import OperationsColumns from '@wmeimob/backend-pro/src/components/table/operationsColumns'
 import useProTableRequest from '@wmeimob/backend-pro/src/hooks/useProTableRequest'
 import { api } from '~/request'
@@ -11,21 +11,36 @@ import { MemberInfoPageVo } from '@wmeimob/backend-api'
 import { ECustomerStatus, OCustomerStatus } from '~/enums/customer/ECustomerStatus'
 import { apiUrl } from '~/config'
 import useProTableForm from '@wmeimob/backend-pro/src/hooks/useProTableForm'
-import { ModalForm, ProFormSelect } from '@ant-design/pro-form'
-import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormLimitInput'
+import { ModalForm, ProFormDateRangePicker, ProFormSelect } from '@ant-design/pro-form'
 import ProFormInfo from '@wmeimob/backend-pro/src/components/form/proFormInfo'
+import dayjs from 'dayjs'
 
 const Component: FC<ICustomerListProps> = (props) => {
   const editModal = useProTableForm<IEditFormValues>()
-  const { options, handleGetTags } = useTagsService()
+  const { options } = useTagsService()
 
-  const [columns] = useState<ProColumns<MemberInfoPageVo>[]>([
+  useEffect(() => {
+    options.length > 0 &&
+      setColumns((pre) => [...pre.slice(0, 1), { title: '标签', dataIndex: 'tagId', valueType: 'select', hideInTable: true, fieldProps: () => ({ options }) }, ...pre.slice(1)])
+  }, [options])
+
+  const [columns, setColumns] = useState<ProColumns<MemberInfoPageVo>[]>([
+    {
+      dataIndex: 'beginTime',
+      hideInTable: true,
+      formItemProps: { labelCol: { span: 0 }, colon: false },
+      renderFormItem: () => {
+        return <ProFormDateRangePicker label="注册时间" placeholder={['开始时间', '结束时间']} />
+      }
+    },
     {
       dataIndex: 'searchString',
       hideInTable: true,
       formItemProps: { labelCol: { span: 0 }, colon: false },
       renderFormItem: () => {
-        return <Input placeholder="用户名称/手机号/id" maxLength={20} allowClear />
+        return <Form.Item label="关键字">
+          <Input placeholder="用户名称/手机号/id" maxLength={20} allowClear />
+        </Form.Item>
       }
     },
     { title: '用户id', dataIndex: 'id', hideInSearch: true },
@@ -63,20 +78,24 @@ const Component: FC<ICustomerListProps> = (props) => {
               },
               {
                 id: 'signal',
-                text: <a onClick={() => {
-                  handleGetTags(() => {
-                    editModal.setVisible(true)
-                    editModal.setEditData({
-                      type: 0,
-                      userIds: [record?.id || ''],
-                      tags: record.tagNames || '无',
-                      tagNames: record?.tagId?.split?.(',') || []
-                    })
-                    editModal.modalProps.form.setFieldsValue({
-                      ...record
-                    })
-                  })
-                }}>标签</a>
+                text: (
+                  <a
+                    onClick={() => {
+                      editModal.setVisible(true)
+                      editModal.setEditData({
+                        type: 0,
+                        userIds: [record?.id || ''],
+                        tags: record.tagNames || '无',
+                        tagNames: record?.tagId?.split?.(',') || []
+                      })
+                      editModal.modalProps.form.setFieldsValue({
+                        ...record
+                      })
+                    }}
+                  >
+                    标签
+                  </a>
+                )
               }
             ]}
           />
@@ -102,9 +121,18 @@ const Component: FC<ICustomerListProps> = (props) => {
     })
   }
 
-  const { request, exportLoading, exportTable, actionRef } = useProTableRequest((params) => api['/admin/api/member/query_GET'](params), {
-    exportUrl: `${apiUrl}/admin/api/member/export`
-  })
+  const { request, exportLoading, exportTable, actionRef } = useProTableRequest(
+    (params) =>
+      api['/admin/api/member/query_GET'](params),
+    {
+      exportUrl: `${apiUrl}/admin/api/member/export`,
+      paramsFormat: (params) => ({
+        ...params,
+        beginTime: params?.beginTime ? dayjs(params?.beginTime?.[0]).format('YYYY-MM-DD') + ' 00:00:00' : '',
+        endTime: params?.beginTime ? dayjs(params?.beginTime?.[1]).format('YYYY-MM-DD') + ' 23:59:59' : ''
+      })
+    }
+  )
 
   async function handleEditFormFinish(values: IEditFormValues) {
     const params = {
@@ -114,7 +142,7 @@ const Component: FC<ICustomerListProps> = (props) => {
     }
 
     try {
-       await api['/admin/api/member/tag_POST'](params)
+      await api['/admin/api/member/tag_POST'](params)
       message.success('修改成功')
       actionRef.current?.reload()
 
@@ -135,15 +163,9 @@ const Component: FC<ICustomerListProps> = (props) => {
       wrapperCol={{ span: 16 }}
       onFinish={handleEditFormFinish}
     >
-      <ProFormInfo label="现有标签" info={editModal.editData?.tags || "无"} />
-    
-      <ProFormSelect
-        label="选择标签"
-        name="tagNames"
-        mode="multiple"
-        options={options}
-        rules={[{ required: true, message: '请选择标签' }]}
-      />
+      <ProFormInfo label="现有标签" info={editModal.editData?.tags || '无'} />
+
+      <ProFormSelect label="选择标签" name="tagIds" mode="multiple" options={options} rules={[{ required: true, message: '请选择标签' }]} />
     </ModalForm>
   )
 
@@ -159,7 +181,10 @@ const Component: FC<ICustomerListProps> = (props) => {
           defaultCollapsed: false,
           labelWidth: 'auto',
           optionRender: (searchConfig, formProps, dom) => [
-            <Button type="primary" key="export" loading={exportLoading} onClick={() => exportTable()}>
+            <Button type="primary" key="export" loading={exportLoading} onClick={() => {
+              console.log(actionRef.current)
+              exportTable()
+            }}>
               导出
             </Button>,
             ...dom
@@ -167,7 +192,7 @@ const Component: FC<ICustomerListProps> = (props) => {
         }}
       />
 
-      { modal }
+      {modal}
     </PageContainer>
   )
 }
@@ -180,10 +205,15 @@ export default CustomerList
 function useTagsService() {
   const [options, setOptions] = useState<any[]>([])
 
-  async function handleGetTags(callback: () => void) {
-    const { data: { list = [] } } = await api['/admin/mall/tag/queryList_GET']({})
+  useEffect(() => {
+    handleGetTags()
+  }, [])
+
+  async function handleGetTags() {
+    const {
+      data: { list = [] }
+    } = await api['/admin/mall/tag/queryList_GET']({})
     setOptions(list?.map((item) => ({ label: item.name, value: item.id })))
-    callback()
   }
 
   return {

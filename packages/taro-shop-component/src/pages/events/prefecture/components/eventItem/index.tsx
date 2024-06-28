@@ -21,16 +21,16 @@ const Component: FC<IEventInfoProps> = (props) => {
             
           </View>
 
-          <ETag classname={styles.event_tag} type={data.status} text={data.status === 1 ? '进行中' : data.status === 2 ? '已结束' : '未开始'} />
+          <ETag classname={styles.event_tag} type={data.activityStatus} text={data.activityStatus === 1 ? '进行中' : data.activityStatus === 2 ? '已结束' : '未开始'} />
         </View>
         <View className={styles.event_content}>
           <View className={styles.event_info_content}>
             <View className={styles.event_date}>{dayjs(data.startTime).format('YYYY-MM-DD HH:mm')} - {dayjs(data.endTime).format('YYYY-MM-DD HH:mm')}</View>
             <View className={styles.event_address}>{addressDetail}</View>
-            <View className={styles.event_position}>
+            {data.distance ? (<View className={styles.event_position}>
               <PositionFilled width="24rpx" height="24rpx" />
               <Text className={styles.event_position_text}>{data.distance}km</Text>
-            </View>
+            </View>) : null}
           </View>
           <View className={styles.event_price}>
             {!data.bookFree ? '免费' : `${data.bookFree}积分`}

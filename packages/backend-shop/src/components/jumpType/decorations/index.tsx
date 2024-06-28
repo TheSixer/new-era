@@ -43,7 +43,7 @@ const Component: FC<IDecorationsProps> = (props) => {
       rowSelection={{
         selectedRowKeys: value ? [value.id!] : [],
         type: 'radio',
-        getCheckboxProps: (record) => ({ disabled: isHomePage(record.homePage) }),
+        // getCheckboxProps: (record) => ({ disabled: isHomePage(record.homePage) }),
         onChange(_ks, [row]) {
           onChange?.(row)
         }

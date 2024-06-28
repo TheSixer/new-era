@@ -1,6 +1,5 @@
 import Taro, { useRouter } from '@tarojs/taro'
 import useGlobalStore from '../../globalStore'
-import useNewcomer from '../../hooks/user/useNewcomer'
 import { api } from '@wmeimob/taro-api'
 import { BaseEventOrig, Button, ButtonProps, Image, Text, View } from '@tarojs/components'
 import { PageContainer, useToast } from '@wmeimob/taro-design'
@@ -12,14 +11,16 @@ import styles from './index.module.less'
 import { routeNames } from '../../routes'
 import { EAgreementType } from '../mine/userAgreement/const'
 import getParamsUrl from '@wmeimob/taro-utils/src/getParamsUrl'
-import LogoImg from './images/logo.png';
-import CheckIcon from './images/check.png';
-import CheckedIcon from './images/checked.png';
+import LogoImg from './images/logo.png'
+import CheckIcon from './images/check.png'
+import CheckedIcon from './images/checked.png'
+import Modal from './components/modal'
 
 const Component: FC = () => {
-  const { appInfo, getUserAction } = useGlobalStore()
+  const [visible, setVisible] = useState(false)
+  const { getUserAction } = useGlobalStore()
 
-  const { receiveNewcomerCoupon } = useNewcomer()
+  // const { receiveNewcomerCoupon } = useNewcomer()
   const { params } = useRouter()
 
   const [agree, setAgree] = useState(false)
@@ -43,15 +44,7 @@ const Component: FC = () => {
 
   // 登录点击校验
   const handleClickLogin = () => {
-    !agree && Taro.showModal({
-      content: '请先阅读并同意《用户协议》《隐私条款》',
-      confirmColor: '#BC9B6A',
-      success: (res) => {
-        if (res.confirm) {
-          setAgree(true)
-        }
-      }
-    })
+    !agree && setVisible(true)
   }
 
   // 处理获取手机号逻辑
@@ -138,6 +131,17 @@ const Component: FC = () => {
       </MMCheckbox>
 
       <View className="spacingIphone" />
+
+      <Modal
+        title="提示"
+        content="请先阅读并同意《用户协议》《隐私条款》"
+        onClose={() => setVisible(false)}
+        visible={visible}
+        onConfirm={() => {
+          setVisible(false)
+          setAgree(true)
+        }}
+      />
     </PageContainer>
   )
 }

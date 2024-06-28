@@ -24,6 +24,8 @@ export interface IMMRichTextProps {
    */
   readonly?: boolean
 
+  uploadImageConfig?: any
+
   /** 涉及上传文件时需提供阿里云 upload 方法 */
   fileUpload: (file: File[]) => Promise<string[]>
 

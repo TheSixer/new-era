@@ -4,7 +4,7 @@ import { IDetailProps } from './const'
 import styles from './index.module.less'
 import MMNavigation from '@wmeimob/taro-design/src/components/navigation'
 import { PageContainer, useToast } from '@wmeimob/taro-design'
-import Taro, { useRouter } from '@tarojs/taro'
+import Taro, { useDidShow, useRouter } from '@tarojs/taro'
 import { ActivityOrderOutputDto, api } from '@wmeimob/taro-api'
 import { EReservationStatus } from '../../../../enums/event/EReservationStatus'
 import EventInfo from './components/EventInfo'
@@ -16,6 +16,8 @@ import LoadingView from '../../../../components/loadingView'
 
 const Component: FC<IDetailProps> = () => {
   const { params } = useRouter()
+  // eslint-disable-next-line no-console
+  console.log(params)
   const [toast] = useToast()
   const { location } = useGetLocation()
   const { loading, info } = useBasicService(params.verifyCode, location)
@@ -101,11 +103,11 @@ function useBasicService(verifyCode, location) {
   }
 
   useEffect(() => {
-    if (verifyCode && location.latitude && location.longitude) {
-      getEventInfo({
-        verifyCode,
-        ...location
-      })
+    if (location?.latitude && location?.longitude && verifyCode) {
+      getEventInfo({verifyCode, ...location})
+    } else if (verifyCode) {
+      setLoading(true);
+      getEventInfo({verifyCode})
     }
   }, [verifyCode, location])
 

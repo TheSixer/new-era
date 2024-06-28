@@ -42,17 +42,17 @@ const Component: FC<IOrderDetailsProps> = (props) => {
   const pageSize = 20
   const [dataSource, setDataSource] = useState<OrderVO[]>([])
 
-  useEffect(() => {
-    if (current === 1){
-      getData(1)
-    }else {
-      setCurrent(1)
-    }
-  }, [ props.params])
+  // useEffect(() => {
+  //   if (current === 1){
+  //     getData(1)
+  //   }else {
+  //     setCurrent(1)
+  //   }
+  // }, [ props.params])
 
-  useEffect(()=>{
-    getData(current)
-  },[current])
+  // useEffect(()=>{
+  //   getData(current)
+  // },[current])
 
   async function getData(pageNum) {
     setLoading(true)

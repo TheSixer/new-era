@@ -3,7 +3,7 @@ export default defineAppConfig({
     'pages/tabBar/home/index', // 首页
     'pages/tabBar/mine/index', // 我的
     // 'pages/live/index', // 直播页面
-    // 'pages/webPage/index', // 自定义H5链接页面
+    'pages/webPage/index', // 自定义H5链接页面
     // 'pages/liveList/index', // 直播列表
     // 'pages/index/index', // 首页
     // 'pages/noConsent/index', // 空白页

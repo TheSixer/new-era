@@ -137,9 +137,9 @@ function usePageService() {
     userCount: 0 // 新增用户数
   })
 
-  useEffect(() => {
-    getSummary()
-  }, [])
+  // useEffect(() => {
+  //   getSummary()
+  // }, [])
 
   async function getSummary() {
     const { data = {} } = await api['/admin/mall/statistics/statisticsInfo_GET']()
@@ -208,9 +208,9 @@ function useSaleAmountChart(params: any) {
   const [count, setCount] = useState(0)
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    getData(params)
-  }, [params])
+  // useEffect(() => {
+  //   getData(params)
+  // }, [params])
 
   async function getData(params) {
     setLoading(true)
@@ -254,9 +254,9 @@ function useOrderChart(params) {
   const [count, setCount] = useState(0)
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    getData(params)
-  }, [params])
+  // useEffect(() => {
+  //   getData(params)
+  // }, [params])
 
   async function getData(params) {
     setLoading(true)
@@ -303,9 +303,9 @@ function useNewUserChart(params: any) {
   const [count, setCount] = useState(0)
   const [loading, setLoading] = useState(false)
 
-  useEffect(() => {
-    getData(params)
-  }, [params])
+  // useEffect(() => {
+  //   getData(params)
+  // }, [params])
 
   async function getData(params) {
     setLoading(true)

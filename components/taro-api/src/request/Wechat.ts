@@ -22,6 +22,7 @@ import {
   JsonResultBoolean,
   JsonResultCouponAvailableGoodsOutputDto,
   JsonResultDetailResultActivityOutputDto,
+  JsonResultDetailResultCheckWhiteOutputDto,
   JsonResultExpressTrackRespDto,
   JsonResultGoodsSkuStockAndPriceVo,
   JsonResultGoodsVO,
@@ -288,6 +289,20 @@ export const API = {
     }) as unknown as Promise<JsonResultLong>,
   /**
    * No description
+   * @name POST /wechat/activity/check/{orderNo}
+   * @summary 核销码核销接口
+   * @tags web/核销码核销
+   * @response `200` `JsonResultLong` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/userCheck/{orderNo}_POST": (params: WechatMyReservationListGetParams, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/userCheck/${params.orderNo}`,
+      method: "POST",
+      data: params,
+      ...options
+    }) as unknown as Promise<JsonResultLong>,
+  /**
+   * No description
    * @name GET /wechat/activity/cityList
    * @summary 查询城市列表接口
    * @tags web/Banner相关接口
@@ -321,12 +336,27 @@ export const API = {
    * @tags web/Banner相关接口
    * @response `200` `JsonResultListBannerPositionOutputDto` OK |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
    */
-  "/wechat/activity/detail/{id}_GET": (id: string | number, options: RequestConfig = {}) =>
+  "/wechat/activity/detail/{id}_GET": (params: WechatActivityAllGetParams, options: RequestConfig = {}) =>
     requestInstance({
-      url: `/wechat/activity/detail/${id}`,
+      url: `/wechat/activity/detail/${params.id}`,
       method: "GET",
+      params,
       ...options
     }) as unknown as Promise<JsonResultDetailResultActivityOutputDto>,
+  /**
+   * No description
+   * @name POST /wechat/activity/checkWhite/{activityId}
+   * @summary 报名校验
+   * @tags web/报名活动
+   * @response `200` `JsonResultLong` OK |  `201` `CharSequence2` Created |  `401` `CharSequence2` Unauthorized |  `403` `CharSequence2` Forbidden |  `404` `CharSequence2` Not Found
+   */
+  "/wechat/activity/checkWhite/{activityId}_GET": (params, options: RequestConfig = {}) =>
+    requestInstance({
+      url: `/wechat/activity/checkWhite/${params.activityId}`,
+      method: "GET",
+      params,
+      ...options
+    }) as unknown as Promise<JsonResultDetailResultCheckWhiteOutputDto>,
   /**
    * No description
    * @name POST /wechat/activity/book

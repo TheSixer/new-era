@@ -1,5 +1,5 @@
 import { FC, memo, useState } from 'react'
-import { Button, message } from 'antd'
+import { Button, message, Image } from 'antd'
 import { BannerCreateInputDto, api } from '~/request'
 import { EJumpType, MJumpType } from '~/components/jumpType/enums/EJumpType'
 import ProTable, { ProColumns } from '@ant-design/pro-table'
@@ -18,9 +18,26 @@ import JumpTypeValue from '@wmeimob/backend-pro/src/components/jumpType/jumpType
 const Component: FC<any> = ({ history }) => {
   const editModal = useProTableForm<BannerCreateInputDto>()
   const [columns] = useState<ProColumns<BannerOutputDto>[]>([
-    { title: '图片', dataIndex: 'imgUrl', valueType: 'image', hideInSearch: true, width: 100 },
-    { title: '标题', dataIndex: 'name' },
-    { title: '文字', dataIndex: 'content', hideInSearch: true },
+    {
+      title: '图片',
+      dataIndex: 'imgUrl',
+      valueType: 'image',
+      hideInSearch: true,
+      width: 180,
+      render: (value, record) => record?.bannerType === 1 ? (
+        <video style={{ width: 64, height: 108 }}>
+          <source src={record?.imgUrl as string} type="video/mp4" />
+          <source src={record?.imgUrl as string} type="video/ogg" />
+        </video>
+      ) : (
+        <Image
+          width={32}
+          src={record?.imgUrl as string}
+        />
+      )
+    },
+    { title: '标题', dataIndex: 'name', hideInTable: true },
+    { title: '内容', dataIndex: 'content', hideInSearch: true },
     // {
     //   title: '显示位置',
     //   dataIndex: 'position',
@@ -42,7 +59,7 @@ const Component: FC<any> = ({ history }) => {
       width: 90,
       hideInSearch: true,
       render(value: any) {
-        return <span>{MJumpType[value]}</span>
+        return <span>{MJumpType[value] || '无'}</span>
       }
     },
     {
@@ -114,7 +131,7 @@ const Component: FC<any> = ({ history }) => {
 
   async function handleEditFormFinish(values: BannerCreateInputDto) {
     const isAdd = !editModal.editData?.id
-    const { content, type } = values?.jumpType
+    const { content, type } = values?.jumpType || {}
 
     const params = {
       ...values,
@@ -123,6 +140,7 @@ const Component: FC<any> = ({ history }) => {
       urlType: type,
       position: 'BRAND_STORY'
     }
+    console.log(params)
 
     try {
       isAdd ? await api['/admin/mall/banner/add_POST'](params) : await api['/admin/mall/banner/update_PUT'](params)
@@ -151,6 +169,7 @@ const Component: FC<any> = ({ history }) => {
       <ProFormRadio.Group
         label="显示类型"
         name="bannerType"
+        onChange={() => editModal.modalProps.form.setFieldsValue({ imgUrl: '' })}
         rules={mmFormRule.required}
         options={[
           { label: '图片', value: 0 },

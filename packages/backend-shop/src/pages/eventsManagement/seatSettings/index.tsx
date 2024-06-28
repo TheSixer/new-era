@@ -39,7 +39,7 @@ const Component: FC<ICustomerListProps> = (props) => {
   }, [unifies])
 
   useEffect(() => {
-    unifyId && fetchSeats(activityId, unifyId)
+    unifyId !== '' && fetchSeats(activityId, unifyId)
   }, [unifyId])
 
   
@@ -53,7 +53,7 @@ const Component: FC<ICustomerListProps> = (props) => {
         seatNo: currentSeat.seatNo,
         unifyId: value?.unifyId
       })
-      actionRef.current?.reload()
+      fetchSeats(activityId, unifyId)
       message.success('座位安排成功')
     } catch (error) {
       message.success('座位安排失败')
@@ -175,20 +175,22 @@ function useBasicService(activityId) {
 
   async function fetchUnifies() {
     const { data = [] } = await api['/admin/mall/activity/queryUnifyList_GET']({ activityId })
-    setUnifies(data.map(({ unifyDate, unifyTime, id }) => ({ label: `${dayjs(unifyDate).format('YYYY-MM-DD')} ${unifyTime}`, value: id })))
+    setUnifies(data.map(({ unifyDate, unifyTime, id }) => ({ label: id === 0 ? '统一场次' : `${dayjs(unifyDate).format('YYYY-MM-DD')} ${unifyTime}`, value: id })))
   }
 
   return { unifies, fetchUnifies }
 }
 
 function useSeatService() {
-  const [spinning, setSpinning] = useState(true)
+  const [spinning, setSpinning] = useState(false)
   const [seats, setSeats] = useState<ActivitySeatInfoDto[]>([])
 
   async function fetchSeats(activityId, unifyId) {
     setSpinning(true)
-    const { data: { list = [] } } = await api['/admin/mall/activityOrder/distributionInfo_GET']({ activityId, unifyId })
-    setSeats(list)
+    try {
+      const { data: { list = [] } } = await api['/admin/mall/activityOrder/distributionInfo_GET']({ activityId, unifyId })
+      setSeats(list)
+    } catch (error) {}
     setSpinning(false)
   }
 

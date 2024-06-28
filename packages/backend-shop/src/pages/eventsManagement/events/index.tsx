@@ -12,7 +12,7 @@ import { EActivityStatus, MActivityStatus } from '~/enums/activity/EActivityStat
 import StatusSwitchColumn from '@wmeimob/backend-pro/src/components/table/statusSwitchColumn'
 import dayjs from 'dayjs'
 import { history } from 'umi'
-import { OCheckType, OEventStatus } from '~/enums/event/EActivity'
+import { EEventStatus, OCheckType, OEventStatus } from '~/enums/event/EActivity'
 
 const Component: FC<IActivitysProps> = () => {
   const [columns] = useState<ProColumns<IMarketingEvent>[]>([
@@ -59,6 +59,7 @@ const Component: FC<IActivitysProps> = () => {
       title: '核销方式',
       dataIndex: 'checkType',
       valueType: 'select',
+      fieldProps: () => ({ options: OCheckType }),
       renderText: (value: number) => OCheckType[value]
     },
     { title: '参与用户', dataIndex: 'participate', hideInSearch: true, renderText: (value: number) => value ? '白名单' : '全部用户' },
@@ -90,12 +91,13 @@ const Component: FC<IActivitysProps> = () => {
         )
       }
     },
+    { title: '创建时间', dataIndex: 'gmtCreated', valueType: 'dateTime', hideInSearch: true },
     {
       title: '操作',
       dataIndex: 'option',
       valueType: 'option',
       render: (_, record) => {
-        const { _isFinish, activityStatus } = record
+        // const { _isFinish, activityStatus } = record
         // console.log(isFinish, record.activityNo)
         return (
           <OperationsColumns
@@ -126,18 +128,20 @@ const Component: FC<IActivitysProps> = () => {
                   )
                 }
               ] : []),
-              {
-                id: 'custom',
-                text: (
-                  <a
-                    onClick={() => {
-                      history.push({ pathname: routeNames.eventsManagementEventsCreate, search: `?activityId=${record.id}` })
-                    }}
-                  >
-                    {activityStatus === EActivityStatus.NoUse && !_isFinish ? '编辑' : '详情'}
-                  </a>
-                )
-              },
+              ...(record.activityStatus !== EEventStatus.Done ? [
+                {
+                  id: 'custom',
+                  text: (
+                    <a
+                      onClick={() => {
+                        history.push({ pathname: routeNames.eventsManagementEventsCreate, search: `?activityId=${record.id}` })
+                      }}
+                    >
+                      编辑
+                    </a>
+                  )
+                }
+              ] : []),
               {
                 id: 'del',
                 onClick: async () => {

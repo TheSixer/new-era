@@ -8,18 +8,23 @@ import { BannerPositionOutputDto, api } from '@wmeimob/taro-api';
 import MMRichText from '../../../../../components/richText';
 import { navByLink } from '../../../../../components/pageModules/utils';
 import LoadingView from '../../../../../components/loadingView';
+import { ArrowDownFilled } from '../../../../../components/Icons';
 
 const Component: FC<IBannerProps> = () => {
   const [current, setCurrent] = useState(0);
 
-  const {loading, banners} = useBannerService()
+  const {isFirst, loading, banners} = useBannerService()
 
   const onChange = (event) => {
     setCurrent(event.detail.current);
   }
 
-  if (loading) {
+  if (isFirst && loading) {
     return <LoadingView />
+  }
+
+  if (!loading && banners.length === 0) {
+    return null
   }
 
   return (
@@ -32,10 +37,8 @@ const Component: FC<IBannerProps> = () => {
         autoplay
       >
         {banners.map((data, index) => (
-          <SwiperItem key={index}>
-            <View className={styles.banner_image} style={{ backgroundImage: `url(${data.imgUrl})` }}
-              onClick={() => navByLink(Number(data.urlType) as any, data.url!)}
-            >
+          <SwiperItem key={`banner_${index}`}>
+            <View className={styles.banner_image} style={{ backgroundImage: `url(${data.imgUrl})` }}>
               <View className={styles.banner_description}>
                 <Text className='banner_title'>{data.name}</Text>
                 {/* <Text className='banner_subtitle'>{fixText(image.content)}</Text> */}
@@ -56,6 +59,11 @@ const Component: FC<IBannerProps> = () => {
            />
         ))}
       </View>
+
+      <View className={styles.main_navigate}>
+        <ArrowDownFilled />
+      </View>
+
     </View>
   );
 };
@@ -64,7 +72,8 @@ const Banner = memo(Component)
 export default Banner
 
 function useBannerService() {
-  const [loading, setLoading] = useState(false)
+  const [isFirst, setIsFirst] = useState(true)
+  const [loading, setLoading] = useState(true)
   const [banners, setBanners] = useState<BannerPositionOutputDto[]>([])
 
   useDidShow(() => {
@@ -75,12 +84,12 @@ function useBannerService() {
   async function getBanners() {
     setLoading(true)
     const { data = [] } = await api['/wechat/mall/banner/queryList_GET']({position: 'BANNER'})
-
+    setIsFirst(false)
     setBanners(data)
     setLoading(false)
   }
 
-  return {loading, banners}
+  return {isFirst, loading, banners}
 }
 
 function fixText(text) {

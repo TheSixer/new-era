@@ -26,8 +26,8 @@ import LoadingView from "../../../components/loadingView";
 const Components:FC<ISignUpProps> = () => {
   const { params } = useRouter()
   const { user } = useGlobalStore()
-  const { activityId, unifyId } = params
-  const { loading: basicLoading, info } = useBasicService(activityId)
+  const { activityId, unifyId, latitude, longitude } = params
+  const { loading: basicLoading, info } = useBasicService(activityId, { latitude, longitude })
   const [toast] = useToast()
   const [auth, setAuth] = useState(false)
   const [agree, setAgree] = useState(false)
@@ -75,12 +75,19 @@ const Components:FC<ISignUpProps> = () => {
     rules: [
       {
         required: true,
-        message: '请输入真实姓名'
+        validate(_r, value) {
+          if (!value) {
+            toast?.message('请输入真实姓名')
+            return Promise.reject(new Error('请输入真实姓名'))
+          }
+          return Promise.resolve(true)
+        }
       }
     ]
   }
 
   const mobileFeildProps = {
+    disabled: true,
     rules: [
       {
         required: true,
@@ -150,12 +157,12 @@ const Components:FC<ISignUpProps> = () => {
       Taro.showToast({
         title: '提交成功',
         icon:'success',
-        duration: 1000,
-        mask: true,
-        success() {
-          Taro.navigateBack()
-        } 
+        mask: true
       })
+
+      setTimeout(() => {
+        Taro.navigateBack()
+      }, 1000)
     } catch (error) {}
     // // 同意用户协议
     // const { data: agreementTypeList = [] } = await api['/wechat/userAgreement/notAgreeAgreementTypeList_GET']()
@@ -192,6 +199,7 @@ const Components:FC<ISignUpProps> = () => {
             <View className={styles.form_item}>
               <View className={styles.label}>*手机号码<Text>(会员专享活动不支持更改手机号码)</Text></View>
               <MMFeild
+                fieldProps={{ disabled: true }}
                 {...feildProps}
                 {...mobileFeildProps}
                 className={styles.phone}
@@ -220,9 +228,10 @@ const Components:FC<ISignUpProps> = () => {
                 {...feildProps}
                 {...cardNoFeildProps}
                 className={styles.phone}
-                type='number'
+                type='idcard'
                 value={signInfo.cardNo}
                 name='cardNo'
+                cursor-spacing={100}
                 onChange={(cardNo) => updateInputValue({ cardNo })}
               />
             </View>
@@ -235,7 +244,7 @@ const Components:FC<ISignUpProps> = () => {
               renderUnCheck={<Image style={{ width: '26rpx', height: '26rpx' }} src={CheckIcon} />}
             >
               <View className={styles.aggreement}>
-                我已阅读并同意
+                我已阅读、理解并同意
                 <Text
                   className={styles.aggreement_text}
                   onClick={(ev) => {
@@ -244,9 +253,20 @@ const Components:FC<ISignUpProps> = () => {
                     Taro.navigateTo({ url: routeNames.mineUserAgreement })
                   }}
                 >
-                  《用户协议》
+                  《使用条款》
                 </Text>
-                及
+                、
+                <Text
+                  className={styles.aggreement_text}
+                  onClick={(ev) => {
+                    ev.stopPropagation()
+                    ev.preventDefault()
+                    Taro.navigateTo({ url: getParamsUrl(routeNames.mineUserAgreement, { type: EAgreementType.Promise }) })
+                  }}
+                >
+                  《免责承诺书》
+                </Text>
+                和
                 <Text
                   className={styles.aggreement_text}
                   onClick={(ev) => {
@@ -255,7 +275,7 @@ const Components:FC<ISignUpProps> = () => {
                     Taro.navigateTo({ url: getParamsUrl(routeNames.mineUserAgreement, { type: EAgreementType.Privacy }) })
                   }}
                 >
-                  《隐私政策》
+                  《隐私条款》
                 </Text>
               </View>
             </MMCheckbox>
@@ -287,13 +307,13 @@ const Components:FC<ISignUpProps> = () => {
 const SignUpPage = memo(Components);
 export default SignUpPage;
 
-function useBasicService(activityId) {
+function useBasicService(activityId, location = {}) {
   const [loading, setLoading] = useState(false)
   const [info, setInfo] = useState<ActivityOutputDto | null>(null)
 
-  async function getEventInfo(id: string) {
+  async function getEventInfo(id: number) {
     setLoading(true);
-    const { data = {} } = await api['/wechat/activity/detail/{id}_GET'](id)
+    const { data = {} } = await api['/wechat/activity/detail/{id}_GET']({id, ...location})
     setLoading(false);
     setInfo(data)
   }

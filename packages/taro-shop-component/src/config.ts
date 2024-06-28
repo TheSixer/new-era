@@ -31,6 +31,10 @@ export const rootUrl = ''
 // 不需要获取登录的页面
 export const noLoginRoutes = [
   routeNames.mineUserAgreement,
+  routeNames.decoration,
+  routeNames.eventsCities,
+  routeNames.eventsDetail,
+  routeNames.eventsPrefecture,
   // routeNames.goodsSearch,
   // routeNames.goodsGoodDetail,
   // routeNames.goodsGoodsList,

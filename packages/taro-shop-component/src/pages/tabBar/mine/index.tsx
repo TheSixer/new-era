@@ -19,7 +19,7 @@ import classNames from 'classnames'
 import { ArrowDownFilled } from '../../../components/Icons'
 import { navByLink } from '../../../components/pageModules/utils'
 import { EJumpType } from '@wmeimob-modules/decoration-data/src/enums/EJumpType'
-import Taro from '@tarojs/taro'
+import Taro, { useDidShow } from '@tarojs/taro'
 import { useGlobalStore } from '@wmeimob/taro-store'
 import useGetLocation from '../../../hooks/useGetLocation'
 import getParamsUrl from '@wmeimob/taro-utils/src/getParamsUrl'
@@ -32,23 +32,37 @@ const Component: FC<IIndexProps> = () => {
   useGetLocation()
 
   const orders = useMemo(() => [
-    { label: '我的预约', img: icon_reservation, url: '', params: { id: 1 }, num: 0 },
+    { label: '我的预约', img: icon_reservation, url: routeNames.mineEventsList, params: {}, num: 0 },
     { label: '我的订单', img: icon_order, url: '', params: { id: 2 }, num: 0 },
     { label: '新品预约', img: icon_new, url: '', params: { id: 3 }, num: 0 },
     { label: '我的奖品', img: icon_rewards, url: '', params: { id: 4 }, num: 0 },
     { label: '兑换记录', img: icon_exchange_records, url: '', params: { id: 5 }, num: 0 },
-    { label: '联系我们', img: icon_callus, url: '', params: { id: 6 }, num: 0 },
+    { label: '联系我们', img: icon_callus, url: 'call', params: { id: 6 }, num: 0 },
     ...(user.checkUser ? [{ label: '活动核销', img: icon_check, url: routeNames.mineVerifyVerifycode, num: 0 }] : [])
   ], [user]);
 
-  useEffect(() => {
+  useDidShow(() => {
     if (user.mobile && !user.registerIs) {
       navByLink(EJumpType.DefaultNav, { url: routeNames.webAuth, params: {} })
     }
-  }, [user])
+  })
 
   const jumpClick = (url?: string, params?: object) => {
     Taro.navigateTo({ url: getParamsUrl(url, params) })
+  }
+
+  // 联系我们
+  const contactUs = () => {
+    Taro.showModal({
+      title: '联系我们',
+      content: '15001745846',
+      confirmText: '拨号',
+      success: (res) => {
+        if (res.confirm) {
+          Taro.makePhoneCall({ phoneNumber: '15001745846' })
+        }
+      }
+    })
   }
 
   return (
@@ -87,7 +101,7 @@ const Component: FC<IIndexProps> = () => {
   
                 <View className={styles.row}>
                   {orders.map((item) => (
-                    <View key={item.label} className={styles.cell} onClick={() => jumpClick(item.url || '', item.params)}>
+                    <View key={item.label} className={styles.cell} onClick={() => item.url === 'call' ? contactUs() : jumpClick(item.url || '', item.params)}>
                       <View className={styles.cell_img}>
                         {!!item.num && <MMBadge value={item.num} absolute offset={[0, 5]} />}
                         <Image src={item.img} className={styles.orderCard_icon} />
@@ -127,8 +141,11 @@ const Component: FC<IIndexProps> = () => {
               </View>
 
               <View className={styles.footer_area}>
-                <View className={styles.footer_area_text}>如有问题，请联系我们：<Text className={styles.footer_area_link}>021-1234567</Text></View>
-                <View className={classNames(styles.footer_area_text, styles.footer_area_link)} onClick={() => jumpClick(routeNames.mineUserAgreement, { type: EAgreementType.Privacy })}>隐私协议及服务条款</View>
+                <View className={styles.footer_area_text}>如有问题，请联系我们：<Text className={styles.footer_area_link} onClick={contactUs}>15001745846</Text></View>
+                <View className={classNames(styles.footer_area_text, styles.footer_area_link)}>
+                  <Text onClick={() => jumpClick(routeNames.mineUserAgreement, { type: EAgreementType.Privacy })}>隐私协议</Text>及
+                  <Text onClick={() => jumpClick(routeNames.mineUserAgreement, {})}>服务条款</Text>
+                </View>
               </View>
 
             </View>

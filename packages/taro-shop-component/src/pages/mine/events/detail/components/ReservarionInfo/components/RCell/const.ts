@@ -1,4 +1,6 @@
+import { ReactNode } from "react";
+
 export interface ICellProps {
-    title: string;
-    value?: string;
+    title: ReactNode;
+    value?: ReactNode;
 }

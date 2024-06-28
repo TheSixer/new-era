@@ -24,7 +24,7 @@ const Component: FC<IDecorationListProps> = (props) => {
     { title: '页面名称', dataIndex: 'name' },
     { title: '页面标题', dataIndex: 'title', hideInSearch: true },
     {
-      title: '设为首页',
+      title: '设为内购首页',
       dataIndex: 'title',
       hideInSearch: true,
       width: 100,
@@ -46,6 +46,8 @@ const Component: FC<IDecorationListProps> = (props) => {
         )
       }
     },
+    { title: '更新时间', dataIndex: 'gmtModified', valueType: 'dateTime', hideInSearch: true },
+    { title: '创建时间', dataIndex: 'gmtCreated', valueType: 'dateTime', hideInSearch: true },
     {
       title: '操作',
       dataIndex: 'option',

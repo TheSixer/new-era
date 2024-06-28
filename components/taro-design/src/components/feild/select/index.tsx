@@ -41,6 +41,7 @@ const Component = forwardRef<IFeildRef, ISelectProps>((props, ref) => {
         errorMsg={errorMsg}
         renderProps={
           <View
+            style={{ width: '100%'}}
             onClick={() => {
               !props.readonly && setVisible(true)
               onShowChange?.(true)

@@ -13,13 +13,15 @@ interface IFooterBarProps {
 const Component: FC<IFooterBarProps> = (props) => {
   const { info, onSign } = props
 
+  const isOpen = info?.bookStartTime && info?.bookEndTime && Date.now() > new Date(info?.bookStartTime)?.getTime() && Date.now() < new Date(info?.bookEndTime)?.getTime()
+
   // 处于进行中的限时抢购 或 【未开始的限时抢购 且没有其他常规活动】
   return (
     <MMFixFoot className={styles.foorter} dynamic>
       <View className={styles.buttons}>
         <Countdown startTime={info?.startTime} endTime={info?.endTime} />
         {
-          info?.activityStatus === 1 && <Button className={styles.sign_btn} onClick={() => onSign()}>立即报名</Button>
+          isOpen && <Button className={styles.sign_btn} onClick={() => onSign()}>立即报名</Button>
         }
       </View>
     </MMFixFoot>

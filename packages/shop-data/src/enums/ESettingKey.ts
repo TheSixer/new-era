@@ -128,6 +128,12 @@ export enum ESettingKey {
   privacy_agreement = 'privacy_agreement',
 
   /**
+   * 免责承诺书
+   * @description 具体文本存在云服务器
+   */
+  promise_agreement = 'promise_agreement',
+
+  /**
    * 系统设置-是否开启订单评价
    * 'true' 开启 'false' 关闭
    * @default 'true'

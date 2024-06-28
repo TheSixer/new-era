@@ -14,7 +14,8 @@ export enum EJumpType {
   DecorationPage = 5,
   /** 自定义链接 */
   CustomLink = 6,
-
+  /** H5链接 */
+  H5Link = 8
 }
 
 /** 描述数据 */
@@ -24,5 +25,6 @@ export const MJumpType = {
   [EJumpType.GoodDetail]: '商品详情',
   [EJumpType.LivePage]: '直播页面',
   [EJumpType.DecorationPage]: '装修页面',
-  [EJumpType.CustomLink]: '自定义链接'
+  [EJumpType.CustomLink]: '自定义链接',
+  [EJumpType.H5Link]: 'H5链接'
 }

@@ -41,7 +41,7 @@ const Component: FC = () => {
     mobile: user.mobile || '',
     nickName: user.nickName || '',
     gender: Number(user.gender) || 0,
-    province: [{
+    province: user?.provinceId ? [{
       id: user.provinceId || '',
       text: user.province || ''
     },
@@ -52,7 +52,7 @@ const Component: FC = () => {
     {
       id: user.areaId || '',
       text: user.area || '' 
-    }]
+    }] : []
   })
 
   const [changed, setChanged] = useState(false)
@@ -128,6 +128,7 @@ const Component: FC = () => {
   }
 
   const handleBirthChange = (birthday) => {
+    setChanged(true)
     setBirthday(dayjs(birthday).format('YYYY-MM-DD'))
   }
 
@@ -151,8 +152,8 @@ const Component: FC = () => {
         provinceId: province.id,
         city: city.text,
         cityId: city.id,
-        area: area.text,
-        areaId: area.id,
+        area: area?.text || city.text,
+        areaId: area?.id,
         birthday
       })
       await getUserAction()
@@ -207,9 +208,9 @@ const Component: FC = () => {
             name='nickName'
             onChange={(nickName) => updateInputValue({ nickName })}
           />
-          <View className={styles.field_container} onClick={() => setShowBirth(true)}>
+          <View className={styles.field_container} onClick={() => !user?.birthdayModifiedIs && setShowBirth(true)}>
             <Text className={styles.field_label}>生日（仅可修改一次）</Text>
-            <Text className={styles.field__text}>{birthday || '请选择'}</Text>
+            <Text className={styles.field__text} style={{ color: !user?.birthdayModifiedIs ? '#fff' : '#A7A9AC' }}>{birthday || '请选择'}</Text>
           </View>
           <MMFeild.CityPicker
             {...feildProps}

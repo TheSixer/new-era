@@ -578,6 +578,21 @@ export interface JsonResultListActivityClassifyOutputDto {
 }
 
 /**
+ * JsonResultDetailResultCheckWhiteOutputDto
+ */
+export interface JsonResultDetailResultCheckWhiteOutputDto {
+  code?: number;
+  data: CheckWhiteOutput;
+  msg?: string;
+  [property: string]: any;
+}
+
+export interface CheckWhiteOutput {
+  white?: boolean;
+  book?: boolean;
+}
+
+/**
  * JsonResult«PagedResult«ActivityOutputDto»»
  */
 export interface JsonResultDetailResultActivityOutputDto {
@@ -11912,6 +11927,8 @@ export interface UserAddressOutPutDto {
    * @format int32
    */
   tag?: number;
+  latitude?: number;
+  longitude?: number;
 }
 
 export interface UserAddressModifyInputDto {

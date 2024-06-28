@@ -158,7 +158,7 @@ const Component: FC = () => {
             onChange={(nickName) => updateInputValue({ nickName })}
           />
           <View className={styles.field_container} onClick={() => setShowBirth(true)}>
-            <Text className={styles.field_label}>生日</Text>
+            <Text className={styles.field_label}>生日<Text style={{ color: 'red' }}>*</Text></Text>
             <Text className={styles.field__text}>{birthday || '请选择'}</Text>
           </View>
           <MMFeild.CityPicker

@@ -6,7 +6,7 @@ import styles from './index.module.less'
 const Component: FC<ITitleProps> = ({ title, subTitle }) => (
   <View className={styles.banner_title}>
     <Text className={styles.banner_title__text}>{title}</Text>
-    <Text className={styles.banner_title__sub}>{subTitle}</Text>
+    <Text className={styles.banner_title__sub}>{subTitle?.toLocaleUpperCase()}</Text>
   </View>
 )
 

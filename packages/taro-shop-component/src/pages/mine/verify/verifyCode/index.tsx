@@ -49,32 +49,39 @@ const Components: FC<IVerifyProps> = () => {
     Taro.navigateTo({ url: getParamsUrl(url, params) })
   }
 
-  const handleScan = () => {
+  const handleScan = (event: any) => {
     Taro.scanCode({
       onlyFromCamera: true,
       success: (res) => {
-        setVerifyCode(res.result);
+        if (!/^[a-zA-Z0-9]+$/.test(verifyCode)) return toast?.message('无效的核销码')
         toast?.loading()
-        fetchData(res.result, () => {
-          jumpClick(routeNames.mineVerifyDetail, { verifyCode: res.result })
+        fetchData(res.result, (isSuccess) => {
+          isSuccess && jumpClick(routeNames.mineVerifyDetail, { verifyCode: res.result })
+          setVerifyCode('');
           toast?.hideLoading()
         })
       },
       fail: () => {
-        toast?.fail('扫码失败');
+        toast?.message('扫码失败');
       }
     })
+    event.stopPropagation()
   }
 
   /**
-   * 点击登录
+   * 点击确认
    *
    */
   const [handleSubmit, loading] = useSuperLock(async () => {
-    const values = await formRef.current!.validateFields()
-    await api['/wechat/activity/book_POST']({ ...values })
-
-    Taro.navigateBack()
+    if (!/^[a-zA-Z0-9]+$/.test(verifyCode)) return toast?.message('请输入正确的核销码')
+    if (verifyCode) {
+      toast?.loading()
+      fetchData(verifyCode, (isSuccess) => {
+        isSuccess && jumpClick(routeNames.mineVerifyDetail, { verifyCode })
+        setVerifyCode('');
+        toast?.hideLoading()
+      })
+    }
   })
 
   return (
@@ -92,7 +99,7 @@ const Components: FC<IVerifyProps> = () => {
               className={styles.phone}
               type="custom"
               value={verifyCode}
-              name="realName"
+              name="verifyCode"
               onChange={(code) => setVerifyCode(code)}
             />
 
@@ -120,14 +127,15 @@ const SignUpPage = memo(Components)
 export default SignUpPage
 
 function useBasicService() {
-  async function fetchData(verifyCode, callback?: () => void) {
+  async function fetchData(verifyCode, callback?: (p?: boolean) => void) {
     try {
       await api['/wechat/activity/bookRecordDetail/check/{verifyCode}_GET']({
         verifyCode
       })
-      callback?.();
+      callback?.(true);
     } catch (error) {
     }
+    callback?.(false);
   }
 
   return { fetchData }

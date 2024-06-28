@@ -7,7 +7,6 @@ import Banner from './components/banner'
 import RecommendStory from './components/recommendStory'
 import Premium from './components/premium'
 import EarnPoints from './components/earnPoints'
-import { ArrowDownFilled } from '../../../components/Icons'
 import './index.less';
 import CustomEarnItem from './components/customEarnItem'
 import CustomActivitiesItem from './components/CustomActivitiesItem'
@@ -15,6 +14,7 @@ import AboutUs from './components/aboutUs'
 import { ActivityOutputDto, BannerPositionOutputDto, api } from '@wmeimob/taro-api'
 import InitScreen from './components/initScreen'
 import usePopupScreen from './hooks/usePopupScreen'
+import { useDidShow } from '@tarojs/taro'
 
 interface IHomeProps {}
 
@@ -38,13 +38,7 @@ const Component: FC<IHomeProps> = () => {
     <PageContainer isTab className={styles.homeStyle}>
       <ScrollView className={styles.scroll} scrollY showScrollbar={false} enhanced={true}>
         <View className={styles.main_content}>
-          <View className={styles.page_item} style={{ position: 'relative' }}>
-            <Banner />
-
-            <View className={styles.main_navigate}>
-              <ArrowDownFilled />
-            </View>
-          </View>
+          <Banner />
 
           <RecommendStory style={{height: '670rpx'}} />
 
@@ -64,13 +58,9 @@ const Component: FC<IHomeProps> = () => {
             renderItem={(item, index) => <CustomActivitiesItem item={item} index={index} />}
           />
 
-          <View className={styles.page_item}>
-            <Premium />
-          </View>
+          <Premium />
 
-          <View className={styles.page_item}>
-            <AboutUs />
-          </View>
+          <AboutUs />
 
         </View>
 
@@ -124,9 +114,9 @@ function useDidShowService() {
   const [earnPointsBanners, setEarnPointsBanners] = useState<BannerPositionOutputDto[]>([])
   const [activities, setActivities] = useState<ActivityOutputDto[]>([])
 
-  useEffect(() => {
+  useDidShow(() => {
     getBanners()
-  }, []);
+  });
 
   /** 获取banners */
   async function getBanners() {
@@ -137,7 +127,7 @@ function useDidShowService() {
     ])
 
     setEarnPointsBanners(earnPoints)
-    setActivities(activities)
+    setActivities(activities?.filter((item) => item.indexView))
     setLoading(false)
   }
 

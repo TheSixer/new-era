@@ -20,8 +20,6 @@ const Component: FC<any> = ({ history }) => {
   const editModal = useProTableForm<BannerCreateInputDto>()
   const [columns] = useState<ProColumns<BannerOutputDto>[]>([
     { title: '图片', dataIndex: 'imgUrl', valueType: 'image', hideInSearch: true, width: 100 },
-    { title: '标题', dataIndex: 'name' },
-    { title: '文字', dataIndex: 'content', hideInSearch: true },
     // {
     //   title: '显示位置',
     //   dataIndex: 'position',
@@ -43,7 +41,7 @@ const Component: FC<any> = ({ history }) => {
       width: 90,
       hideInSearch: true,
       render(value: any) {
-        return <span>{MJumpType[value]}</span>
+        return <span>{MJumpType[value] || '无'}</span>
       }
     },
     {
@@ -115,7 +113,7 @@ const Component: FC<any> = ({ history }) => {
 
   async function handleEditFormFinish(values: BannerCreateInputDto) {
     const isAdd = !editModal.editData?.id
-    const { content, type } = values?.jumpType
+    const { content, type } = values?.jumpType || {}
 
     const params = {
       ...values,
@@ -154,11 +152,6 @@ const Component: FC<any> = ({ history }) => {
       <ProFormJumpType label="跳转类型" name="jumpType" />
 
       <ProFormDigit label="排序" name="sort" rules={mmFormRule.required} fieldProps={{ precision: 0, min: 0, max: 9999 }} />
-
-      <ProFormLimitInput label="标题" name="name" rules={mmFormRule.required} maxLength={20} />
-
-      {/* <ProFormLimitInput label="内容" name="content" rules={mmFormRule.required} maxLength={20} /> */}
-      <ProFormTextArea label="内容" name="content" rules={mmFormRule.required} />
 
       {/* <ProFormCheckbox.Group label="显示位置" name="position" rules={mmFormRule.required} options={OAdvertisingPosition} /> */}
 

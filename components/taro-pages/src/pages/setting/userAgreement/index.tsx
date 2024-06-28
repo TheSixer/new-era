@@ -16,7 +16,7 @@ const Component: FC<IUserAgreementProps> = (props) => {
 
   return (
     <PageContainer className={styles.userAgreementStyle}>
-      <MMNavigation title={service.title} type='Transparent' />
+      <MMNavigation title={service.title} type='Default' />
       <View>
         <MMRichText html={service.agreement} />
       </View>
@@ -45,11 +45,13 @@ export function useService(type: EAgreementType|string) {
 
   const key = {
     [EAgreementType.User]: 'user_agreement',
-    [EAgreementType.Privacy]: 'privacy_agreement'
+    [EAgreementType.Privacy]: 'privacy_agreement',
+    [EAgreementType.Promise]: 'promise_agreement'
   }
   const titles = {
     [EAgreementType.User]: '用户协议',
-    [EAgreementType.Privacy]: '隐私政策'
+    [EAgreementType.Privacy]: '隐私条款',
+    [EAgreementType.Promise]: '免责承诺书'
   }
 
   const title = titles[type]

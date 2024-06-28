@@ -6,6 +6,7 @@ import { BlackArrowDownFilled } from '../../../../../components/Icons';
 import Taro from '@tarojs/taro';
 import getParamsUrl from '@wmeimob/taro-utils/src/getParamsUrl';
 import { routeNames } from '../../../../../routes';
+import dayjs from 'dayjs';
 
 const Component: FC<IActivitiesItemProps> = ({ item }) => (
   <View
@@ -18,7 +19,7 @@ const Component: FC<IActivitiesItemProps> = ({ item }) => (
     }}
   >
     <View className={styles.custom_swiper_item_content}>
-      <View className={styles.custom_swiper_item_title}>{item.startTime}-{item.endTime}</View>
+      <View className={styles.custom_swiper_item_title}>{dayjs(item.startTime).format('YYYY-MM-DD')}-{dayjs(item.endTime).format('YYYY-MM-DD')}</View>
       
       <View className={styles.custom_swiper_item_desc}>
         <View className={styles.custom_swiper_item_desc__txt}>{item.name}</View>

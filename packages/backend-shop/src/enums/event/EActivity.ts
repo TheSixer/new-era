@@ -3,7 +3,7 @@ import { convertEnum } from '@wmeimob/utils/src/enumUtil'
 /** 报名启态 */
 export enum EActivityStatus {
   /** 全部 */
-  All = -1,
+  All = '',
   /** 待分配座位 */
   Dispatching = 0,
   /** 已分配座位 */

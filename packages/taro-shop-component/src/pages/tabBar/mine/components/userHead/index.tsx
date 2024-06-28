@@ -1,20 +1,11 @@
 import Taro from '@tarojs/taro'
-import { FC, memo, useMemo } from 'react'
+import { FC, memo } from 'react'
 import styles from './index.module.less'
 import { IUserHeadProps } from './const'
 import MMAvatar from '@wmeimob/taro-design/src/components/avatar'
-import MMIconFontName from '@wmeimob/taro-design/src/components/icon-font/const'
-import { Image, Text, View } from '@tarojs/components'
-import MMIconFont from '@wmeimob/taro-design/src/components/icon-font'
+import { View } from '@tarojs/components'
 import { routeNames } from '../../../../../routes'
 import useGlobalStore from '../../../../../globalStore'
-import classNames from 'classnames'
-import iconMobile from './images/icon_mobile.png'
-import iconBirthday from './images/icon_birthday.png'
-import { systemConfig } from '../../../../../config'
-import SignButton from '@wmeimob-modules/task-taro/src/components/signButton'
-import { navByLink } from '../../../../../components/pageModules/utils'
-import { EJumpType } from '@wmeimob-modules/decoration-data/src/enums/EJumpType'
 import { ArrowFilled } from '../../../../../components/Icons'
 
 // const { enableSignTask } = systemConfig.config
@@ -22,16 +13,17 @@ import { ArrowFilled } from '../../../../../components/Icons'
 const Component: FC<IUserHeadProps> = () => {
   const { user, isLogin } = useGlobalStore()
 
-  const desensitizationMobile = useMemo(() => (user.mobile ? user.mobile.replace(/(\d{3})(\d+)(\d{4})/, '$1****$3') : '授权手机号'), [user.mobile])
+  // const desensitizationMobile = useMemo(() => (user.mobile ? user.mobile.replace(/(\d{3})(\d+)(\d{4})/, '$1****$3') : '授权手机号'), [user.mobile])
 
   // 点击头像部分
   const handleClick = () => {
     if (!user.mobile) {
-      navByLink(EJumpType.None, {})
-      // return Taro.navigateTo({ url: routeNames.auth })
+      Taro.navigateTo({ url: routeNames.auth })
+    } else if (!user.registerIs) {
+      Taro.navigateTo({ url: routeNames.webAuth })
+    } else {
+      Taro.navigateTo({ url: routeNames.minePersonal })
     }
-
-    Taro.navigateTo({ url: routeNames.minePersonal })
   }
 
   return (

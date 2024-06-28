@@ -28,7 +28,7 @@ const Component: FC<any> = ({ history }) => {
       width: 90,
       hideInSearch: true,
       render(value: any) {
-        return <span>{MJumpType[value]}</span>
+        return <span>{MJumpType[value] || '无'}</span>
       }
     },
     {
@@ -100,7 +100,7 @@ const Component: FC<any> = ({ history }) => {
 
   async function handleEditFormFinish(values: BannerCreateInputDto) {
     const isAdd = !editModal.editData?.id
-    const { content, type } = values?.jumpType
+    const { content, type } = values?.jumpType || {}
 
     const params = {
       ...values,
@@ -127,7 +127,7 @@ const Component: FC<any> = ({ history }) => {
     <ModalForm<BannerCreateInputDto>
       {...editModal.modalProps}
       width={600}
-      title={`Banner${editModal.editData?.id?'编辑':'新增'}`}
+      title={`${editModal.editData?.id?'编辑':'新增'}`}
       layout="horizontal"
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 16 }}

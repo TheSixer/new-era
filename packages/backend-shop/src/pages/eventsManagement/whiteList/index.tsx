@@ -11,8 +11,11 @@ import useProTableForm from '@wmeimob/backend-pro/src/hooks/useProTableForm'
 import { ModalForm } from '@ant-design/pro-form'
 import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormLimitInput'
 import { EJumpType } from '~/components/jumpType/enums/EJumpType'
+import useQuery from '~/hooks/useQuery'
 
 const Component: FC<IListProps> = (props) => {
+  const query = useQuery()
+  const activityId = query.get('activityId') || ''
   const editModal = useProTableForm<ActivityWhiteCreateInputDto>()
 
   const [columns] = useState<ProColumns<ActivityWhiteCreateInputDto>[]>([
@@ -26,7 +29,7 @@ const Component: FC<IListProps> = (props) => {
     },
     { title: '姓名', dataIndex: 'name', hideInSearch: true },
     { title: '手机号', dataIndex: 'mobile', hideInSearch: true },
-    { title: '创建时间', dataIndex: 'gmtCreate', hideInSearch: true },
+    { title: '创建时间', dataIndex: 'gmtCreated', valueType: 'dateTime', hideInSearch: true },
     {
       title: '操作',
       dataIndex: 'option',
@@ -69,7 +72,7 @@ const Component: FC<IListProps> = (props) => {
 
     const params = {
       ...values,
-      id: editModal.editData?.id
+      activityId
     }
 
     try {
@@ -110,6 +113,7 @@ const Component: FC<IListProps> = (props) => {
         rowKey="id"
         columns={columns}
         request={request}
+        params={{activityId}}
         search={{
           defaultCollapsed: false,
           labelWidth: 'auto',

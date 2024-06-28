@@ -6,7 +6,7 @@ import ProTable, { ProColumns } from '@ant-design/pro-table'
 import { PageContainer } from '@ant-design/pro-layout'
 import useProTableRequest from '@wmeimob/backend-pro/src/hooks/useProTableRequest'
 import { CheckUserCreateInputDto, api } from '~/request'
-import { Button, message } from 'antd'
+import { Button, Form, Input, message } from 'antd'
 import useProTableForm from '@wmeimob/backend-pro/src/hooks/useProTableForm'
 import { ModalForm } from '@ant-design/pro-form'
 import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormLimitInput'
@@ -16,8 +16,18 @@ const Component: FC<IListProps> = (props) => {
   const editModal = useProTableForm<CheckUserCreateInputDto>()
 
   const [columns] = useState<ProColumns<CheckUserCreateInputDto>[]>([
-    { title: '姓名', dataIndex: 'name', fieldProps: () => ({ placeholder: '输入姓名' }) },
-    { title: '手机号', dataIndex: 'mobile', fieldProps: () => ({ placeholder: '输入手机号' }) },
+    {
+      dataIndex: 'name',
+      hideInTable: true,
+      formItemProps: { labelCol: { span: 0 }, colon: false },
+      renderFormItem: () => {
+        return <Form.Item label="关键字">
+          <Input placeholder="姓名/手机号" maxLength={20} allowClear />
+        </Form.Item>
+      }
+    },
+    { title: '姓名', dataIndex: 'name', hideInSearch: true, fieldProps: () => ({ placeholder: '输入姓名' }) },
+    { title: '手机号', dataIndex: 'mobile', hideInSearch: true, fieldProps: () => ({ placeholder: '输入手机号' }) },
     { title: '创建时间', dataIndex: 'gmtCreated', hideInSearch: true },
     {
       title: '操作',

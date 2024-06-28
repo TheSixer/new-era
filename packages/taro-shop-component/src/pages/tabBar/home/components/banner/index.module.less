@@ -85,3 +85,23 @@
     background-color: rgba(255, 255, 255, .8);
   }
 }
+
+.main_navigate {
+  position: absolute;
+  bottom: 228rpx;
+  left: 50%;
+  transform: translateX(-50%);
+  animation: upDown 2s ease-in-out infinite;
+}
+
+@keyframes upDown {
+  0% {
+    transform: translate(-50%, 0);
+  }
+  50% {
+    transform: translate(-50%, -6rpx);
+  }
+  100% {
+    transform: translate(-50%, 0);
+  }
+}

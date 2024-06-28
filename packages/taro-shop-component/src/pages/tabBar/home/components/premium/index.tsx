@@ -1,6 +1,6 @@
 // src/components/CustomSwiper/CustomSwiper.jsx
 import { useEffect, useState } from 'react';
-import { View, Image } from '@tarojs/components';
+import { View, Image, Button } from '@tarojs/components';
 import styles from './index.module.less';
 import classNames from 'classnames';
 import Title from '../title';
@@ -10,6 +10,7 @@ import { BannerPositionOutputDto, api } from '@wmeimob/taro-api';
 import { navByLink } from '../../../../../components/pageModules/utils';
 import { MMEmpty } from '@wmeimob/taro-design';
 import emptyImg from '../../../../../assets/images/icon_empty.png'
+import { useDidShow } from '@tarojs/taro';
 
 const CustomSwiper = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -90,7 +91,9 @@ const CustomSwiper = () => {
                     <Text className={styles.swiper_slide_price}>¥429</Text>
                   </View> */}
                   <Image src={image.imgUrl || ''} mode="aspectFill" className={styles.swiper_slide_image} style={{ width: '100%', height: '100%' }} />
-                  {/* <View className={styles.swiper_slide_footer}>
+                  {image.urlType ? <Button className={styles.swiper_slide_btn}>查看详情</Button> : null}
+                  
+                    {/* <View className={styles.swiper_slide_footer}>
                     <View className={styles.swiper_slide_footer__txt}>6月16日 10:00发售</View>
                     <Button className={classNames('banner_btn', styles.swiper_slide_btn)}>立即预约</Button> 
                   </View> */}
@@ -122,19 +125,14 @@ function useBannerService() {
   const [loading, setLoading] = useState(false)
   const [banners, setBanners] = useState<BannerPositionOutputDto[]>([])
 
-  useEffect(() => {
+  useDidShow(() => {
     getBanners()
-  }, []);
+  });
 
   /** 获取banners */
   async function getBanners() {
     setLoading(true)
-    let { data = [] } = await api['/wechat/mall/banner/queryList_GET']({position: 'GOODS'})
-
-    while(data.length < 5) {  // 补充数据
-      data = data.concat(data)
-    }
-
+    const { data = [] } = await api['/wechat/mall/banner/queryList_GET']({position: 'GOODS'})
     setBanners(data)
     setLoading(false)
   }

@@ -49,7 +49,6 @@ const Component: FC = (props) => {
 
   const { modalProps, editData, setEditData, setVisible } = useProTableForm()
   const { treeData, checkedMenus, handleMenusCheck } = useAuthTree({ data: editData, visible: modalProps.visible, form: modalProps.form })
-
   const handleFormFinish = async (value) => {
     const resourceIds: number[] = [...checkedMenus.checked, ...checkedMenus.halfChecked]
     try {

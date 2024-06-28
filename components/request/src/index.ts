@@ -63,7 +63,7 @@ export async function requestInterceptorHanlder(res: any, option: IResOption) {
     // 没有权限
     option.message.warn(data.msg || '无权访问该资源')
     description = ''
-  } else if (data.code === 401 || data.code === 40003) {
+  } else if (data.code === 401 || data.code === 40003 || data.code === 40005) {
     // 未登录 或者 用户token过期、错误
     if (!/\/login\?/.test(window.location.pathname)) {
       option.history.replace({ pathname: option.loginUrl })

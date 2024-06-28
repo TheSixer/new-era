@@ -5,8 +5,9 @@
  * 运行 npm run route 或者 yarn route 自动生成
  */
 export const routeNames = {
-  tabBarMine: '/pages/tabBar/mine/index',
   tabBarHome: '/pages/tabBar/home/index',
+  tabBarMine: '/pages/tabBar/mine/index',
+  webPage: '/pages/webPage/index',
   auth: '/pages/auth/index',
   webAuth: '/pages/webAuth/index',
   mineUserAgreement: '/pages/mine/userAgreement/index',

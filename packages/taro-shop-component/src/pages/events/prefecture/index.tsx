@@ -1,4 +1,3 @@
-/* eslint-disable no-console */
 import Taro from '@tarojs/taro'
 import { FC, memo, useEffect, useState } from 'react'
 import { View, Text } from '@tarojs/components'
@@ -16,7 +15,6 @@ import getParamsUrl from '@wmeimob/taro-utils/src/getParamsUrl'
 import EventItem from './components/eventItem'
 import { PositionFilled } from '../../../components/Icons'
 import Tabs from './components/Tabs'
-import useGetLocation from '../../../hooks/useGetLocation'
 import { useGlobalStore } from '@wmeimob/taro-store'
 import { useAtom } from 'jotai'
 import { addressAtom } from './store'
@@ -28,8 +26,7 @@ export interface TabItem {
 
 const Component: FC<IPrefectureProps> = () => {
   const [activeTab, setActiveTab] = useState(0)
-  const { location = { latitude: 121.52, longitude: 30.86} } = useGetLocation()
-  const { activityTypes, address: position } = useTypesService(location)
+  const { activityTypes, getPosition } = useTypesService()
   const { user } = useGlobalStore()
   const [address, setAddress] = useAtom(addressAtom)
 
@@ -41,29 +38,80 @@ const Component: FC<IPrefectureProps> = () => {
 
   const navigate = () => {
     Taro.navigateTo({
-      url: getParamsUrl(routeNames.eventsCities,
-        {
-          city: '上海'
-        })
+      url: getParamsUrl(routeNames.eventsCities, {})
     })
   }
 
   useEffect(() => {
-    setAddress(position)
-  }, [position])
+    if (!address?.province && (!address?.latitude || !address?.longitude)) {
+      Taro.authorize({
+        scope: 'scope.userLocation',
+        success() {
+          // 用户已经同意授权
+          getLocation()
+        },
+        fail() {
+          // 用户拒绝授权，引导用户到设置页开启授权
+          Taro.showModal({
+            title: '授权提示',
+            content: '请前往设置开启位置信息授权',
+            success(res) {
+              if (res.confirm) {
+                Taro.openSetting({
+                  success(settingRes) {
+                    if (settingRes.authSetting['scope.userLocation']) {
+                      // 用户已同意授权，重新获取位置
+                      getLocation();
+                    }
+                  }
+                });
+              }
+              setAddress({ province: '上海市' })
+            }
+          });
+        }
+      });
+    }
+  }, [address]);
+
+  const getLocation = () => {
+    Taro.getLocation({
+      type: 'wgs84',
+      success(res) {
+        getPosition({
+            latitude: res?.latitude,
+            longitude: res?.longitude
+        }, (province) => {
+          setAddress({
+            province,
+            latitude: res?.latitude,
+            longitude: res?.longitude
+          })
+        });
+      },
+      fail() {
+        setAddress({ province: '上海市' })
+        Taro.showToast({
+          title: '获取位置失败',
+          icon: 'none'
+        });
+      }
+    });
+  }
 
   return (
     <PageContainer className={styles.prefectureStyle} noPlace>
-      <MMNavigation title='活动预约' type="Transparent" />
+      <MMNavigation title="活动预约" type="Transparent" />
 
       <MMPullToRefresh
         {...pullToRefreshProps}
-        empty={pullInfo.isEmpty &&
-        <MMEmpty fixed text='暂无数据' src={emptyImg} imgStyle={{ width: '64rpx', height: '64rpx' }} />}
+        empty={pullInfo.isEmpty && <MMEmpty fixed text="暂无数据" src={emptyImg} imgStyle={{ width: '64rpx', height: '64rpx' }} />}
       >
         <View className={styles.event_container}>
           <View className={styles.event_header}>
-            <Text className={styles.timePeriod}>{getTimePeriod()}好，{user.nickName}</Text>
+            <Text className={styles.timePeriod}>
+              {getTimePeriod()}好，{user.nickName}
+            </Text>
             <View className={styles.event_position} onClick={navigate}>
               <PositionFilled width="24rpx" height="24rpx" />
               <Text className={styles.event_position_text}>{address?.province}</Text>
@@ -89,75 +137,66 @@ const Prefecture = memo(Component)
 export default Prefecture
 
 function getTimePeriod() {
-  const now = new Date();
-  const hour = now.getHours();
+  const now = new Date()
+  const hour = now.getHours()
 
   if (hour < 12) {
-    return "上午";
+    return '上午'
   } else if (hour < 14) {
-    return "中午";
-  } 
-  return "下午";
+    return '中午'
+  }
+  return '下午'
 }
 
-function useTypesService(location) {
-  const [position, setPosition] = useState<any>()
+function useTypesService() {
   const [activityTypes, setActivityTypes] = useState<TabItem[]>([{ label: '全部', value: 0 }])
 
   async function getActivityTypes() {
     try {
       const { data = [] } = await api['/wechat/activity/classList_GET']({})
       setActivityTypes((prev) => prev.concat(data?.map((item) => ({ label: item.name, value: item.id }))))
-    } catch (error) {
-    }
+    } catch (error) {}
   }
 
-  async function getPosition(locat) {
+  async function getPosition(location, callback) {
     try {
-      const { data: address } = await api['/wechat/activity/getAddress_GET'](locat)
-      setPosition(address)
-    } catch (error) {
-    }
+      const {
+        data: { addressComponent }
+      } = await api['/wechat/activity/getAddress_GET'](location)
+      callback(addressComponent?.province?.length > 0 ? addressComponent?.province : '上海市')
+    } catch (error) {}
   }
 
   useEffect(() => {
     getActivityTypes()
   }, [])
 
-  useEffect(() => {
-    if (location.latitude && location.longitude) {
-      getPosition(location)
-    }
-  }, [location])
-
-  return { activityTypes, address: position }
+  return { activityTypes, getPosition }
 }
 
-function useBasicService(activeTab, location) {
+function useBasicService(activeTab, address) {
   const [info, pullToRefreshProps] = useMMPullToRefresh<ActivityOutputDto>({
     initRequest: false,
     getData: async (queryParams) =>
       api['/wechat/activity/activityList_GET']({
         ...queryParams,
         classifyId: activeTab || '',
-        ...location
-        // latitude: 120.52,
-        // longitude: -122.12
-        // 常规活动
-        // activityTypeList: [EActivityType.Deduction, EActivityType.Discount, EActivityType.Presented].map(String)
+        ...location,
+        ...address
       })
   })
 
   useEffect(() => {
-    pullToRefreshProps.onRefresh()
-  }, [activeTab, location])
+    if (address.province || (address?.latitude && address?.longitude)) {
+      pullToRefreshProps.onRefresh()
+    }
+  }, [activeTab, address])
 
   function toActivityDetail(activity: MarketingActivityDto) {
     Taro.navigateTo({
-      url: getParamsUrl(routeNames.eventsDetail,
-        {
-          id: activity.id
-        })
+      url: getParamsUrl(routeNames.eventsDetail, {
+        id: activity.id
+      })
     })
   }
 

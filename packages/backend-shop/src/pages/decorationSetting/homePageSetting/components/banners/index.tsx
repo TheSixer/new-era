@@ -29,7 +29,7 @@ const Component: FC<any> = ({ history }) => {
       width: 90,
       hideInSearch: true,
       render(value: any) {
-        return <span>{MJumpType[value]}</span>
+        return <span>{MJumpType[value] || '无'}</span>
       }
     },
     {
@@ -101,7 +101,7 @@ const Component: FC<any> = ({ history }) => {
 
   async function handleEditFormFinish(values: BannerCreateInputDto) {
     const isAdd = !editModal.editData?.id
-    const { content, type } = values?.jumpType
+    const { content, type } = values?.jumpType || {}
 
     const params = {
       ...values,

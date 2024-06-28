@@ -41,7 +41,7 @@ const Component: FC<any> = ({ history }) => {
       width: 90,
       hideInSearch: true,
       render(value: any) {
-        return <span>{MJumpType[value]}</span>
+        return <span>{MJumpType[value] || '无'}</span>
       }
     },
     {
@@ -114,14 +114,15 @@ const Component: FC<any> = ({ history }) => {
 
   async function handleEditFormFinish(values: BannerCreateInputDto) {
     const isAdd = !editModal.editData?.id
-    const { content, type, applicableDate } = values?.jumpType
+    const { content, type } = values?.jumpType || {}
+    const applicableDate = values?.applicableDate
 
     const params = {
       ...values,
       id: editModal.editData?.id,
       url: content && JSON.stringify?.(content),
       urlType: type,
-      applicableDate: applicableDate ? applicableDate + '-01' : dayjs(Date.now()).format('YYYY-MM-01'),
+      applicableDate: applicableDate ? applicableDate : dayjs(Date.now()).format('YYYY-MM'),
       position: 'GOODS'
     }
 
@@ -142,7 +143,7 @@ const Component: FC<any> = ({ history }) => {
     <ModalForm<BannerCreateInputDto>
       {...editModal.modalProps}
       width={600}
-      title={`Banner${editModal.editData?.id?'编辑':'新增'}`}
+      title={`${editModal.editData?.id?'编辑':'新增'}`}
       layout="horizontal"
       labelCol={{ span: 6 }}
       wrapperCol={{ span: 16 }}

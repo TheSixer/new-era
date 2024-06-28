@@ -18,6 +18,8 @@ export enum ESystemPage {
   AfterSales = '/pages/order/aftesalesList/index',
   /** 活动专区 */
   ActivityPrefecture = '/pages/activity/prefecture/index',
+  /** 活动专区 */
+  EventsPrefecture = '/pages/events/prefecture/index',
   /** 限时抢购列表 */
   FlashSale = '/pages/activity/flashSale/index'
 }
@@ -38,6 +40,7 @@ const ASystemPage = [
   [ESystemPage.Orders, '全部订单'],
   [ESystemPage.AfterSales, '售后列表'],
   [ESystemPage.ActivityPrefecture, '活动专区'],
+  [ESystemPage.EventsPrefecture, '活动预约'],
   [ESystemPage.FlashSale, '限时抢购列表']
 ]
 

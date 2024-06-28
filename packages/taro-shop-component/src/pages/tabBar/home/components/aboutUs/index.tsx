@@ -11,8 +11,12 @@ import { navByLink } from '../../../../../components/pageModules/utils';
 const Component: FC<IAboutUsProps> = () => {
   const { banners } = useBannerService()
 
+  if (banners?.length === 0) {
+    return null
+  }
+
   return (
-    <View>
+    <View className={styles.about_us_wrapper}>
       {
         banners.slice(0, 1).map((item) => (
           <View className={styles.about_us_container} key={item.id}>
@@ -55,7 +59,6 @@ function useBannerService() {
   async function getBanners() {
     setLoading(true)
     const { data = [] } = await api['/wechat/mall/banner/queryList_GET']({position: 'BRAND_STORY'})
-
     // eslint-disable-next-line id-length
     setBanners(data?.sort((a, b) => a.sort - b.sort))
     setLoading(false)

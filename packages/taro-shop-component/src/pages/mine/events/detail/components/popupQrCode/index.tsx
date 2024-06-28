@@ -1,5 +1,5 @@
 import { memo, FC } from 'react'
-import { View, Image } from '@tarojs/components'
+import { View, Image, Text } from '@tarojs/components'
 import { IPopupQrCodeProps } from './const'
 import styles from './index.module.less'
 import MMOverlay from '@wmeimob/taro-design/src/components/overlay'
@@ -16,8 +16,10 @@ const Component: FC<IPopupQrCodeProps> = (props) => {
           <View className={styles.title}>{title}</View>
           <View className={styles.qrcode_container}>
             <Image src={imgUrl} className={styles.img} mode="widthFix" />
+
+            {finished && <Text className={styles.verify_txt}>已核销</Text>}
           </View>
-          <View className={styles.qrcode_txt}>{verifyCode}</View>
+          <View className={styles.qrcode_txt} style={{textDecoration: finished? 'line-through' : 'none'}}>{verifyCode}</View>
           <Image src={icon_close} className={styles.close} onClick={onClose} />
         </View>
       </View>

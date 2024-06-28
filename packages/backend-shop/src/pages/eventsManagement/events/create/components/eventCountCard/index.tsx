@@ -5,29 +5,48 @@ import { Button, Card, Form } from 'antd'
 import { ProFormDatePicker, ProFormDependency, ProFormDigit, ProFormRadio, ProFormTimePicker } from '@ant-design/pro-form'
 import { PlusOutlined } from '@ant-design/icons'
 import mmFormRule from '@wmeimob/form-rules'
-import ProFormLimitInput from '@wmeimob/backend-pro/src/components/form/proFormLimitInput'
 import useDisableActivityTime from '~/hooks/activity/useDisableActivityTime'
+import moment from 'moment'
 
 const Component: FC<IActivitySettingCardProps> = (props) => {
   const { disabled } = props
 
   const disableActivityTimeProps = useDisableActivityTime()
 
+  const validatePositiveInteger = (_, value) => {
+    if (!value || /^[1-9]\d*$/.test(value)) {
+      return Promise.resolve()
+    }
+    return Promise.reject(new Error('请输入正整数'))
+  }
+
   return (
-    <Card title="活动设置" className={styles.activitySettingCardStyle}>
+    <Card title="活动场次" className={styles.activitySettingCardStyle}>
       <ProFormRadio.Group
         label="活动类型"
         name="unify"
         disabled={disabled}
-        options={[{label: '统一场次', value: 1}, {label: '多场次', value: 0}]}
+        options={[
+          { label: '统一场次', value: 1 },
+          { label: '多场次', value: 0 }
+        ]}
         rules={mmFormRule.required}
       />
 
-      <ProFormDependency name={['unify']}>
-        {({ unify }, form) => {
-
+      <ProFormDependency name={['unify', 'activityTime']}>
+        {({ unify, activityTime }, form) => {
           if (unify) {
-            return <ProFormLimitInput label="活动席位" name="seat" disabled={disabled} maxLength={32} placeholder={'请输入活动席位'} rules={mmFormRule.required} />
+            return (
+              <ProFormDigit
+                label="活动席位"
+                name="seat"
+                disabled={disabled}
+                min={1}
+                max={625}
+                placeholder={'请输入活动席位'}
+                rules={[{ required: true, message: '请输入活动席位' }, { validator: validatePositiveInteger }]}
+              />
+            )
           }
 
           return (
@@ -42,7 +61,7 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
                           title={`场次${index + 1}`}
                           extra={
                             disabled ? null : (
-                              <Button type="link" size="small" onClick={() => remove(name)}>
+                              <Button disabled={fields.length === 1} type="link" size="small" onClick={() => remove(name)}>
                                 删除
                               </Button>
                             )
@@ -51,19 +70,25 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
                         >
                           <ProFormDatePicker
                             label="场次日期"
-                            name={[name, "unifyDate"]}
+                            name={[name, 'unifyDate']}
                             rules={mmFormRule.required}
                             disabled={disabled}
                             // extra={!!activityNo && '编辑活动无法修改时间'}
                             fieldProps={{
                               format: 'YYYY-MM-DD',
-                              ...disableActivityTimeProps
+                              ...disableActivityTimeProps,
+                              disabledDate(date) {
+                                if (activityTime.length > 0) {
+                                  return date.isBefore(moment(activityTime?.[0]), 'days') || date.isAfter(moment(activityTime?.[1]), 'days')
+                                }
+                                return date.isBefore(moment(), 'day')
+                              }
                             }}
                           />
 
                           <ProFormTimePicker.RangePicker
                             label="场次时间"
-                            name={[name, "unifyTime"]}
+                            name={[name, 'unifyTime']}
                             rules={mmFormRule.required}
                             disabled={disabled}
                             fieldProps={{
@@ -75,9 +100,11 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
                             {...restField}
                             label="活动席位"
                             wrapperCol={{ span: 24 }}
-                            name={[name, "seat"]}
+                            name={[name, 'seat']}
                             disabled={disabled}
-                            rules={mmFormRule.required}
+                            min={1}
+                            max={625}
+                            rules={[{ required: true, message: '请输入活动席位' }, { validator: validatePositiveInteger }]}
                             fieldProps={{
                               placeholder: '请输入活动席位'
                             }}
@@ -94,7 +121,6 @@ const Component: FC<IActivitySettingCardProps> = (props) => {
                   </Card>
                 )}
               </Form.List>
-
             </>
           )
         }}

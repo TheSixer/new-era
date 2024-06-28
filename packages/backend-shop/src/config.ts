@@ -7,6 +7,7 @@ export const isPrd = !isDev && !isUat // 生产环境
 
 // TODO shop：接口域名修改
 // const baseUrl = 'https://shopapi.t5.wmeimob.cn'
+// const baseUrl = 'http://miniprogram.neweracap.cn'
 const baseUrl = ''
 // TODO shop：h5页面根路径
 export const rootUrl = 'http://test.web.shop.wmeimob.cn'

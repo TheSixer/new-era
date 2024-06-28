@@ -5,32 +5,32 @@ import styles from './index.module.less'
 import { MMEmpty, PageContainer } from '@wmeimob/taro-design'
 import { ArrowRightFilled, PositionFilled } from '../../../components/Icons'
 import getParamsUrl from '@wmeimob/taro-utils/src/getParamsUrl'
-import Taro, { useRouter } from '@tarojs/taro'
+import Taro from '@tarojs/taro'
 import { ActivityCityOutputDto, api } from '@wmeimob/taro-api'
 import { routeNames } from '../../../routes'
-import emptyActivityImg from '../prefecture/images/empty_activity.png'
+import emptyImg from '../../../assets/images/icon_empty.png'
 import MMNavigation from '@wmeimob/taro-design/src/components/navigation'
 import Searchbar from '../../../components/searchbar'
-import { useSetAtom } from 'jotai'
+import { useAtom, useSetAtom } from 'jotai'
 import { addressAtom } from '../prefecture/store'
+import LoadingView from '../../../components/loadingView'
 
 const Component: FC<ICitiesProps> = () => {
-  const { params } = useRouter()
-  const city = params.city || ''
   const { cities, loading } = useBasicService()
   const [kw, setKw] = useState('')
   const dataFilter = useMemo(() => cities.filter((item) => !kw || item.province?.includes(kw)), [cities, kw])
-  const setAddressManagement = useSetAtom(addressAtom) // 地址管理atom
+  // const setAddressManagement = useSetAtom(addressAtom) // 地址管理atom
+  const [address, setAddress] = useAtom(addressAtom)
 
   const back = (province?: string) => {
-    setAddressManagement({ province })
+    setAddress({ ...address, province })
     Taro.navigateBack({
       delta: 1
     })
   }
 
   if (loading) {
-    return <MMEmpty fixed text='暂时没有城市' src={emptyActivityImg} imgStyle={{ width: 160, height: 160 }} />
+    return <LoadingView />
   }
 
   return (
@@ -40,7 +40,7 @@ const Component: FC<ICitiesProps> = () => {
       <View className={styles.header}>
         <View className={styles.city_info}>
             <PositionFilled width="36rpx" height="36rpx" />
-            <Text className={styles.city_name}>{city}（当前）</Text>
+            <Text className={styles.city_title}>{address.province}（当前）</Text>
         </View>
         <Text className={styles.header__text}>{cities.length}个城市有活动</Text>
       </View>
@@ -60,6 +60,8 @@ const Component: FC<ICitiesProps> = () => {
               </View>
             ))
         }
+
+        {!loading && dataFilter.length === 0 && (<MMEmpty fixed text='暂时没有城市' src={emptyImg} imgStyle={{ width: '64rpx', height: '64rpx' }} />)}
 
       </View>
 

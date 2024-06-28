@@ -3,8 +3,14 @@ import { IBannerProps } from './const';
 import { View, Swiper, SwiperItem } from '@tarojs/components';
 import styles from './index.module.less';
 import Title from '../title';
+import { MMEmpty } from '@wmeimob/taro-design';
+import emptyImg from '../../../../../assets/images/icon_empty.png'
 
 const Component: FC<IBannerProps> = ({ data, title, subTitle, style = {}, renderItem }) => {
+  if (data?.length === 0) {
+    return null
+  }
+
   return (
     <View className={styles.banner}>
 
@@ -12,6 +18,8 @@ const Component: FC<IBannerProps> = ({ data, title, subTitle, style = {}, render
         <Title title={title} subTitle={subTitle} />
       </View>
     
+      {data.length === 0 && <MMEmpty text='暂无数据' src={emptyImg} imgStyle={{ marginTop: '100rpx', width: '64rpx', height: '64rpx' }} />}
+
       <View className={styles.banner_container}>
         <Swiper
           className={styles.banner_view}

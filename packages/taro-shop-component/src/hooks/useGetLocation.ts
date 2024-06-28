@@ -7,7 +7,7 @@ export interface ILocation {
 }
 
 export default function useGetLocation() {
-  const [location, setLocation] = useState<ILocation>({});
+  const [location, setLocation] = useState<ILocation>();
 
   useEffect(() => {
     Taro.authorize({

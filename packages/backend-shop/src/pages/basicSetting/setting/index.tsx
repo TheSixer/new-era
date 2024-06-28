@@ -43,6 +43,12 @@ const Component: FC<IPageProps> = (props) => {
             disabled={disabled}
             onShowLogClick={() => history.push({ pathname: routeNames.basicSettingSettingPrivacyLogs, query: { type: EAgreementType.Privacy as any } })}
           />
+          <UserAgreement
+            key="privacy"
+            type={EAgreementType.Promise}
+            disabled={disabled}
+            onShowLogClick={() => history.push({ pathname: routeNames.basicSettingSettingPrivacyLogs, query: { type: EAgreementType.Promise as any } })}
+          />
         </>
       )
     }

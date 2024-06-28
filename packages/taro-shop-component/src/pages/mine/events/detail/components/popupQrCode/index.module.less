@@ -27,12 +27,14 @@
 .title {
   margin-bottom: 80rpx;
   min-height: 96rpx;
+  padding: 0 40rpx;
   font-size: 36rpx;
   color: #1A1919;
   font-weight: bold;
 }
 
 .qrcode_container {
+  position: relative;
   padding: 35rpx 66rpx;
   width: 410rpx;
   height: 348rpx;
@@ -40,6 +42,17 @@
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
+}
+
+.verify_txt {
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: #333;
+  font-size: 24rpx;
+  font-weight: bold;
+  z-index: 10;
 }
 
 .finished {
@@ -51,7 +64,8 @@
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(255, 255, 255, .4);
+  border-radius: 40rpx;
+  background-color: rgba(255, 255, 255, .8);
   z-index: 9;
  }
 }

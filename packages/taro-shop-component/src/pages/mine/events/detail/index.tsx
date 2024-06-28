@@ -3,9 +3,9 @@ import { View, Image, Button } from '@tarojs/components'
 import { IDetailProps } from './const'
 import styles from './index.module.less'
 import MMNavigation from '@wmeimob/taro-design/src/components/navigation'
-import { PageContainer, Popup, useToast } from '@wmeimob/taro-design'
+import { PageContainer, useToast } from '@wmeimob/taro-design'
 import Taro, { useRouter } from '@tarojs/taro'
-import { ActivityOrderOutputDto, ActivityOutputDto, api } from '@wmeimob/taro-api'
+import { ActivityOrderOutputDto, api } from '@wmeimob/taro-api'
 import { EReservationStatus, MReservationStatus } from '../../../../enums/event/EReservationStatus'
 import EventInfo from './components/EventInfo'
 import ReservarionInfo from './components/ReservarionInfo'
@@ -44,9 +44,15 @@ const Component: FC<IDetailProps> = () => {
   const [handleCheck, checkLoading] = useSuperLock(async () => {
     toast?.loading()
     try {
-      await api['/wechat/activity/check/{verifyCode}_POST'](params)
+      await api['/wechat/activity/userCheck/{orderNo}_POST']({
+        orderNo: params?.orderNo
+      })
       toast?.success('核销成功')
-      Taro.navigateBack()
+
+      getEventInfo({
+        orderNo: params.orderNo,
+        ...location
+      })
     } catch (error) {
     }
     toast?.hideLoading()
@@ -94,13 +100,16 @@ const Component: FC<IDetailProps> = () => {
   return (
     <PageContainer
       className={classNames(styles.prefectureStyle, {
-        [styles.canceled]: info?.orderStatus === EReservationStatus.Used || info?.orderStatus === EReservationStatus.Canceled,
-        [styles.special]: info?.special
+        [styles.special]: info?.special,
+        [styles.canceled]: info?.orderStatus === EReservationStatus.Used || info?.orderStatus === EReservationStatus.Canceled
       })}
     noPlace>
       <MMNavigation title='预约详情' type="Transparent" />
 
-      <View className={classNames(styles.container, {[styles.finished]: info?.orderStatus === EReservationStatus.NoUse})}>
+      <View className={classNames(styles.container, {
+        [styles.canceled_body]: info?.orderStatus === EReservationStatus.Canceled,
+        [styles.finished]: info?.orderStatus === EReservationStatus.Used
+      })}>
         <View className={styles.reservation_status}>
           {MReservationStatus[info?.orderStatus || 0]}
         </View>
@@ -127,7 +136,7 @@ const Component: FC<IDetailProps> = () => {
               ) : null
             }
             {
-              info?.checkType === 2 && (info?.orderStatus === EReservationStatus.NoUse || info?.orderStatus === EReservationStatus.Arranged) ? (
+              info?.checkType === 2 && info?.orderStatus === EReservationStatus.Arranged ? (
                 <Button className={classNames(styles.btn, styles.confirm)} disabled={checkLoading} loading={checkLoading} onClick={handleConfirm}>
                   确认核销
                 </Button>
@@ -170,11 +179,10 @@ function useBasicService(orderNo, location) {
   }
 
   useEffect(() => {
-    if (location.latitude && location.longitude) {
+    if (!location || (location?.latitude && location?.longitude)) {
       getEventInfo({
         orderNo,
-        latitude: 120.52,
-        longitude: -122.12
+        ...location
       })
     }
   }, [orderNo, location])

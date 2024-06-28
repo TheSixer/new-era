@@ -150,11 +150,18 @@ function MaterialImg({ type, src, alt, onClick, extendParams }) {
     <div className={styles.imageBox} onClick={onClick}>
       {/* 视频时长 */}
       {!!extendParams?.duration && <Tag className={styles.videoTime}>{changetime(extendParams?.duration)}</Tag>}
-      <img
-        className={styles.imageCover}
-        src={type === MaterialType.Video ? `${src}${getVideoSnapshotUrl({ width: 200 })}` : assembleResizeUrl(src, { width: 200 })}
-        alt={alt}
-      />
+      {type === MaterialType.Video ? (
+        <video className={styles.imageCover}>
+          <source src={src as string} type="video/mp4" />
+          <source src={src as string} type="video/ogg" />
+        </video>
+      ) : (
+        <img
+          className={styles.imageCover}
+          src={type === MaterialType.Video ? `${src}${getVideoSnapshotUrl({ width: 200 })}` : assembleResizeUrl(src, { width: 200 })}
+          alt={alt}
+        />
+      )}
 
       {/* 宽高、size信息 */}
       {!!extendParams?.width && (

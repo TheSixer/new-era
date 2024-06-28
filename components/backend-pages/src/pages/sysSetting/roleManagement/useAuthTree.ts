@@ -24,7 +24,7 @@ export default function useAuthTree(props: any) {
           sortNum,
           type
         }
-      })
+      }).filter(({key}) => ![5, 10, 15, 16, 17, 18, 22, 23].includes(key))
     }
     return getTreeData(menusTree)
   }, [menusTree])

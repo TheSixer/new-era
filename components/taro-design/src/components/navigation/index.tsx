@@ -57,40 +57,33 @@ const Component: FC<PropsWithChildren<IMMNavigationProps>> = (props) => {
     }
     if (result) {
       const { router } = getCurrentInstance()
-      if (isH5) {
-        const { redirectUrl = '', isTabber = false } = router.params
-        if (redirectUrl) {
-          if (isTabber) {
-            Taro.switchTab({ url: redirectUrl })
-          } else {
-            Taro.redirectTo({ url: redirectUrl })
-          }
-        }
+      // 如果是嵌套,去调用新方法
+      const { redirectUrl = '', isTabber = false } = router.params
+      if (redirectUrl && isTabber === 'true') {
+        Taro.switchTab({ url: redirectUrl })
+      } else {
+        Taro.navigateBack({ delta: 1 })
       }
-      if (isWebApp) {
-        // 如果是嵌套,去调用新方法
-      }
-      Taro.navigateBack({ delta: 1 })
     }
   }
 
   // 判断是否是h5来增加返回按钮
   const getCanGoBack = () => {
+    const { router } = getCurrentInstance()
+    const { isTabber = false } = router.params
     let length: Number
     if (process.env.TARO_ENV === 'h5') {
       length = window.history.length
     } else {
       length = getCurrentPages().length
     }
-    return length > 1
+    return length > 1 || isTabber
   }
   const renderGoBack = () => {
     return (
-      getCanGoBack() && (
-        <View className={styles.goback} onClick={hanldeNavBack}>
-          <MMIconFont color={type === MMNavigationType.Default ? undefined : 'white'} value={MMIconFontName.Back} />
-        </View>
-      )
+      <View className={styles.goback} onClick={hanldeNavBack}>
+        <MMIconFont color={type === MMNavigationType.Default ? undefined : 'white'} value={MMIconFontName.Back} />
+      </View>
     )
   }
 

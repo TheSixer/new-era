@@ -9,9 +9,9 @@ const Footer: React.FC = () => {
       copyright={`${currentYear} ${defaultMessage}`}
       links={[
         {
-          key: 'wmeimob',
+          key: 'neweracap',
           title: 'NEWERA',
-          href: 'https://www.wmeimob.com',
+          href: 'http://miniprogram.neweracap.cn',
           blankTarget: true
         },
         {
